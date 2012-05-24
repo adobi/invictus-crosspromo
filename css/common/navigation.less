@@ -1,0 +1,126 @@
+
+.navbar .nav > li > a {
+  color:@leftNavLinkColor;
+}
+
+.left-side-nav {
+  margin:0 auto;
+  //padding-top:20px;
+  display:block;
+}
+
+.left-side-nav .nav-header {
+  padding:15px 0!important;
+  font-size:1.1em;
+  .border-radius(0);
+  
+}
+
+.left-side-nav a {
+  color:@leftNavLinkColor;
+  text-align:center;
+  display:block;
+  padding:15px 0!important;
+  text-shadow:0 1px 0 rgba(255, 255, 255, 0.1)!important;
+  border-bottom: thin solid rgba(255,255,255,.03);
+  margin-right:-16px!important;
+  font-weight:bold;
+  box-shadow:0 1px 0 rgba(0,0,0,.1) inset;
+  //color:#999;
+  text-transform:uppercase;  
+  font-size:.8em;
+  .transition(background-color .2s linear);
+
+  &:hover {
+    .nav-link-hovered();
+  }
+}
+
+.left-side-nav a i {
+  margin-bottom:5px;
+}
+
+.left-side-nav .active a {
+  .box-shadow(inset 0 0 5px 5px @leftNavActiveLinkShadow);
+  border-bottom: thin solid #333;
+  &:hover {
+    .nav-link-hovered();
+  }
+}
+
+//.left-side-nav a:hover, .left-side-nav .active a:hover {
+.nav-link-hovered() {
+  text-decoration:none;
+  background-color:@leftNavLinkHoverBackground!important;
+  color:@leftNavLinkColor;
+  .box-shadow(inset 0 0 1px 2px @leftNavLinkHover);
+}
+
+.sidebar-navigation-wrapper-right input.span4 {
+  width:290px;
+}
+
+.sidebar-navigation-wrapper-right i {
+  margin-right:0px;
+}
+
+.sidebar-navigation-wrapper-left, .sidebar-navigation-wrapper-right {
+  position:fixed;
+  top:60px;
+}
+
+.sidebar-navigation-wrapper-left {
+  left:0;
+  height:100%;
+  box-shadow:0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+
+}
+
+.sidebar-navigation-wrapper-right {
+  right:0;
+  top:80px;
+  margin-right:@rightNavigationMarginRight!important;
+  height:@rightNavigationHeight;
+  //height:500px;
+  //width:@rightNavigationWidth!important;
+  overflow:hidden;
+}
+
+.sidebar-navigation-wrapper-right .well {
+  height:90%;
+  //height:500px;
+}
+
+.sidebar-navigation-wrapper-left .sidebar-nav {
+  #gradient > .vertical(@leftNavBackgroundStart, @leftNavBackgroundEnd);
+  //.border-radius(4px);
+  height:100%;
+}
+
+
+.right-side-scroll {
+/*
+  margin-left:0px;
+  //height:75%;
+  height:500px;
+  overflow-y:auto; margin-bottom:20px;
+  width:100%;
+*/    
+  margin-left: 0px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  width: 100%;
+ 
+}
+
+.sidebar-navigation-wrapper-right legend {
+  margin-bottom:17px;
+}
+
+
+@media (max-height: 800px) {
+  
+  .sidebar-navigation-wrapper-left span {
+    display:none;
+  }
+}

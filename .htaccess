@@ -1,0 +1,33 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond $1 !^(index\.php|uploads|css|images|scripts) 
+
+
+#Rewrite all other URLs to index.php/URL
+#RewriteRule .* index.php/$0 [PT]
+#RewriteRule ^.*$ index.php [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+
+
+RewriteCond %{QUERY_STRING} full=(.*)&?
+RewriteRule (.*)rwd-router/.*\.(jpe?g|png|gif|webp) $1%1 [L]
+# ignore trap for non-image requests, rewrite URL without trap segment
+RewriteRule (.*)rwd-router/(.*)$ $1$2
+
+Header unset ETag
+FileETag None
+
+<FilesMatch "(?i)^.*\.(ico|flv|jpg|jpeg|png|gif|js|css)$">
+    Header unset Last-Modified
+    Header set Cache-Control "max-age=290304000, public"
+    Header set Expires "Fri, 21 Dec 2012 00:00:00 GMT"
+</FilesMatch>
+
+<IfModule mod_deflate.c>
+	<FilesMatch "\.(js|css|jpg|png|jpeg)$">
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>

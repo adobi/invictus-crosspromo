@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fotorama example</title>
+	<script src="jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" href="../fotorama.css">
+	<script src="../fotorama.js"></script>
+</head>
+<body>
+
+<h1>Fotorama example</h1>
+
+<div class="fotorama" data-width="499" data-height="333">
+	<a href="i/01.jpg"><img src="i/thumbs/01.jpg"></a>
+	<a href="i/02.jpg"><img src="i/thumbs/02.jpg"></a>
+	<a href="i/03.jpg"><img src="i/thumbs/03.jpg"></a>
+	<a href="i/04.jpg"><img src="i/thumbs/04.jpg"></a>
+	<a href="i/05.jpg"><img src="i/thumbs/05.jpg"></a>
+	<a href="i/06.jpg"><img src="i/thumbs/06.jpg"></a>
+	<a href="i/07.jpg"><img src="i/thumbs/07.jpg"></a>
+	<a href="i/08.jpg"><img src="i/thumbs/08.jpg"></a>
+	<a href="i/09.jpg"><img src="i/thumbs/09.jpg"></a>
+	<a href="i/10.jpg"><img src="i/thumbs/10.jpg"></a>
+</div>
+
+<!-- Photos by Denis Talala: http://talala.ru/ -->
+
+<br>
+
+<p>With iPhone-style dots:</p>
+<div class="fotorama" data-nav="dots" data-width="499" data-height="333">
+	<a href="i/01.jpg"><img src="i/thumbs/01.jpg"></a>
+	<a href="i/02.jpg"><img src="i/thumbs/02.jpg"></a>
+	<a href="i/03.jpg"><img src="i/thumbs/03.jpg"></a>
+	<a href="i/04.jpg"><img src="i/thumbs/04.jpg"></a>
+	<a href="i/05.jpg"><img src="i/thumbs/05.jpg"></a>
+	<a href="i/06.jpg"><img src="i/thumbs/06.jpg"></a>
+	<a href="i/07.jpg"><img src="i/thumbs/07.jpg"></a>
+	<a href="i/08.jpg"><img src="i/thumbs/08.jpg"></a>
+	<a href="i/09.jpg"><img src="i/thumbs/09.jpg"></a>
+	<a href="i/10.jpg"><img src="i/thumbs/10.jpg"></a>
+</div>
+
+<br>
+
+<p>No drag, no flick, no slide &mdash; just click and fade:</p>
+<div class="fotorama" data-touchStyle="false" data-nav="dots" data-width="499" data-height="333">
+	<a href="i/01.jpg"><img src="i/thumbs/01.jpg"></a>
+	<a href="i/02.jpg"><img src="i/thumbs/02.jpg"></a>
+	<a href="i/03.jpg"><img src="i/thumbs/03.jpg"></a>
+	<a href="i/04.jpg"><img src="i/thumbs/04.jpg"></a>
+	<a href="i/05.jpg"><img src="i/thumbs/05.jpg"></a>
+	<a href="i/06.jpg"><img src="i/thumbs/06.jpg"></a>
+	<a href="i/07.jpg"><img src="i/thumbs/07.jpg"></a>
+	<a href="i/08.jpg"><img src="i/thumbs/08.jpg"></a>
+	<a href="i/09.jpg"><img src="i/thumbs/09.jpg"></a>
+	<a href="i/10.jpg"><img src="i/thumbs/10.jpg"></a>
+</div>
+
+<br>
+
+<p>Negative scenario and captions:</p>
+<div class="fotorama" data-caption="overlay" data-width="499" data-height="333">
+	<a href="i/01.jpg"><img src="i/thumbs/01.jpg" alt="All is well"></a>
+
+	<!-- Fotorama will automatically generate the missing thumbnails -->
+	<a href="i/02.jpg"><img src="i/thumbs/02_BROKEN.jpg" alt="Thumbnail is missing, Fotorama has generated it"></a>
+
+	<!-- Fotorama will zoom thumbnail if image is missing -->
+	<a href="i/03_BROKEN.jpg"><img src="i/thumbs/03.jpg" alt="Broken image, Fotorama has zoomed the thumbnail"></a>
+
+	<!-- Error! Nothing to try here -->
+	<a href="i/04_BROKEN.jpg"><img src="i/thumbs/04_BROKEN.jpg" alt="Completely broken"></a>
+
+	<!-- Good again :-) -->
+	<a href="i/05.jpg"><img src="i/thumbs/05.jpg" alt="A sigh of relief"></a>
+</div>
+
+<br><br>
+
+<!-- © Artem Polikarpov, 2011—2012 | http://fotoramajs.com/ | fotoramajs@gmail.com -->
+
+</body>
+</html>
