@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2012-05-23 16:22:48
+Date: 2012-05-25 08:39:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,8 +38,8 @@ CREATE TABLE `cp_crosspromo` (
 -- ----------------------------
 -- Records of cp_crosspromo
 -- ----------------------------
-INSERT INTO `cp_crosspromo` VALUES ('198', '75', '84', '1', 'Inbound link', 'Click', null, '1', null, '2', null, null);
-INSERT INTO `cp_crosspromo` VALUES ('199', '75', '85', '0', 'Inbound link', 'Click', null, '1', null, '2', null, null);
+INSERT INTO `cp_crosspromo` VALUES ('198', '75', '84', '0', 'Inbound link', 'Click', null, '1', null, '2', null, null);
+INSERT INTO `cp_crosspromo` VALUES ('199', '75', '85', '1', 'Inbound link', 'Click', null, '1', null, '2', null, null);
 INSERT INTO `cp_crosspromo` VALUES ('200', '75', '85', '1', 'Inbound link', 'Click', null, '1', null, '1', null, null);
 INSERT INTO `cp_crosspromo` VALUES ('201', '75', '77', '0', 'Inbound link', 'Click', null, '1', null, '1', null, null);
 
