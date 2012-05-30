@@ -35,7 +35,17 @@
       if (!self.is(':data(draggable)'))
         self.draggable({
           appendTo: ".dnd-helper",
-          helper: "clone",
+          //helper: "clone",
+          helper: function() {
+            var selected = $('.all-games .selected-game'),
+                container = $('<div />').attr('id', 'games-draggable-container')
+                
+            if (!selected.length) selected = $(this)
+            
+            container.append(selected.clone())
+            
+            return container
+          },
           start: function (event, ui) {
             
             ui.helper.find('.caption').show()
@@ -52,33 +62,38 @@
           hoverClass: "dnd-li-active",
           accept: ":not(.ui-sortable-helper)",
           drop: function( event, ui ) {
-    
-            var clone = ui.draggable.clone(),
-                dropTo = $(this)
-            
-            clone.find('.caption').show()
-            
-            if (!dropTo.parents('.thumbnails').find("li>.item[data-id="+clone.find('.item').data('id')+"]").length) {
-             
-              if (!$.trim(dropTo.html()).length) {
-                //dropTo.html(clone.html())
-                Crosspromo.Copy(clone, dropTo)
+            var that = $(this)
+            $.each(ui.helper.children(), function(i, v) {
+              //var clone = ui.draggable.clone(),
+              var clone = $(v).clone(),
+                  dropTo = that
+              
+              clone.find('.caption').show()
+              
+              if (!dropTo.parents('.thumbnails').find("li>.item[data-id="+clone.find('.item').data('id')+"]").length) {
+               
+                if (!$.trim(dropTo.html()).length) {
+                  //dropTo.html(clone.html())
+                  Crosspromo.Copy(clone, dropTo)
+                } else {
+                
+                  Crosspromo.WarningModal.find('#old-item').html(dropTo.attr('data-original-title'))
+                  Crosspromo.WarningModal.find('#new-item').html(clone.attr('data-original-title'))
+                
+                  Crosspromo.WarningModal.modal()
+                  
+                  Crosspromo.DropToElement = dropTo
+                  Crosspromo.DraggedElement = clone
+                }
               } else {
               
-                Crosspromo.WarningModal.find('#old-item').html(dropTo.attr('data-original-title'))
-                Crosspromo.WarningModal.find('#new-item').html(clone.attr('data-original-title'))
+                $('#already-in-use-error').modal().find('#item-to-use').html(clone.attr('data-original-title'))
               
-                Crosspromo.WarningModal.modal()
-                
-                Crosspromo.DropToElement = dropTo
-                Crosspromo.DraggedElement = clone
+              //App.showNotification('<p>'+clone.attr('data-original-title')+' is already in the list, select something else!</p>')
               }
-            } else {
+            })
             
-              $('#already-in-use-error').modal().find('#item-to-use').html(clone.attr('data-original-title'))
-            
-            //App.showNotification('<p>'+clone.attr('data-original-title')+' is already in the list, select something else!</p>')
-            }
+            $('.all-games .selected-game').removeClass('selected-game')
           }
         })     
     })

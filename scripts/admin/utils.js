@@ -15,6 +15,8 @@
       $('body').on('click', '.delete-list-item', function(e) { self.deleteItem($(this)); e.preventDefault() })
       
       $('body').on('keyup', '#quick-search-by-game-name', function(e) { e.preventDefault(); self.filterByName($(this)) })
+      
+      $('body').on('click', '.all-games li', function(e) { e.preventDefault(); $(this).toggleClass('selected-game') })
     },
     
     filterByName: function(el) 
