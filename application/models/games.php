@@ -6,6 +6,43 @@ class Games extends MY_Model
 {
     protected $_name = "cp_game";
     protected $_primary = "id";
+
+    public function initFromApi()
+    {
+      
+      $data = $this->invictus->setUri(INVICTUS_API_URI)->setAction('games')->get(true);
+      
+      if (!$data) return false;
+      
+      $d = array();
+      foreach ($data as $item) {
+        
+        $d[] = array('id'=>$item['id'], 'name'=>$item['name'], 'url'=>$item['url'], 'logo'=>$this->_getImageFromUrl($item['logo'], $item['logo_name']), 'is_active'=>$item['is_active']);
+        
+        
+      }
+      
+      $this->truncate();
+      
+      $this->bulk_insert($d);
+    }
+    
+    private function _getImageFromUrl($url, $name)
+    {
+      if ($url && $name) {
+        
+        $imageBinary = file_get_contents($url);
+        
+        $this->config->load('upload');
+        
+        $image = time().'_'.$name;
+        file_put_contents($this->config->item('upload_path').$image, $imageBinary);
+        
+        return $image;
+      } 
+      
+      return false;
+    }    
     
     public function fetchAllWithPlatforms()
     {

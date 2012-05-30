@@ -7,6 +7,21 @@ class Gameplatforms extends MY_Model
     protected $_name = "cp_game_platform";
     protected $_primary = "id";
     
+
+    public function initFromApi()
+    {
+      
+      $data = $this->invictus->setUri(INVICTUS_API_URI)->setAction('game_platforms')->get(true);
+      
+      //dump($data); die;
+      
+      if (!$data) return false;
+      
+      $this->truncate();
+      
+      $this->bulk_insert($data);
+    }    
+    
     public function fetchForGame($gameId, $withAnalytics = true) 
     {
       if (!$gameId) return false;
@@ -19,7 +34,7 @@ class Gameplatforms extends MY_Model
     public function fetchAllWithGameAndPlatform()
     {
       $sql = "select gp.*, g.name as game_name, p.name as platform_name, g.logo from cp_game_platform gp join cp_game g on gp.game_id = g.id and g.is_active = 1 join cp_platform p on gp.platform_id = p.id order by game_name asc";
-      
+      //dump($sql); die;
       return $this->execute($sql);
     }
     

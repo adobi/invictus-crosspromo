@@ -1,16 +1,18 @@
-              <li class="span2" data-platforms='{{platforms}}' rel="tooltip" title="{{full_name}}" data-logo="{{logo}}" data-platform-name="{{platform_name}}">
+              <li class="span2" data-platforms='{{platforms}}'data-logo="{{logo}}" data-platform-name="{{platform_name}}">
                 <div class="item thumbnail" data-id="{{id}}">
-                  <h6 class="center">
+                  <h6 class="center" rel="tooltip" title="{{full_name}}" >
                     {{name}}
                     <br>
                     <em>{{platform_name}}</em>
                   </h6> 
                   
                   <img src="./uploads/original/{{logo}}" style="width:96px" alt="">
-                  <div class="caption center hide">
+                  <div class="caption center  hide">
                     <hr style="margin:4px 0 6px;">
                     <!-- <a href="#" class="btn"><i class="icon-signal"></i></a>   -->
-                    <a href="javascript:void(0)" class="btn layout-remove" rel="tooltip" title="Remove"><i class="icon-trash"></i></a>
+                    <div class="btn-group">
+                      <a href="javascript:void(0)" class="btn layout-remove" rel="tooltip" title="Remove"><i class="icon-trash"></i></a>
+                    </div>
                   </div>                 
                 </div>
               </li>

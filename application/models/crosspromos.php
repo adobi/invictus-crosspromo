@@ -12,7 +12,7 @@ class Crosspromos extends MY_Model
       if (!$id) return false;
 
       $result = $this->fetchRows(
-        array('where'=>array("base_game_id"=>$id, 'crosspromo_type_id'=>$type), 
+        array('where'=>array("base_game_id"=>$id, 'list_id'=>$type), 
               'join'=>array(
                 array('table'=>'cp_game_platform', 'condition'=>'cp_game_platform.id = promo_game_id'),
                 array('table'=>'cp_game', 'condition'=>'cp_game.id = cp_game_platform.game_id  and is_active = 1', 'columns'=>array('cp_game.name, cp_game.logo, cp_game.url')),  

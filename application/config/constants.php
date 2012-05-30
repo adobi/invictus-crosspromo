@@ -69,6 +69,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
 define('MICROSITES_API_URL', MICROSITES_URL.'api/');
 define('MICROSITES_CREATE_URL', MICROSITES_API_URL.'create/');
 
+define('INVICTUS_API_URI', 'http://invictus.com//api/');
 
 
 /* End of file constants.php */

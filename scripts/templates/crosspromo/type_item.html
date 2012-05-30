@@ -1,13 +1,13 @@
-  <div class="span4 well crosspromo-type" data-type-id="{{type.id}}">
+  <div class="span4 well crosspromo-type" data-list-id="{{list.id}}" id="{{list.id}}">
     <legend class="text-center">
-      <span>{{type.name}}</span>
+      <span>{{list.name}}</span>
       <div class="pull-right btn-group">
         <a href="#" class="btn toggle" data-parent=".crosspromo-type" data-target=".thumbnails"><i class="icon-resize-vertical"></i></a>
-        <a href="#" class="btn editable" data-parent=".crosspromo-type" data-target="legend span"><i class="icon-edit"></i></a>
-        <a href="#" class="btn"><i class="icon-trash"></i></a>
+        <a href="#" class="btn editable" data-parent=".crosspromo-type" data-target="legend span" data-id="{{list.id}}"><i class="icon-edit"></i></a>
+        <a href="#" class="btn delete-list-item" data-id="{{list.id}}"><i class="icon-trash"></i></a>
       </div>
     </legend>
-    <ul class="thumbnails">
+    <ul class="thumbnails crosspromo-list-items">
       {{#games}}
         {{#if this}}
           {{>crosspromo_list_item}}

@@ -472,6 +472,28 @@ class My_Model extends CI_Model
 	    
 	    return $result;
 	}	
+
+	public function truncate() 
+	{
+	 // return $this->db->truncate($this->_name);
+	  
+	  $items = $this->fetchAll();
+	  
+	  if (!$items) return false;
+	  
+	  $this->config->load('upload');
+	  
+	  foreach ($items as $item) {
+	    //dump($item);
+	    if (isset($item->logo) && $item->logo) {
+	      unlink($this->config->item('upload_path').$item->logo);
+	    }
+	    
+	    $this->delete($item->id);
+	  }
+	  
+	  //die;
+	}
 	
 	public function bulk_insert($data) 
 	{

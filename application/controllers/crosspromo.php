@@ -63,15 +63,22 @@ class Crosspromo extends MY_Controller
       $this->session->set_userdata('selected_game', $this->uri->segment(3)); 
       
       $this->load->model('Games', 'games');
-      $data['game'] = $this->games->find($this->uri->segment(3));
+      $this->load->model('Gameplatforms', 'gp');
+      $this->load->model('Platforms', 'platforms');
+      $gp = $this->gp->find($this->uri->segment(3));
       
-      $this->load->model('Crosspromotypes', 'types');
+      if (!$gp) die;
       
-      $types = $this->types->fetchAll();
+      $data['game'] = $this->games->find($gp->game_id);
+      $data['platform'] = $this->platforms->find($gp->platform_id);
+      
+      $this->load->model('Crosspromolists', 'types');
+      
+      $types = $this->types->fetchAll(array('order'=>array('by'=>'order', 'dest'=>'asc')));
       
       $return = array();
       foreach ($types as $value) {
-        $return[] = array('type'=>$value, 'games'=>$this->model->fetchByGame($this->uri->segment(3), $value->id));
+        $return[] = array('list'=>$value, 'games'=>$this->model->fetchByGame($this->uri->segment(3), $value->id));
       }
       
       $data['result'] = $return;

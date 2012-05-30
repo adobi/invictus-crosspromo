@@ -18,10 +18,21 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_credentials');
         //dump($_POST); die;
-      if ($this->form_validation->run()) {
-			  
-  			redirect(base_url() . 'crosspromo');
-  		}
+        if ($this->form_validation->run()) {
+    			  
+          $this->load->model('Platforms', 'platforms');
+          //$this->platforms->initFromApi();
+          
+          $this->load->model('Games', 'games');
+          $this->games->initFromApi();          
+          
+          $this->load->model('Gameplatforms', 'gp');
+          $this->gp->initFromApi();        
+          
+          
+          
+    			redirect(base_url() . 'crosspromo');
+    		}
         
         $this->template->build('login/index', $data);
     }

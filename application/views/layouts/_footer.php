@@ -6,7 +6,11 @@
                   <?php //echo panel_close() ?>
                   <p>&nbsp;</p>
                   <legend style="margin-top:-30px;">Drag items and move them</legend>
+                  
                   <div class="items page-items">
+                    <div class="subnav_">
+                      <input id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
+                    </div>
                     <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0">
                     </div>
                     <div class="right-side-scroll"> 

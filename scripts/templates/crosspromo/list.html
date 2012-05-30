@@ -1,5 +1,5 @@
-<h3>
-  Promotional games for {{game.name}}
+<h3 style="color:#777">
+  Promotional games for <span style="color:#111">{{game.name}} - {{platform.name}}</span>
   <div class="pull-right">
     <span class="label label-info">Tipp</span> <span class="tipp-text"><strong>Move items to change the order</strong></span>
   </div>  
@@ -9,12 +9,15 @@
   <div class="span12" style="margin-bottom:10px"><a href="#" class="btn toggle" data-parent=".crosspromo-types" data-target=".new-form"><i class="icon-plus"></i></a></div>
   
   <div class="well span12 new-form hide" style="margin-top:10px; padding-top:19px;padding-bottom:10px;">
-    <legend>New category</legend>
-      <input type="text" name="" />
-      <a href="#" class="btn btn-primary save-new-item" data-parent=".crosspromo-types"><i class="icon-ok icon-white"></i></a>
+    <form action="" method="post"  class="new-list-form" data-parent=".crosspromo-types">
+      <legend>New list</legend>
+      <input type="text" name="name" />
+      <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
+    </form>
   </div>
-  
-  {{#result}}
-    {{>crosspromo_type_item}}
-  {{/result}}
+  <div id="crosspromo-lists" data-type="list">
+    {{#result}}
+      {{>crosspromo_type_item}}
+    {{/result}}
+  </div>
 </div>

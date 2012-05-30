@@ -11,7 +11,7 @@
   
   Crosspromo.BaseGameId = 0
   
-  Crosspromo.UpdateOrder = function(order) 
+  Crosspromo.UpdateOrder = function(order, type) 
   {
       var data = {},
           name = $('.csrf-form').find('[type=hidden]').attr('name'),
@@ -19,8 +19,12 @@
       
       data[name] = value
       data['order'] = order
-      //console.log(data)
-      $.post(App.URL+'crosspromo/update_order/', data, function() {});  
+      
+      if (!type) type="";
+      
+      var uri = App.URL+'crosspromo'+type+'/update_order/'
+      
+      $.post(uri, data, function() {})
   }  
 
   Crosspromo.DragAndDropGames  = function() 
@@ -87,11 +91,10 @@
         data = {
           logo: src.data('logo'),
           platform_name: src.data('platform-name'),
-          name: src.data('original-title'),
+          name: src.find('h6').data('original-title'),
           id: src.find('.item').data('id'),
           promo_game_id:src.find('.item').data('id'),
         }
-    
     //console.log(data)
     dest.data('old-id', dest.attr('id'))
     
@@ -99,15 +102,21 @@
     //dest.html(src.html())
     dest.attr('id', dest.find('.item').data('id'))
     dest.find('.caption').show()
-    dest.attr('rel', src.attr('rel')).attr('data-original-title', src.attr('data-original-title'))
+    dest.attr('rel', src.find('h6').attr('rel')).attr('data-original-title', src.find('h6').attr('data-original-title'))
     Crosspromo.Add(dest, src)
+  }
+  
+  Crosspromo.ResetPlaceholder = function() 
+  {
+    $('#crosspromo-lists .placeholder').attr('rel', '')
+    $('#crosspromo-lists .placeholder').attr('data-original-title', '')
   }
   
   Crosspromo.Add = function(el, src)
   {
     var item = $('#crosspromo_base_game').val(),//item = el.data('old-id'),
         promoGame = src.find('.item').data('id'),
-        type = el.parents('.crosspromo-type').data('type-id')
+        type = el.parents('.crosspromo-type').data('list-id')
     //console.log(type)    
     if (item && promoGame) {
       //console.log(el)
@@ -135,31 +144,53 @@
     data[name] = value;
     data['promo_game_id'] = game
     data['base_game_id'] = item
-    data['crosspromo_type_id'] = type
+    data['list_id'] = type
     
     //console.log(data)
     $.post(App.URL+'crosspromo/edit/', data, function(resp) {
       
       App.Tooltip('hide')
       el.prev().attr('id', resp)
-      Crosspromo.UpdateOrder(el.parents('.thumbnails:first').sortable('toArray'))
+      //Crosspromo.UpdateOrder(el.parents('.thumbnails:first').sortable('toArray'))
       //Crosspromo.TriggerLoadAllGames()
+      
+      Crosspromo.ResetPlaceholder()
     })
     
   }
-    
+  
+  Crosspromo.sortable = function(el, callback) 
+  {
+      var type = el.data('type'),
+          settings = {
+            stop: function(event, ui) {
+              //console.log($(ui.item).parent().sortable('toArray'))
+              callback && callback($(ui.item).parent().sortable('toArray'), type)
+            }
+          }
+      
+      if (!type) settings.placeholder = "dnd-li-active"
+
+      el.sortable(settings);
+      el.disableSelection();       
+  }
+  
   Crosspromo.prototype = 
   {
-    sortable: function(callback) 
+    sortable: function(callback, type) 
     {
-      var that = this
-      that.el.sortable({
-          placeholder: "dnd-li-active",
-          stop: function(event, ui) {
-            
-            callback && callback($(ui.item).parents('ul:first').sortable('toArray'))
+      var that = this,  
+          settings = {
+            stop: function(event, ui) {
+              
+              console.log($(ui.item).parents('ul:first').sortable('toArray'))
+              
+              callback && callback($(ui.item).parents('ul:first').sortable('toArray'), type)
+            }
           }
-      });
+      if (!type) settings.placeholder = "dnd-li-active"
+
+      that.el.sortable(settings);
       this.el.disableSelection();       
     }  
   }
@@ -191,9 +222,12 @@
     $.getJSON(App.URL+'crosspromo/for_game/'+id, function(json) {
       App.Template.load('crosspromo/list.html', $('.accordion-inner'), json, function() { 
         
-        (new Crosspromo($('.accordion-inner .thumbnails'))).sortable(Crosspromo.UpdateOrder)
+        //!(new Crosspromo($('.accordion-inner .thumbnails'))).sortable(Crosspromo.UpdateOrder)
         
-        $('.crosspromo-types').sortable()
+        //!(new Crosspromo($('.crosspromo-types'))).sortable(Crosspromo.UpdateOrder, 'list')
+        
+        Crosspromo.sortable($('.crosspromo-list-items'), Crosspromo.UpdateOrder)
+        Crosspromo.sortable($('#crosspromo-lists'), Crosspromo.UpdateOrder)
         
         Crosspromo.DragAndDropGames()
         
