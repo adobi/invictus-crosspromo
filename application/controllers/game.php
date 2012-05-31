@@ -38,7 +38,7 @@ class Game extends MY_Controller
         if ($games) {
           foreach ($games as $item) {
             $item->full_name = $item->game_name;
-            $item->name = strlen($item->game_name) > 12 ? substr($item->game_name, 0, 13) . '...' : $item->game_name;
+            $item->name = strlen($item->game_name) > 9 ? substr($item->game_name, 0, 10) . '...' : $item->game_name;
             //$item->platforms = json_encode($this->model->fetchIdsForGame($item->game_id));
             $item->platforms = json_encode(array($item->platform_id));
           }

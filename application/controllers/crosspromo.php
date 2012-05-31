@@ -47,6 +47,8 @@ class Crosspromo extends MY_Controller
           
           $_POST['base_game_id'] = $this->session->userdata('selected_game');
           
+          $_POST['order'] = 1000;
+          
           echo $this->model->insert($_POST);
         }
       }

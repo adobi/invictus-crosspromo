@@ -4,15 +4,21 @@
               <div class="span5 sidebar-navigation-wrapper-right">
           	    <div class="well">
                   <?php //echo panel_close() ?>
-                  <p>&nbsp;</p>
-                  <legend style="margin-top:-30px;">Drag items and move them</legend>
+                  
+                  <legend style="margin-top:0px;">
+                    Select games
+                  </legend>
                   
                   <div class="items page-items">
-                    <div class="subnav_">
+                    <div class="alert alert-info info-bar">
+                      <i class="icon-info-sign icon-white"></i> Drag items and move them. Select multiple items by clicking them.                      
+                    </div>
+                    
+                    <div>
                       <input id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
                     </div>
-                    <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0">
-                    </div>
+                    <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0"></div>
+                    
                     <div class="right-side-scroll"> 
                     </div> <!-- /right-side-scrol -->
                   </div> <!-- /items -->

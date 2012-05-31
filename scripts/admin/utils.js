@@ -98,10 +98,18 @@
       
       this.save('crosspromolist/edit/', post, function (response) {
           
-          $(el.data('parent')).append(tmpl(response))
+          $(el.data('append-to')).append(tmpl(response))
           
           $('.new-form').hide()
           $('.new-form input').val('')
+          
+          el.find('[type=submit]').attr('disabled', false)
+          
+          App.Crosspromo.sortable($('.crosspromo-list-items'), App.Crosspromo.UpdateOrder)
+          App.Crosspromo.sortable($('#crosspromo-lists'), App.Crosspromo.UpdateOrder)
+          
+          App.Crosspromo.DragAndDropGames()
+          
         }, function() {
           
         }
@@ -115,6 +123,8 @@
           
       this.remove('crosspromolist/delete/'+id, function(response) {
         el.parents('.crosspromo-type').remove()
+        
+        App.Tooltip('hide')
       })
       
     },

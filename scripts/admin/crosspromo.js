@@ -198,7 +198,7 @@
           settings = {
             stop: function(event, ui) {
               
-              console.log($(ui.item).parents('ul:first').sortable('toArray'))
+              //console.log($(ui.item).parents('ul:first').sortable('toArray'))
               
               callback && callback($(ui.item).parents('ul:first').sortable('toArray'), type)
             }

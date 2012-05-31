@@ -3,6 +3,21 @@ html, body {
   height:100%;
 }
 
+.sidebar-navigation-wrapper-right {
+  .well {
+    padding:0;
+    legend {
+  	  .gradientBar(#F5F5F5, #E8E8E8);
+  	  .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.10));
+  	  border-bottom:1px solid rgba(0, 0, 0, 0.15);
+  	  padding:5px 15px;      
+    }
+    .items {
+      padding: 10px;
+    }
+  }
+}
+
 #container, .content{
   height:auto !important; /* real browsers */
   height:100%; /* IE6: treaded as min-height*/
@@ -43,25 +58,43 @@ html, body {
   	//height:auto !important; /* real browsers */
   	height:100%; /* IE6: treaded as min-height*/
   
-  	//min-height:100%; /* real browsers */    
+  	//min-height:100%; /* real browsers */  
+  	padding:0px;  
   	.inline-legend {
   	  border:0px; display:inline; position:relative; top:-8px; right:10px
   	}
+  	.accordion-heading {
+  	  .gradientBar(#F5F5F5, #E8E8E8);
+  	  .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.10));
+  	  border-bottom:1px solid rgba(0, 0, 0, 0.15);
+  	  padding:10px;
+  	  legend {
+  	    padding: 0px 15px;
+  	    width:auto;
+  	  }
+  	}
   	.accordion-inner {
+  	  h3 {
+  	    margin-top:15px;
+  	    font-weight:normal;
+  	    font-size:1.6em;
+  	  }
   	  .row>.well {
   	    padding-top:5px;
   	  }
 	  }
     .thumbnails {
+  	  margin-bottom:0px;
       li {
         margin:0px;
         &.placeholder {
           min-height:84px; border:2px dashed #ccc;
           margin-top:5px;
+          width:296px;
         }
       }
       li:first-child .item {
-        border-top:1px solid #ddd;
+        //border-top:1px solid #ddd;
       }
       
   	  .item {
@@ -75,8 +108,15 @@ html, body {
   	  }
     }
     .crosspromo-type {
+      padding:0;
       legend {
         cursor:move;
+        padding:10px 0;
+        .gradientBar(#F5F5F5, #E8E8E8);
+        .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.05));
+        //border:1px solid rgba(0,0,0,0.04);
+  	    border-bottom:1px solid rgba(0, 0, 0, 0.10);
+        margin-bottom:5px;
       }
     }
   }
@@ -438,4 +478,14 @@ input+.btn {
 
 .selected-game .item{
   background:@globalLoading;
+}
+
+.info-bar {
+  background:#eee; border-color:#111; color:#f5f5f5;
+  #gradient > .radial(#555, #333);
+  text-shadow: 0 1px 0 rgba(0,0,0,.2);
+  i {
+    opacity:.9;
+    margin-top:1px;
+  }
 }
