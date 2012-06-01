@@ -87,8 +87,8 @@
           <td class="promo-item-download">
             <a href="#"  class="download-new text-right">
               <!-- <i class="new-icon pull-right"></i> -->
-              <img src="<?php echo base_url() ?>img/download-icon-arrow-brown.png" alt="">
-              <h3 class="tk-ff-cocon-web-pro">DOWNLOAD NOW</h3>
+              <img src="<?php echo base_url() ?>img/download-icon-arrow-blue2.png" alt="">
+              <h3 class="tk-ff-cocon-web-pro blue">DOWNLOAD NOW</h3>
             </a>
           </td>
         </tr>

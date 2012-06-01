@@ -6,8 +6,8 @@
 @tabsPassive:#D2CCC6;
 @tabsActive:#f1f1f1;
 
-//@itemGradienStart:#276d84;
-//@itemGradientEnd:#3697b3;
+@itemGradienStartBlue:#276d84;
+@itemGradientEndBlue:#3697b3;
 @itemGradienStart:#E8E8E8;
 @itemGradientEnd:#F5F5F5;
 @itemBorderBottom:#1b4b5a;
@@ -27,11 +27,17 @@
   color:#9C3D3B!important;
 }
 
+.blue {
+  color:@itemGradienStartBlue!important;
+}
+
 #container {
 
   &.well {
     padding:0px;
     //overflow:hidden;
+    //.gradientBar(@itemGradienStartBlue, @itemGradientEndBlue);
+    #gradient > .radial(@itemGradienStartBlue, @itemGradientEndBlue);
     .crosspromo-tabs {
       background:@tabsBackground;
       .gradientBar(#23667B, #114353);
