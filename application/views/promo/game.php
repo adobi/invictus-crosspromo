@@ -1,11 +1,22 @@
   <div>
-    <ul class="nav nav-tabs crosspromo-tabs">
-      <li class="active">
-        <a href="#"><i class="hot-icon"></i><span>Hot</span></a>
+    <ul class="nav nav-tabs crosspromo-tabs tk-ff-cocon-web-pro">
+      <li class="pull-right no-tab text-center">
+        <!-- <i class="close-icon"></i> -->
+        <a href="#"><img src="<?php echo base_url() ?>img/icon-close.png" alt=""></a>
       </li>
-      <li><a href="#"><i class="offer-icon"></i><span>Offer</span></a></li>
-      <li class="pull-right">
-        <i class="close-icon pull-right"></i>
+      <li class="active">
+        <a href="#">
+          <!-- <i class="hot-icon"></i> -->
+          <img src="<?php echo base_url() ?>img/icon-hot.png" alt="">
+          <span>Hot</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <!-- <i class="offer-icon"></i> -->
+          <img src="<?php echo base_url() ?>img/icon-offer.png" alt="">
+          <span>Offer</span>
+        </a>
       </li>
     </ul>
   </div>
@@ -16,30 +27,72 @@
         <tr>
           <td class="promo-item-image">
             <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
-            <h3>FREE</h3>
+            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
           </td>
           <td class="promo-item-content">
-            <h3>Froggy Jump</h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis vestibulum sagittis. Duis consequat, velit et commodo rutrum, lectus neque placerat diam, iaculis viverra nulla nibh sed orci. 
+            <h3>
+              <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span>
+              Froggy Jump
+            </h3>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <p class="text-center">
+              
+            </p>
           </td>
           <td class="promo-item-download">
-            <i class="new-icon pull-right"></i>
-            
+            <a href="#"  class="download-new text-right">
+              <!-- <i class="new-icon pull-right"></i> -->
+              <img src="<?php echo base_url() ?>img/download-icon-arrow-red.png" alt="">
+              <h3 class="tk-ff-cocon-web-pro red">DOWNLOAD NOW</h3>
+            </a>
           </td>
         </tr>
       </table>
-
-      <!-- 
-        <div class="span2" style="background:#ccc;">
-          <br><br><br><br><br><br><br><br><br>
-        </div>
-        <div class="span7" style="background:#ccc;">
-          <br><br><br><br><br><br><br><br><br>
-        </div>
-        <div class="span2" style="background:#ccc;">
-          <br><br><br><br><br><br><br><br><br>
-        </div>
-       -->
     </div>
+    <div class="item">
+      <table>
+        <tr>
+          <td class="promo-item-image">
+            <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
+            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
+          </td>
+          <td class="promo-item-content">
+            <h3>
+              <span class="badge badge-warning tk-ff-cocon-web-pro">UPDATE</span>
+              Froggy Jump
+            </h3>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </td>
+          <td class="promo-item-download">
+            <a href="#"  class="download-new text-right">
+              <!-- <i class="new-icon pull-right"></i> -->
+              <img src="<?php echo base_url() ?>img/download-icon-arrow-orange.png" alt="">
+              <h3 class="tk-ff-cocon-web-pro orange">DOWNLOAD NOW</h3>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="item">
+      <table>
+        <tr>
+          <td class="promo-item-image">
+            <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
+            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
+          </td>
+          <td class="promo-item-content">
+            <h3>Race Of Champions</h3>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </td>
+          <td class="promo-item-download">
+            <a href="#"  class="download-new text-right">
+              <!-- <i class="new-icon pull-right"></i> -->
+              <img src="<?php echo base_url() ?>img/download-icon-arrow-brown.png" alt="">
+              <h3 class="tk-ff-cocon-web-pro">DOWNLOAD NOW</h3>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>        
   </div>
   

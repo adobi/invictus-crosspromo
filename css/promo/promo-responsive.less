@@ -1,9 +1,73 @@
 @media (max-width: 480px) {
-  .new-icon {
-    width:64px;
-    height:61px;
-    background: url(../../img/label-new-64.png) no-repeat transparent;
-    top:-45px;
+  body {
+    padding:0;
+  }
+  #container {
+    &.well {  
+      .crosspromo-tabs {
+          padding:0;
+          padding-top:3px;
+          padding-left:5px;
+          border-bottom:1px solid @tabsActive;
+          li {
+            margin-right:0px;
+            //display:block;
+            //width:100%;
+            &.pull-right {
+              //float:none;
+              text-align:right;
+            }
+            a {
+              
+              font-size:1em;
+              font-weight:bold;
+              padding:5px 10px 5px 8px;
+              span {
+                position:relative;
+                top:0px;
+                display:none;
+              }
+              img {
+                max-width:75%;
+              }
+            }
+          }
+      }
+      .items {
+        .item {
+          .promo-item-image {
+            h3 {
+              font-size:0.9em;
+            }
+          
+          }
+          .promo-item-content {
+            h3 {
+              font-size:1.1em;
+              margin-bottom:0;
+            }
+            padding-top:0!important;
+          }
+          table {
+            .badge {
+              font-size:1em;
+            }
+          }
+          .promo-item-download {
+            .download-new {
+              img {
+                width:48px!important;
+              }
+              h3 {
+                font-size:1em;
+                line-height:18px;
+              }
+            }
+          }          
+        }
+      }
+      
+    }
   }
 }
 
