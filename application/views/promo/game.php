@@ -4,6 +4,18 @@
         <!-- <i class="close-icon"></i> -->
         <a href="#"><img src="<?php echo base_url() ?>img/icon-close.png" alt=""></a>
       </li>
+      <!-- 
+      <?php if ($types): ?>
+        <?php foreach ($types as $item): ?>
+          <li class="active">
+            <a href="#">
+              <img src="<?php echo base_url() ?>img/icon-hot.png" alt="">
+              <span><?php echo $item->name ?></span>
+            </a>
+          </li>
+        <?php endforeach ?>
+      <?php endif ?>
+       -->
       <li class="active">
         <a href="#">
           <!-- <i class="hot-icon"></i> -->
@@ -30,20 +42,20 @@
             <h3 class="tk-ff-cocon-web-pro">FREE</h3>
           </td>
           <td class="promo-item-content">
-            <h3>
-              <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span>
+            <h2>
+              <!-- <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span> -->
               Froggy Jump
-            </h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            <p class="text-center">
-              
-            </p>
+            </h2>
+            <h3><span style="font-size:1.3em">&raquo;</span> Bonus theme</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p style="font-weight:bold">Sale for 2 more days</p>
           </td>
           <td class="promo-item-download">
             <a href="#"  class="download-new text-right">
               <!-- <i class="new-icon pull-right"></i> -->
-              <img src="<?php echo base_url() ?>img/download-icon-arrow-red.png" alt="">
-              <h3 class="tk-ff-cocon-web-pro red">DOWNLOAD NOW</h3>
+              <!-- <img src="<?php echo base_url() ?>img/download-icon-arrow-red.png" alt=""> -->
+              <img src="<?php echo base_url() ?>img/icon-new.png" alt="" class="new-icon">
+              <h3 class="tk-ff-cocon-web-pro _red silver">DOWNLOAD NOW</h3>
             </a>
           </td>
         </tr>
@@ -57,17 +69,18 @@
             <h3 class="tk-ff-cocon-web-pro">FREE</h3>
           </td>
           <td class="promo-item-content">
-            <h3>
-              <span class="badge badge-warning tk-ff-cocon-web-pro">UPDATE</span>
+            <h2>
+              <!-- <span class="badge badge-warning tk-ff-cocon-web-pro">UPDATE</span> -->
               Froggy Jump
-            </h3>
+            </h2>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </td>
           <td class="promo-item-download">
             <a href="#"  class="download-new text-right">
               <!-- <i class="new-icon pull-right"></i> -->
-              <img src="<?php echo base_url() ?>img/download-icon-arrow-orange.png" alt="">
-              <h3 class="tk-ff-cocon-web-pro orange">DOWNLOAD NOW</h3>
+              <!-- <img src="<?php echo base_url() ?>img/download-icon-arrow-orange.png" alt=""> -->
+              <img src="<?php echo base_url() ?>img/icon-update.png" alt="" class="update-icon">
+              <h3 class="tk-ff-cocon-web-pro _orange silver">UPDATE NOW</h3>
             </a>
           </td>
         </tr>
@@ -88,7 +101,7 @@
             <a href="#"  class="download-new text-right">
               <!-- <i class="new-icon pull-right"></i> -->
               <img src="<?php echo base_url() ?>img/download-icon-arrow-blue2.png" alt="">
-              <h3 class="tk-ff-cocon-web-pro blue">DOWNLOAD NOW</h3>
+              <h3 class="tk-ff-cocon-web-pro">DOWNLOAD NOW</h3>
             </a>
           </td>
         </tr>

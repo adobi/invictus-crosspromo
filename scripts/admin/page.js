@@ -250,7 +250,7 @@
         
         cont.find('[data-id='+val+']').parents('li:first').show()
         
-        window.location.hash = 'edit/'+val
+        window.location.hash = 'game/'+val
         
       } else {
         // barhol mashol vagyunk
@@ -359,18 +359,6 @@
 	  
 	  App.PreloadImages()
 	  
-    var hash =  window.location.hash.slice(1),
-        id = hash.split('/')[1]
-
-    if (! /platforms/.test(hash) && id) {
-      
-      $('#filter-games-select').val(id)
-      setTimeout(function() {
-        $('#filter-games-select').trigger('change')
-      }, 300)
-      
-    }
-   
     $('#username').focus() 	  
 	  
     App.FilterGlobalGames()
@@ -415,6 +403,14 @@
     $(".accordion").collapse('show')
 		
 		//$('.sidebar-navigation-wrapper-right .well').lionbars(); 
+		
+    $(window).hashchange( function(){
+      App.Crosspromo.LoadForGame(window.location.hash.slice(1))
+      $('#crosspromo_base_game').val(window.location.hash.slice(1))
+    })
+    
+    $(window).hashchange();		
+    		
   });
 	
 } (jQuery);

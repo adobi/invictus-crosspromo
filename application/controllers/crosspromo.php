@@ -77,7 +77,6 @@ class Crosspromo extends MY_Controller
       $this->load->model('Crosspromolists', 'types');
       
       $types = $this->types->fetchAll(array('order'=>array('by'=>'order', 'dest'=>'asc')));
-      
       $return = array();
       foreach ($types as $value) {
         $return[] = array('list'=>$value, 'games'=>$this->model->fetchByGame($this->uri->segment(3), $value->id));
@@ -86,7 +85,7 @@ class Crosspromo extends MY_Controller
       $data['result'] = $return;
       
       //$data['games'] = $this->model->fetchByGame($this->uri->segment(3));
-      //dump($data['games']); die;
+      //dump($data['result']); die;
       
       echo json_encode($data); die;
       
@@ -162,5 +161,35 @@ class Crosspromo extends MY_Controller
         
         $this->model->update(array('promo_game_id'=>null), $id);
       }
-    }    
+    }
+    
+    public function save_description_to_item()
+    {
+      if ($_POST) {
+        $id = $this->uri->segment(3);
+        
+        if ($id) {
+          $this->load->model('Crosspromos', 'model');
+          
+          $this->model->update($_POST, $id);
+        }
+      }
+      
+      die;
+    } 
+    
+    public function switch_value()
+    {
+      if ($_POST) {
+        $id = $this->uri->segment(3);
+        
+        if ($id) {
+          $this->load->model('Gameplatforms', 'model');
+          
+          $this->model->update($_POST, $id);
+        }
+      }
+      
+      die;
+    }   
 }

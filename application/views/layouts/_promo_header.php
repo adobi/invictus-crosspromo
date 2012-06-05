@@ -27,4 +27,4 @@
     </head>
     
     <body>    
-        <div class="container well" id="container">
+        <div class="container <?php echo $this->uri->segment(2) === 'game' ? 'well' : '' ?>" id="container">

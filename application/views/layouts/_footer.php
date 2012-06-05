@@ -15,7 +15,7 @@
                     </div>
                     
                     <div>
-                      <input id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
+                      <input class="search-query" id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
                     </div>
                     <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0"></div>
                     
@@ -64,8 +64,8 @@
         <div class="modal-header alert-error">
           <a class="close" data-dismiss="modal">×</a>
           <h3>Error</h3>
-          </div>
-          <div class="modal-body">
+        </div>
+        <div class="modal-body">
           <p><strong id="item-to-use"></strong> is already in the list, select something else!</p>
         </div>
         <div class="modal-footer">
@@ -73,6 +73,22 @@
         </div>
       </div>         
       	    
+      <div class="modal hide fade" id="edit-description-modal">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Edit description</h3>
+        </div>
+        <?php echo form_open('', array('style'=>'margin-bottom:0;', 'id'=>'edit-description-form')) ?>
+        <div class="modal-body">
+          <p style="text-align:center">
+            <textarea name="description" class="span6" rows="3" data-countable="1" data-limit="160" data-parent=".modal-body" data-prepend=".modal-footer"></textarea>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <?php echo form_close() ?>
+      </div>
 	  </div>
     <!-- /javascript templates -->
     
@@ -85,39 +101,18 @@
     </script>      
   	<script src = "<?php echo base_url() ?>scripts/plugins/headjs/head.min.js"></script> 
   	<script type="text/javascript">
-  	    head.js("http://code.jquery.com/jquery-1.7.1.min.js", 
-  	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js",
+  	    head.js("http://code.jquery.com/jquery-1.7.2.min.js", 
+  	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
   	            "https://raw.github.com/cowboy/jquery-hashchange/v1.3/jquery.ba-hashchange.min.js",
   	            "http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-dropdown.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-tab.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-transition.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-alert.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-modal.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-tooltip.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-popover.js",
-                //"<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap-transition.js",
+
                 "<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap.js",
 
-                //"<?php echo base_url() ?>scripts/plugins/redactor/js/redactor/redactor.js",
-                //"<?php echo base_url() ?>scripts/plugins/fancybox/jquery.fancybox.pack.js",
                 "<?php echo base_url() ?>scripts/plugins/chosen/chosen.jquery.min.js",
-                
-                "http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js",
-                //"<?php echo base_url(); ?>scripts/plugins/fileupload/vendor/jquery.ui.widget.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/tmpl.min.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/load-image.min.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/canvas-to-blob.min.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/jquery.iframe-transport.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/jquery.fileupload.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/jquery.fileupload-ip.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/jquery.fileupload-ui.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/locale.js",
-                "<?php echo base_url(); ?>scripts/plugins/fileupload/main.js",
                 
                 //"<?php echo base_url(); ?>scripts/plugins/scroll/jquery.scrollTo-min.js",
                 //"<?php echo base_url() ?>scripts/plugins/google-code-prettify/prettify.js",
-                //"<?php echo base_url() ?>scripts/plugins/charcounter/jquery.charcounter.js",
+                "<?php echo base_url() ?>scripts/plugins/charcounter/jquery.charcounter.js",
                 "<?php echo base_url() ?>scripts/plugins/prettify-upload/jquery.prettify-upload.js",
                 //"<?php echo base_url() ?>scripts/plugins/lionbars/jquery.lionbars.0.3.min.js",
                 "<?php echo base_url() ?>scripts/plugins/spinjs/spin.min.js",

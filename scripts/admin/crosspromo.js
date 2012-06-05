@@ -237,6 +237,8 @@
     $.getJSON(App.URL+'crosspromo/for_game/'+id, function(json) {
       App.Template.load('crosspromo/list.html', $('.accordion-inner'), json, function() { 
         
+        console.log(json) 
+        
         //!(new Crosspromo($('.accordion-inner .thumbnails'))).sortable(Crosspromo.UpdateOrder)
         
         //!(new Crosspromo($('.crosspromo-types'))).sortable(Crosspromo.UpdateOrder, 'list')
@@ -246,7 +248,9 @@
         
         Crosspromo.DragAndDropGames()
         
-        App.Tooltip()        
+        App.Tooltip()   
+        
+        $('[data-toggle="switch"]').switchbtn()     
       })
     })
   };
@@ -269,6 +273,9 @@
     $('body').on('change', '#crosspromo_base_game', function(e) {
       Crosspromo.LoadForGame($(this).val())
       $('#crosspromo-games>.thumbnails').hide()
+      
+      window.location.hash = $(this).val()
+      
       e.preventDefault()
     })
       

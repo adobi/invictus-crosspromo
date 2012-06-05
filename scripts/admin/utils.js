@@ -17,6 +17,50 @@
       $('body').on('keyup', '#quick-search-by-game-name', function(e) { e.preventDefault(); self.filterByName($(this)) })
       
       $('body').on('click', '.all-games li', function(e) { e.preventDefault(); $(this).toggleClass('selected-game') })
+      
+      $('body').on('click', '.edit-description', function(e) { e.preventDefault(); self.editModal($(this)) })
+      
+      $('body').on('submit', '#edit-description-form', function(e) { e.preventDefault(); self.saveDescription($(this)) })
+      
+      $('body').on('change', '.switch-value', function(e) { e.preventDefault(); self.switchValue($(this)) })
+    },
+    
+    switchValue: function(el) 
+    {
+      var data = {}
+      
+      data[el.attr('name')] = el.is(':checked') ? el.val() : 0
+      console.log(el)
+      this.save('crosspromo/switch_value/'+el.data('crosspromo-id'), data, function() {})
+    },
+    
+    saveDescription: function(el) 
+    {
+      var current = this.editModalTriggerElement
+      
+      if (current.data('crosspromo-id')) {
+        this.save('crosspromo/save_description_to_item/'+this.editModalTriggerElement.data('crosspromo-id'), el.serialize(), function() {
+          
+          current.parents('.item').find('.description').html(el.find('textarea').val())
+          
+          $('#edit-description-modal').modal('hide')
+          
+          el.find('button').attr('disabled', false)
+        })
+      }
+    },
+    
+    editModal: function(el) 
+    {
+      var modal = $('#edit-description-modal')
+      
+      modal.on('shown', function() { modal.find('textarea').focus() })
+      
+      modal.modal()
+      
+      modal.find('textarea').val(el.parents('.item').find('.description').html())
+      
+      this.editModalTriggerElement = el
     },
     
     filterByName: function(el) 
@@ -158,6 +202,11 @@
     
     save: function(url, data, successCallback, errorCallback) 
     {
+      var name = $('.csrf-form').find('[type=hidden]').attr('name'),
+          value = $('.csrf-form').find('[type=hidden]').attr('value')
+      
+      data[name] = value
+      
       this.request({
         url: App.URL+url,
         data: data,
@@ -168,6 +217,7 @@
   
   $(function() {
     Utils.bindEvents()
+    
   })
   
   App.Utils = {

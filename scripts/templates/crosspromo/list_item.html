@@ -2,18 +2,26 @@
             <div class="item thumbnail" data-id="{{promo_game_id}}">
               <table>
                 <tr>
-                  <td>
+                  <td style="vertical-align:top">
                     <img src="./uploads/original/{{logo}}" style="width:96px" alt="">
                   </td>
                   <td class="span3">
-                    <h6 class="" rel="tooltip" title="{{name}}">
+                    <h6 class="text-center" rel="tooltip" title="{{name}}">
                       {{name}}
                       <br>
                       <em>{{platform_name}}</em>
                     </h6> 
+                    <p class="description">{{description}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
                     <div class="caption right">
                       <hr style="margin:4px 0 6px;">
-                      <div class="btn-group">
+                      <label class="checkbox "><input class="switch-value" type="checkbox" name="is_new" value="1" {{#if is_new}} checked="checked" {{/if}} data-crosspromo-id="{{gp_id}}"> is new</label>
+                      <label class="checkbox "><input class="switch-value" type="checkbox" name="is_update" value="1" {{#if is_update}} checked="checked" {{/if}} data-crosspromo-id="{{gp_id}}"> is update</label>
+                      <div class="btn-group"> 
+                        <a href="#" class="btn edit-description" data-crosspromo-id="{{id}}"><i class="icon-edit"></i></a>
                         <a href="javascript:void(0)" class="btn layout-remove" rel="tooltip" title="Delete"><i class="icon-trash"></i></a>
                       </div>
                     </div>                 

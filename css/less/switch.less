@@ -1,0 +1,108 @@
+
+.switch {
+  @width: 75px;
+  @height: 26px;
+  @radius: @height / 2;
+  @widthTrack: @width - @radius - 1;
+  @sizeThumb: @height - 2;
+  @posThumb: @widthTrack - @sizeThumb / 2;
+  
+  // The whole switch including the coloured track when in the off position
+  display: inline-block;
+  .size(@height, @width);
+  position: relative;
+  .buttonBackground(@btnBackgroundHighlight, @btnBackground);
+  border: 1px solid @inputBorder;
+  .border-radius(@radius);
+  padding: 0;
+  outline: none;
+  overflow: hidden;
+  cursor: pointer;
+  
+  // The coloured track behind the switch when in the on position
+  > .switch-track {
+    display: block;
+    .size(@height, @radius);
+    position: absolute;
+    z-index: 1;
+    border: 0;
+    .border-radius(@radius 0 0 @radius);
+    .buttonBackground(@btnPrimaryBackgroundHighlight, @btnPrimaryBackground);
+    .opacity(0);
+    .transition(~"width .15s linear, opacity .15s linear");
+  }
+  
+  // Other colours for track
+  &.switch-warning > .switch-track {
+    .buttonBackground(@btnWarningBackgroundHighlight, @btnWarningBackground);
+  }
+  &.switch-danger > .switch-track {
+    .buttonBackground(@btnDangerBackgroundHighlight, @btnDangerBackground);
+  }
+  &.switch-success > .switch-track {
+    .buttonBackground(@btnSuccessBackgroundHighlight, @btnSuccessBackground);
+  }
+  &.switch-info > .switch-track {
+    .buttonBackground(@btnInfoBackgroundHighlight, @btnInfoBackground);
+  }
+  &.switch-inverse > .switch-track {
+    .buttonBackground(@btnInverseBackgroundHighlight, @btnInverseBackground);
+  }
+  
+  // Show on colour
+  &.active > .switch-track {
+    .opacity(100);
+    width: @widthTrack;
+  }
+  
+  // The round thumb of the switch
+  > .switch-thumb {
+    display: block;
+    .square(@sizeThumb);
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    .buttonBackground(@btnBackground, @btnBackgroundHighlight);
+    border: 1px solid @grayLight;
+    .border-radius(@radius);
+    .transition(left .15s linear);
+    &:hover {
+      background-position: 0 -15px;
+      .transition(~"left .15s linear, background-position .1s linear");
+    }
+    
+    // Text labels
+    &:before,
+    &:after {
+      display: block;
+      .size(@sizeThumb, @widthTrack);
+      position: absolute;
+      z-index: -1;
+      #font > .sans-serif(14px, bold, @sizeThumb);
+      text-shadow: 0 1px 1px rgba(0,0,0,.25);
+      text-align: center;
+    }
+    &:before {
+      content: attr(data-on);
+      left: -@posThumb - 1;
+      text-indent: (@posThumb - @widthTrack) / 2;
+      color: @white;
+    }
+    &:after {
+      content: attr(data-off);
+      left: @widthTrack - @posThumb - 1;
+      text-indent: (@widthTrack - @posThumb) / 2;
+      color: @gray;
+    }
+  }
+  
+  // Move thumb to on position
+  &.active > .switch-thumb {
+    left: @posThumb;
+  }
+  
+  // Hide checkbox
+  > input[type="checkbox"] {
+    display: none;
+  }
+}
