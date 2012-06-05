@@ -65,6 +65,10 @@
   .box-shadow(1px -1px 2px 1px darken(@errorText, 30%));
 }
 
+.raquo {
+  font-size:1.3em;
+}
+
 #container {
 
   &.well {
@@ -85,6 +89,9 @@
           background:transparent;
           border:0;
           padding:0;
+          img {
+            .opacity(100);
+          }
         }
         
         a {
@@ -96,20 +103,27 @@
           color:#000;
           border-top:1px solid #fff;
           border-bottom:1px solid @tabsActive;
-          
           span {
+            .opacity(30);
             position:relative;
             //top:-10px;
             //left:10px;
             top:5px;
           }
           img {
+            .opacity(30);
             max-width:100%;
           }
         }
         &.active {
           a {
             background:@tabsActive;
+            span {
+              .opacity(100);
+            }
+            img{
+              .opacity(100);
+            }
           }
         }
       }
@@ -123,10 +137,9 @@
         .border-radius(10px);
         color:@itemColor;
         .gradientBar(@itemGradienStartBlue, @itemGradientEndBlue);
-        border-bottom:2px solid @itemBorderBottom;
-        border-top:2px solid @itemBordertTop;
-        border:2px solid @itemGradienStartBlue;
-        border-top:1px solid #eee;
+        border-bottom:2px solid @itemGradienStartBlue;
+        //border:2px solid @itemGradienStartBlue;
+        border-top:2px solid #eee;
         //.box-shadow(0 6px 10px -6px @itemBoxShadow);
         .box-shadow(0px 0px 10px 1px @itemBoxShadow);
         > div {
@@ -145,7 +158,7 @@
         text-align:center;
       }
       .promo-item-content {
-        width:70%;
+        width:60%;
         vertical-align:top;
         padding-top:20px;
         padding-left:10px;
@@ -154,14 +167,16 @@
         }
       }
       .promo-item-download {
-        width:15%;
+        width:25%;
         vertical-align:top;
         height:130px;
-        //text-align:right;
+        text-align:right;
         .download-new {
           display:inline-block;
           text-align:center;
-          text-shadow:2px 1px 2px rgba(0,0,0,.2);
+          //text-shadow:2px 1px 2px rgba(0,0,0,.3);
+          text-shadow:1px -1px 1px #234a55;
+          word-wrap: break-word;
           &:hover {
             color:#eee;
             text-decoration:none;
@@ -185,6 +200,8 @@
             color:#70b1c4;
             text-transform:uppercase;
             font-weight:bold;
+            width:70%;
+            margin:0 auto;
           }
         }
       }

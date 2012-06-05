@@ -46,7 +46,7 @@
               <!-- <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span> -->
               Froggy Jump
             </h2>
-            <h3><span style="font-size:1.3em">&raquo;</span> Bonus theme</h3>
+            <h3><span class="raquo">&raquo;</span> Bonus theme</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <p style="font-weight:bold">Sale for 2 more days</p>
           </td>
@@ -94,13 +94,13 @@
             <h3 class="tk-ff-cocon-web-pro">FREE</h3>
           </td>
           <td class="promo-item-content">
-            <h3>Race Of Champions</h3>
+            <h2>Race Of Champions</h2>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </td>
           <td class="promo-item-download">
             <a href="#"  class="download-new text-right">
               <!-- <i class="new-icon pull-right"></i> -->
-              <img src="<?php echo base_url() ?>img/download-icon-arrow-blue2.png" alt="">
+              <img src="<?php echo base_url() ?>img/download-icon-arrow-original.png" alt="">
               <h3 class="tk-ff-cocon-web-pro">DOWNLOAD NOW</h3>
             </a>
           </td>

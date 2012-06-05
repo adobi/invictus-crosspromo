@@ -1,3 +1,27 @@
+@media (max-width: 320px) {
+  #container {
+    &.well {  
+      .items {
+        .item {
+          .promo-item-download {
+            .download-new {
+              img {
+                //width:94px;
+                &.update-icon {
+                  right:-2px!important;
+                }
+                &.new-icon {
+                  right:-2px!important;
+                }
+              }
+            }
+          }          
+        }
+      }
+    }
+  }
+  
+}
 @media (max-width: 480px) {
   body {
     padding:0;
@@ -42,10 +66,21 @@
             }
           
           }
+          .promo-item-image {
+            width:20%;
+            text-align:center;
+          }          
           .promo-item-content {
-            h3 {
+            width:55%;
+            h2 {
               font-size:1.1em;
               margin-bottom:0;
+              line-height:24px;
+            }
+            h3 {
+              font-size:1em;
+              margin-bottom:0;
+              line-height:18px;
             }
             padding-top:0!important;
           }
@@ -60,17 +95,18 @@
                 //width:94px;
                 &.update-icon {
                   position:relative;
-                  right:-5px;
+                  right:-3px;
                 }
                 &.new-icon {
                   position:relative;
                   top:-8px;
-                  right:-5px;
+                  right:-3px;
                 }
               }
               h3 {
-                font-size:1em;
+                font-size:1.1em;
                 line-height:18px;
+                width:100%;
               }
             }
           }          
