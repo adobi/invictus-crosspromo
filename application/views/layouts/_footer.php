@@ -47,7 +47,7 @@
                                 <div class="caption text-right">
                                   <div class="btn-group">
                                     <a href="#" class="btn edit-type-modal" data-type-id="<?php echo $t->id ?>"><i class="icon-edit"></i></a>
-                                    <a href="#" class="btn"><i class="icon-trash"></i></a>
+                                    <a href="#" class="btn delete-type" data-id = "<?php echo $t->id ?>"><i class="icon-trash"></i></a>
                                   </div>
                                 </div>
                               </div>

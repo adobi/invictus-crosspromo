@@ -30,6 +30,8 @@
       
       $('body').on('click', '.edit-type-modal', function(e) { e.preventDefault(); self.editTypeModal($(this)) })
       
+      $('body').on('click', '.delete-type', function(e) {e.preventDefault(); self.deleteType($(this))})
+      
       self.dragAndDropTypes()
     },
     
@@ -45,6 +47,8 @@
             appendTo: ".dnd-helper",
             helper: "clone",
             start: function (event, ui) {
+              console.log($(ui.helper))
+              $(ui.helper).find('img, .caption').hide()
             }
           })
       })      
@@ -61,10 +65,38 @@
             //console.log(that, dragged)
             
             _self.save('crosspromo/add_type/'+that.data('crosspromo-id'), {type_id: dragged.data('type-id')}, function() {
-              that.find('.crosspromo-type').html(dragged.find('h6').html())
+              var type = that.find('.crosspromo-type')
+              type.html(dragged.find('h6').html())
+              that.find('.type-drop h6').attr('data-type-id', dragged.data('type-id'))
             })
           }
         })     
+      })      
+    },
+
+    editTypeModal: function(el) 
+    {
+      this.editModalTriggerElement = el
+      
+      $.get(App.URL+'crosspromotype/get/'+el.data('type-id'), function(response) {
+        App.Template.load('type/edit.html', $('#dummy-container'), $.parseJSON(response), function() {
+          
+          var modal = $('#edit-type-modal')
+          modal.modal()
+          //App.Datepicker()
+        })
+      })
+    },
+    
+    deleteType: function(el) 
+    {
+      var id = el.data('id')
+        
+      this.remove('crosspromotype/delete/'+id, function() {
+        
+        el.parents('li:first').remove()
+        
+        $("#crosspromo-lists").find('[data-type-id='+id+']').html('Drag type here')        
       })      
     },
     
@@ -119,20 +151,6 @@
           el.find('button').attr('disabled', false)
         })
       }
-    },
-    
-    editTypeModal: function(el) 
-    {
-      this.editModalTriggerElement = el
-      
-      $.get(App.URL+'crosspromotype/get/'+el.data('type-id'), function(response) {
-        App.Template.load('type/edit.html', $('#dummy-container'), $.parseJSON(response), function() {
-          
-          var modal = $('#edit-type-modal')
-          modal.modal()
-          //App.Datepicker()
-        })
-      })
     },
     
     editModal: function(el) 
@@ -298,6 +316,7 @@
     
     remove: function(url, successCallback, errorCallback) 
     {
+      
       this.request({
         url: App.URL+url,
         type: 'get'

@@ -72,7 +72,8 @@
               
               if (!dropTo.parents('.thumbnails').find("li>.item[data-id="+clone.find('.item').data('id')+"]").length) {
                
-                if (!$.trim(dropTo.html()).length) {
+                //if (!$.trim(dropTo.html()).length) {
+                if(dropTo.is('.placeholder')) {
                   //dropTo.html(clone.html())
                   Crosspromo.Copy(clone, dropTo)
                 } else {

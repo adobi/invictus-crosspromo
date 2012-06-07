@@ -69,7 +69,7 @@ class Crosspromotype extends MY_Controller
             $this->_deleteImage($id, true);
         }
         
-        redirect($_SERVER['HTTP_REFERER']);
+        //redirect($_SERVER['HTTP_REFERER']);
     }
     
     public function get()

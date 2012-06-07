@@ -31,14 +31,15 @@
                     </h6> 
                     <p class="description">{{description}}</p>
                     <div class="type-drop" data-crosspromo-id="{{id}}">
-                      <h6 class="text-center" style="margin-top:5px;">
+                      <h6 class="text-center" style="margin-top:5px;" data-type-id="{{type_id}}">
                         {{#if type_name}}
                           <span class="crosspromo-type">{{type_name}}</span>
                           <br>
-                          <em style="font-size:0.8em;color:#b1b1b1">to change drag another type</em>
                         {{else}}
-                          Drag type here
+                          <span class="crosspromo-type"></span>
+                          <br>
                         {{/if}}
+                        <em  class="placeholder-text">Drag type here</em>
                       </h6>
                     </div>
                   </td>
