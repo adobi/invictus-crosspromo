@@ -12,9 +12,10 @@ class Crosspromos extends MY_Model
       if (!$id) return false;
 
       $result = $this->fetchRows(
-        array('where'=>array("base_game_id"=>$id, 'list_id'=>$type), 
+        array('columns'=>array('cp_crosspromo.*', 'if(cp_crosspromo.promo_price=0, NULL, promo_price) as promo_price_or_null '),
+              'where'=>array("base_game_id"=>$id, 'list_id'=>$type), 
               'join'=>array(
-                array('table'=>'cp_game_platform', 'condition'=>'cp_game_platform.id = promo_game_id', 'columns'=>array('cp_game_platform.id as gp_id, if(cp_game_platform.is_new=0, NULL, 1) as is_new, if(cp_game_platform.is_update=0, NULL, 1) as is_update')),
+                array('table'=>'cp_game_platform', 'condition'=>'cp_game_platform.id = promo_game_id', 'columns'=>array('cp_game_platform.id as gp_id, if(cp_game_platform.is_new=0, NULL, 1) as is_new, if(cp_game_platform.is_update=0, NULL, 1) as is_update,  if(cp_game_platform.price=0, NULL, price) as price')),
                 array('table'=>'cp_game', 'condition'=>'cp_game.id = cp_game_platform.game_id  and is_active = 1', 'columns'=>array('cp_game.name, cp_game.logo, cp_game.url')),  
                 array('table'=>'cp_platform', 'condition'=>'cp_platform.id = cp_game_platform.platform_id', 'columns'=>array('cp_platform.name as platform_name')),  
                 array('table'=>'cp_crosspromo_type', 'condition'=>'cp_crosspromo_type.id = cp_crosspromo.type_id', 'columns'=>array('cp_crosspromo_type.name as type_name')),  

@@ -97,10 +97,23 @@
       
       if (current.data('crosspromo-id')) {
         this.save('crosspromo/save_description_to_item/'+this.editModalTriggerElement.data('crosspromo-id'), el.serializeObject(), function() {
+          var item = current.parents('.item'),
+              promo = item.find('.promo-price'),
+              price = item.find('.price')
           
-          current.parents('.item').find('.description').html(el.find('textarea').val())
-          current.parents('.item').find('.crosspromo-type').html(el.find('[name=type_id] option:selected').text())
+          item.find('.description').html(el.find('textarea').val())
+          item.find('.crosspromo-type').html(el.find('[name=type_id] option:selected').text())
           
+          if (el.find('[name=promo_price]').val().length && el.find('[name=promo_price]').val() != '0') {
+            
+            promo.html(el.find('[name=promo_price]').val())
+            price.html('<del>'+price.html()+'</del>')
+          } else {
+            
+            promo.html('')
+            price.html(price.find('del').html())
+          }
+
           $('#edit-description-modal').modal('hide')
           
           el.find('button').attr('disabled', false)

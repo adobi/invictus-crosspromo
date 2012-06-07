@@ -7,6 +7,24 @@
                   </td>
                   <td class="span3" style="padding-left:5px;">
                     <h6 rel="tooltip" title="{{name}}">
+                      {{#if price}}
+                        <span class="pull-right badge badge-warning">
+                          {{#if promo_price_or_null}}
+                            <span class="price"><del>{{price}}</del></span>
+                            <strong class="promo-price">{{promo_price_or_null}}</strong>
+                          {{else}}
+                            <span class="price">{{price}}</span>
+                            <strong class="promo-price"></strong>
+                          {{/if}}
+                        </span>
+                      {{else}}
+                        {{#if promo_price_or_null}}
+                          <span class="pull-right badge badge-warning">
+                            <span class="price"></span>
+                            <strong class="promo-price">{{promo_price_or_null}}</strong>
+                          </span>
+                        {{/if}}
+                      {{/if}}
                       {{name}} 
                       <br>
                       <em>{{platform_name}}</em>
