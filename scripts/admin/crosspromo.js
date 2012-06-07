@@ -60,7 +60,7 @@
         self.droppable({
           //activeClass: "",
           hoverClass: "dnd-li-active",
-          accept: ":not(.ui-sortable-helper)",
+          accept: ":not(.ui-sortable-helper, .type-item)",
           drop: function( event, ui ) {
             var that = $(this)
             $.each(ui.helper.children(), function(i, v) {
@@ -230,14 +230,10 @@
   {
     Crosspromo.BaseGameId = id
     
-    $('.all-games').find('li.hide').removeClass('hide')
-    $('.all-games').find('[data-id='+id+']').parents('li').addClass('hide')
-    App.Tooltip('hide')
-    
     $.getJSON(App.URL+'crosspromo/for_game/'+id, function(json) {
       App.Template.load('crosspromo/list.html', $('.accordion-inner'), json, function() { 
         
-        console.log(json) 
+        //console.log(json) 
         
         //!(new Crosspromo($('.accordion-inner .thumbnails'))).sortable(Crosspromo.UpdateOrder)
         
@@ -251,6 +247,11 @@
         App.Tooltip()   
         
         $('[data-toggle="switch"]').switchbtn()     
+
+        $('.all-games').find('li.hide').removeClass('hide')
+        $('.all-games').find('[data-id='+id+']').parents('li').addClass('hide')
+        App.Tooltip('hide')
+
       })
     })
   };

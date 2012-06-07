@@ -5,22 +5,58 @@
           	    <div class="well">
                   <?php //echo panel_close() ?>
                   
-                  <legend style="margin-top:0px;">
-                    Select games
-                  </legend>
+                  <ul style="margin-top:0px;" class="legend nav nav-tabs">
+                    <li class="<?php echo !$this->session->userdata('selected-sidebar-tab') ? 'active' : '' ?>">
+                      <a href="#all-games-list" data-toggle="tab" >Select games</a>
+                    </li>
+                    <li class="<?php echo $this->session->userdata('selected-sidebar-tab') === 'types' ? 'active' : '' ?>">
+                      <a href="#types" data-toggle="tab">Types</a>
+                    </li>
+                  </ul>
                   
-                  <div class="items page-items">
-                    <div class="alert alert-info info-bar">
-                      <i class="icon-info-sign icon-white"></i> Drag items and move them. Select multiple items by clicking them.                      
+                  <div class="items page-items tab-content">
+                    <div class="tab-pane <?php echo !$this->session->userdata('selected-sidebar-tab') ? 'active' : '' ?>" id="all-games-list">
+                      <div class="alert alert-info info-bar">
+                        <i class="icon-info-sign icon-white"></i> Drag items and move them. Select multiple items by clicking them.                      
+                      </div>
+                      
+                      <div>
+                        <input class="search-query" id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
+                      </div>
+                      <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0"></div>
+                      
+                      <div class="right-side-scroll"> 
+                      </div> <!-- /right-side-scrol -->
                     </div>
-                    
-                    <div>
-                      <input class="search-query" id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
+                    <div class="tab-pane <?php echo $this->session->userdata('selected-sidebar-tab') === 'types' ? 'active' : '' ?>" id="types">
+                      <p>
+                        <a href="#" class="btn edit-type-modal" data-type-id=""><i class="icon-plus"></i></a>
+                      </p>
+                      <div class="well">
+                        <ul class="thumbnails types-list" style="margin-top:10px;">
+                          <?php foreach ($types as $t): ?>
+                            <li id="<?php echo $t->id ?>" class="type-item" data-type-id="<?php echo $t->id ?>">
+                              <div class="thumbnail">
+                                <h6 class="text-center"><?php echo $t->name ?></h6>
+                                <?php if ($t->image): ?>
+                                  <img src="<?php echo base_url() ?>/uploads/original/<?php echo $t->image ?>" alt="" style="max-height:80px;">
+                                <?php else: ?>
+                                  <img src="//placehold.it/80x80" alt="">
+                                <?php endif ?>
+                                <hr style="margin-bottom:5px">
+                                <div class="caption text-right">
+                                  <div class="btn-group">
+                                    <a href="#" class="btn edit-type-modal" data-type-id="<?php echo $t->id ?>"><i class="icon-edit"></i></a>
+                                    <a href="#" class="btn"><i class="icon-trash"></i></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          <?php endforeach ?>
+                        </ul>
+                      </div>
+                      <?php  $this->session->unset_userdata('selected-sidebar-tab') ?>
                     </div>
-                    <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0"></div>
-                    
-                    <div class="right-side-scroll"> 
-                    </div> <!-- /right-side-scrol -->
                   </div> <!-- /items -->
                 </div> <!-- well -->
               </div>
@@ -73,7 +109,7 @@
         </div>
       </div>         
       	    
-      <div class="modal hide fade" id="edit-description-modal">
+      <div class="modal hide fade" id="edit-description-modal_">
         <div class="modal-header">
           <a class="close" data-dismiss="modal">×</a>
           <h3>Edit description</h3>
@@ -91,6 +127,8 @@
       </div>
 	  </div>
     <!-- /javascript templates -->
+    
+    <div id="dummy-container"></div>
     
     <!-- drag'n'drop helper -->
     <ul class="unstyled dnd-helper"></ul>

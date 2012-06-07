@@ -36,7 +36,17 @@ class Crosspromolist extends MY_Controller
     		$response = array();
     		
         if ($this->form_validation->run()) {
-        
+
+            if ($this->upload->do_upload('image')) {
+                
+                if ($id) {
+                    
+                    $this->_deleteImage($id);
+                }
+                
+                $_POST['image'] = $this->upload->file_name;
+            }
+
             if ($id) {
                 $this->model->update($_POST, $id);
             } else {
@@ -44,10 +54,10 @@ class Crosspromolist extends MY_Controller
             }
             
             $response['list'] = array('id'=>$id, 'name'=>$_POST['name']);
-            //redirect($_SERVER['HTTP_REFERER']);
+            redirect('crosspromo#'.$this->session->userdata('selected_game'));
         }
         
-        echo json_encode($response); die;
+        //echo json_encode($response); die;
         
         $this->template->build('crosspromolist/edit', $data);
     }
@@ -59,7 +69,7 @@ class Crosspromolist extends MY_Controller
         if ($id) {
             $this->load->model('Crosspromolists', 'model');
             
-            $this->model->delete($id);
+            $this->_deleteImage($id, true);
         }
         die;
         redirect($_SERVER['HTTP_REFERER']);
@@ -78,5 +88,69 @@ class Crosspromolist extends MY_Controller
         }
         
         die;
-    }     
+    }   
+    
+    public function switch_value()
+    {
+      if ($_POST) {
+        $id = $this->uri->segment(3);
+        
+        if ($id) {
+          $this->load->model('Crosspromolists', 'model');
+          
+          $this->model->update($_POST, $id);
+        }
+      }
+      
+      die;
+    } 
+    public function get()
+    {
+      $this->load->model('Crosspromolists', 'model');
+      $response['item'] = $this->model->find($this->uri->segment(3));
+      $response['save_url'] = base_url().'crosspromolist/edit/'.$this->uri->segment(3);
+      $response['token_name'] = $this->security->get_csrf_token_name();
+      $response['token_value'] = $this->security->get_csrf_hash();
+      $response['selected_game'] = $this->session->userdata('selected_game');
+      echo json_encode($response);
+      die;
+    } 
+
+    public function delete_image() 
+    {
+        $id = $this->uri->segment(3);
+        
+        if ($id) {
+            
+            $this->_deleteImage($id);
+            
+            $this->session->set_flashdata('message', 'Deleted');
+        }
+        
+        //echo display_success('Deleted');
+        
+        die;
+        
+        //redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    private function _deleteImage($id, $withRecord = false) 
+    {
+        $this->load->model('Crosspromolists', 'model');
+        
+        $item = $this->model->find($id);
+        
+        if ($item && $item->image) {
+            $this->load->config('upload');
+            
+            @unlink($this->config->item('upload_path') . $item->image);
+        }
+        
+        if (!$withRecord) {
+            
+            $this->model->update(array('image'=>null), $id);
+        }
+        
+        return $withRecord ? $this->model->delete($id) : true;
+    }              
 }

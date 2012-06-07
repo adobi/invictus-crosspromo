@@ -1,0 +1,40 @@
+      	    
+      <div class="modal fade" id="edit-description-modal">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Edit crosspromo item</h3>
+        </div>
+        <form action=""  style="margin-bottom:0" id = "edit-description-form">
+          <div class="modal-body">
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea name="description"  class="span6" rows="3" data-countable="1" data-limit="160" data-parent=".modal-body" data-prepend=".modal-footer">{{item.description}}</textarea>
+              </div>
+            </div>          
+            <div class="control-group">
+              <label class="control-label">Type</label>
+              <div class="controls">
+                {{dropdown_list "type_id" types item.type_id}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="span3 control-group">
+                <label class="control-label">Until</label>
+                <div class="controls">
+                  <input type="text" name="until" class="datepicker span2" value="{{item.until}}">
+                </div>
+              </div>                    
+              <div class="span3 control-group">
+                <label class="control-label">Promo price</label>
+                <div class="controls">
+                  <input type="text" name="promo_price" class="span2" value="{{item.promo_price}}"> <strong>$</strong>
+                </div>
+              </div>           
+            </div>         
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>

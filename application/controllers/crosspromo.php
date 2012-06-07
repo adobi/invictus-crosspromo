@@ -20,6 +20,10 @@ class Crosspromo extends MY_Controller
       $data['games_select'] = $this->model->toAssocArray('id', 'game_name+platform_name', $games);
       //$data['games'] = $games;
       
+      $this->load->model('Crosspromotypes', 'types');
+      
+      $data['types'] = $this->types->fetchAll();
+      
       $this->template->build('crosspromo/index', $data);
     }
     
@@ -29,15 +33,13 @@ class Crosspromo extends MY_Controller
       
       $this->form_validation->set_rules('promo_game_id', 'Promo game', 'trim|required');
       
+      $id = false;
       if ($this->form_validation->run()) {
         
         $this->load->model("Crosspromos", 'model');
+
         
-        /*
-          TODO generate analytics
-        */
-        
-        $this->model->setupAnalytics($this->session->userdata('selected_game'), $_POST['promo_game_id'], $_POST);
+        //$this->model->setupAnalytics($this->session->userdata('selected_game'), $_POST['promo_game_id'], $_POST);
         
         if ($id && $id !== "0") {
           
@@ -49,8 +51,12 @@ class Crosspromo extends MY_Controller
           
           $_POST['order'] = 1000;
           
-          echo $this->model->insert($_POST);
+          $id = $this->model->insert($_POST);
         }
+        
+        $this->model->setupAnalytics($id);
+        
+        echo $id;
       }
       
       die;
@@ -74,11 +80,13 @@ class Crosspromo extends MY_Controller
       $data['game'] = $this->games->find($gp->game_id);
       $data['platform'] = $this->platforms->find($gp->platform_id);
       
-      $this->load->model('Crosspromolists', 'types');
+      $this->load->model('Crosspromolists', 'lists');
       
-      $types = $this->types->fetchAll(array('order'=>array('by'=>'order', 'dest'=>'asc')));
+      $lists = $this->lists->fetchRows(array('where'=>array('game_id'=>$gp->id), 'order'=>array('by'=>'order', 'dest'=>'asc')));
+      
       $return = array();
-      foreach ($types as $value) {
+      foreach ($lists as $value) {
+        
         $return[] = array('list'=>$value, 'games'=>$this->model->fetchByGame($this->uri->segment(3), $value->id));
       }
       
@@ -176,6 +184,19 @@ class Crosspromo extends MY_Controller
       }
       
       die;
+    }
+    
+    public function get()
+    {
+      $this->load->model('Crosspromos', 'model');
+      $this->load->model('Crosspromotypes', 'types');
+      $response['item'] = $this->model->find($this->uri->segment(3));
+      //$response['types'] = $this->types->toAssocArray('id', 'name', $this->types->fetchAll());
+      $response['types'] = $this->types->fetchAll();
+      echo json_encode($response);
+      die;
+      
+      $this->template->build('crosspromo/edit', $response);
     } 
     
     public function switch_value()
@@ -191,5 +212,16 @@ class Crosspromo extends MY_Controller
       }
       
       die;
-    }   
+    } 
+    
+    public function add_type() 
+    {
+      $this->load->model('Crosspromos', 'model');
+      
+      if ($this->uri->segment(3) && $_POST) {
+        $this->model->update($_POST, $this->uri->segment(3));
+      }
+      
+      die;
+    }
 }

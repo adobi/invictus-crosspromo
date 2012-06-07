@@ -23,6 +23,61 @@
       $('body').on('submit', '#edit-description-form', function(e) { e.preventDefault(); self.saveDescription($(this)) })
       
       $('body').on('change', '.switch-value', function(e) { e.preventDefault(); self.switchValue($(this)) })
+      
+      $('body').on('click', '.edit-list-modal', function(e) { e.preventDefault(); self.editListModal($(this)) })
+      
+      $('body').on('click', '.delete-image', function(e) { e.preventDefault(); self.deleteImage($(this)) })
+      
+      $('body').on('click', '.edit-type-modal', function(e) { e.preventDefault(); self.editTypeModal($(this)) })
+      
+      self.dragAndDropTypes()
+    },
+    
+    dragAndDropTypes: function() 
+    {
+      var _self = this
+      
+      $('body').on('mouseenter', '.types-list li', function() {
+        var that = $(this)
+        
+        if (!that.is(':data(draggable)'))
+          that.draggable({
+            appendTo: ".dnd-helper",
+            helper: "clone",
+            start: function (event, ui) {
+            }
+          })
+      })      
+      
+      $('body').on('mouseenter', '.type-drop', function() {
+        var self = $(this)
+        self.droppable({
+          hoverClass: "dnd-li-active-small",
+          accept: ".type-item",
+          drop: function( event, ui ) {
+            var that = $(this),
+                dragged = $(ui.draggable)
+            
+            //console.log(that, dragged)
+            
+            _self.save('crosspromo/add_type/'+that.data('crosspromo-id'), {type_id: dragged.data('type-id')}, function() {
+              that.find('.crosspromo-type').html(dragged.find('h6').html())
+            })
+          }
+        })     
+      })      
+    },
+    
+    deleteImage: function(el) 
+    {
+      var id = el.data('id'),
+          url = el.data('url')
+      this.remove(url+id, function() {
+        
+        el.parent().html('<input type="file" name="image">')
+        $('#'+id).find('legend').find('img').remove()
+        $('#'+id).find('img').attr('src', '//placehold.it/80x80')
+      })
     },
     
     switchValue: function(el) 
@@ -30,8 +85,10 @@
       var data = {}
       
       data[el.attr('name')] = el.is(':checked') ? el.val() : 0
-      console.log(el)
-      this.save('crosspromo/switch_value/'+el.data('crosspromo-id'), data, function() {})
+      //console.log(el)
+      this.save('crosspromolist/switch_value/'+el.data('crosspromo-id'), data, function() {
+        el.parent().toggleClass('btn-success').toggleClass('btn-danger')
+      })
     },
     
     saveDescription: function(el) 
@@ -39,9 +96,10 @@
       var current = this.editModalTriggerElement
       
       if (current.data('crosspromo-id')) {
-        this.save('crosspromo/save_description_to_item/'+this.editModalTriggerElement.data('crosspromo-id'), el.serialize(), function() {
+        this.save('crosspromo/save_description_to_item/'+this.editModalTriggerElement.data('crosspromo-id'), el.serializeObject(), function() {
           
           current.parents('.item').find('.description').html(el.find('textarea').val())
+          current.parents('.item').find('.crosspromo-type').html(el.find('[name=type_id] option:selected').text())
           
           $('#edit-description-modal').modal('hide')
           
@@ -50,18 +108,51 @@
       }
     },
     
+    editTypeModal: function(el) 
+    {
+      this.editModalTriggerElement = el
+      
+      $.get(App.URL+'crosspromotype/get/'+el.data('type-id'), function(response) {
+        App.Template.load('type/edit.html', $('#dummy-container'), $.parseJSON(response), function() {
+          
+          var modal = $('#edit-type-modal')
+          modal.modal()
+          //App.Datepicker()
+        })
+      })
+    },
+    
     editModal: function(el) 
     {
-      var modal = $('#edit-description-modal')
+      this.editModalTriggerElement = el
       
-      modal.on('shown', function() { modal.find('textarea').focus() })
+      $.get(App.URL+'crosspromo/get/'+el.data('crosspromo-id'), function(response) {
+        App.Template.load('crosspromo/edit.html', $('#dummy-container'), $.parseJSON(response), function() {
+          
+          var modal = $('#edit-description-modal')
+          modal.modal()
+          App.Datepicker()
+        })
+      })
+    },
+    
+    editListModal: function(el) 
+    {
       
-      modal.modal()
-      
-      modal.find('textarea').val(el.parents('.item').find('.description').html())
+      var template = function(response) {
+        
+        App.Template.load('crosspromo/edit_list.html', $('#dummy-container'), response, function() {
+          
+          var modal = $('#edit-list-modal')
+          
+          modal.modal()
+        })
+      }
       
       this.editModalTriggerElement = el
-    },
+      
+      $.getJSON(App.URL+'crosspromolist/get/'+el.data('list-id'), template)
+    },    
     
     filterByName: function(el) 
     {
@@ -182,7 +273,7 @@
       $.extend(params, settings)
       
       var request = $.ajax(params)
-        
+      
       if (typeof successCallback === 'function') {
         request.done(successCallback)
       } 
@@ -206,7 +297,7 @@
           value = $('.csrf-form').find('[type=hidden]').attr('value')
       
       data[name] = value
-      
+      //console.log(data)
       this.request({
         url: App.URL+url,
         data: data,

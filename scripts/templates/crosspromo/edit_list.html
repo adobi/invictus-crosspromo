@@ -1,0 +1,33 @@
+      	    
+      <div class="modal fade" id="edit-list-modal">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Edit list item</h3>
+        </div>
+        <form action="{{save_url}}" method="post" style="margin-bottom:0" id = "edit-list-form" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="control-group">
+              <label class="control-label">Name</label>
+              <div class="controls">
+                <input type="text" class="span4" name="name" value="{{item.name}}">
+              </div>
+            </div>          
+            <div class="control-group">
+              <label class="control-label">Image</label>
+              <div class="controls">
+                {{#if item.image}}
+                  <img src="./uploads/original/{{item.image}}" alt="">
+                  <a href="#" class="btn delete-image" data-url="crosspromolist/delete_image/" data-id="{{item.id}}"><i class="icon-trash"></i></a>
+                {{else}}
+                  <input type="file" name="image">
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="{{token_name}}" value="{{token_value}}">          
+            <input type="hidden" name="game_id" value="{{selected_game}}">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>

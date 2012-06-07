@@ -5,21 +5,33 @@
                   <td style="vertical-align:top">
                     <img src="./uploads/original/{{logo}}" style="width:96px" alt="">
                   </td>
-                  <td class="span3">
-                    <h6 class="text-center" rel="tooltip" title="{{name}}">
-                      {{name}}
+                  <td class="span3" style="padding-left:5px;">
+                    <h6 rel="tooltip" title="{{name}}">
+                      {{name}} 
                       <br>
                       <em>{{platform_name}}</em>
                     </h6> 
                     <p class="description">{{description}}</p>
+                    <div class="type-drop" data-crosspromo-id="{{id}}">
+                      <h6 class="text-center" style="margin-top:5px;">
+                        {{#if type_name}}
+                          <span class="crosspromo-type">{{type_name}}</span>
+                          <br>
+                          <em style="font-size:0.8em;color:#b1b1b1">to change drag another type</em>
+                        {{else}}
+                          Drag type here
+                        {{/if}}
+                      </h6>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
                     <div class="caption right">
                       <hr style="margin:4px 0 6px;">
-                      <label class="checkbox "><input class="switch-value" type="checkbox" name="is_new" value="1" {{#if is_new}} checked="checked" {{/if}} data-crosspromo-id="{{gp_id}}"> is new</label>
+                      <!-- <label class="checkbox "><input class="switch-value" type="checkbox" name="is_new" value="1" {{#if is_new}} checked="checked" {{/if}} data-crosspromo-id="{{gp_id}}"> is new</label>
                       <label class="checkbox "><input class="switch-value" type="checkbox" name="is_update" value="1" {{#if is_update}} checked="checked" {{/if}} data-crosspromo-id="{{gp_id}}"> is update</label>
+                       -->
                       <div class="btn-group"> 
                         <a href="#" class="btn edit-description" data-crosspromo-id="{{id}}"><i class="icon-edit"></i></a>
                         <a href="javascript:void(0)" class="btn layout-remove" rel="tooltip" title="Delete"><i class="icon-trash"></i></a>

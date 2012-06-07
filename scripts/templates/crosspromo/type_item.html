@@ -1,10 +1,16 @@
   <div class="span4 well crosspromo-type" data-list-id="{{list.id}}" id="{{list.id}}">
     <legend class="text-center">
+      {{#if list.image}}
+        <img src="./uploads/original/{{list.image}}" alt="" style="height:32px">
+      {{/if}}
       <span>{{list.name}}</span>
       
       <div class="pull-right btn-group" style="margin-right:5px;">
+        <a href="" class="btn {{is_active list.is_active}}" rel="tooltip" title="Activate/Inactivate">
+          <input class="switch-value" type="checkbox" name="is_active" value="1" style="margin:-3px 0 0 0" data-crosspromo-id="{{list.id}}" {{is_checked list.is_active}}>
+        </a>
         <a href="#" class="btn toggle" data-parent=".crosspromo-type" data-target=".thumbnails" rel="tooltip" title="Toggle list"><i class="icon-resize-vertical"></i></a>
-        <a href="#" class="btn editable" data-parent=".crosspromo-type" data-target="legend span" data-id="{{list.id}}" rel="tooltip" title="Edit list"><i class="icon-edit"></i></a>
+        <a href="#" class="btn editable_ edit-list-modal" data-parent=".crosspromo-type" data-target="legend span" data-list-id="{{list.id}}" rel="tooltip" title="Edit list"><i class="icon-edit"></i></a>
         <a href="#" class="btn delete-list-item" data-id="{{list.id}}" rel="tooltip" title="Delete list"><i class="icon-trash"></i></a>
       </div>
     </legend>

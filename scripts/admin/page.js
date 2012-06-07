@@ -405,8 +405,10 @@
 		//$('.sidebar-navigation-wrapper-right .well').lionbars(); 
 		
     $(window).hashchange( function(){
-      App.Crosspromo.LoadForGame(window.location.hash.slice(1))
-      $('#crosspromo_base_game').val(window.location.hash.slice(1))
+      if (window.location.hash.slice(1).length) {
+        App.Crosspromo.LoadForGame(window.location.hash.slice(1))
+        $('#crosspromo_base_game').val(window.location.hash.slice(1)).trigger('liszt:updated')
+      }
     })
     
     $(window).hashchange();		

@@ -17,6 +17,7 @@ class Crosspromos extends MY_Model
                 array('table'=>'cp_game_platform', 'condition'=>'cp_game_platform.id = promo_game_id', 'columns'=>array('cp_game_platform.id as gp_id, if(cp_game_platform.is_new=0, NULL, 1) as is_new, if(cp_game_platform.is_update=0, NULL, 1) as is_update')),
                 array('table'=>'cp_game', 'condition'=>'cp_game.id = cp_game_platform.game_id  and is_active = 1', 'columns'=>array('cp_game.name, cp_game.logo, cp_game.url')),  
                 array('table'=>'cp_platform', 'condition'=>'cp_platform.id = cp_game_platform.platform_id', 'columns'=>array('cp_platform.name as platform_name')),  
+                array('table'=>'cp_crosspromo_type', 'condition'=>'cp_crosspromo_type.id = cp_crosspromo.type_id', 'columns'=>array('cp_crosspromo_type.name as type_name')),  
               ),
               'order'=>array('by'=>"order", 'dest'=>'asc'))
       , false, true);
@@ -24,13 +25,14 @@ class Crosspromos extends MY_Model
       return $result;
     }
     
-    public function setupAnalytics($srcGameId, $destGameId, &$return)
+    //public function setupAnalytics($srcGameId, $destGameId, &$return)
+    public function setupAnalytics($id)
     {
       /*
         product page cross promo a másik product page-re	játék_neve	játék neve	cross_promo	fájl_név	timestamp	Outbound link	Click																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 
       */
-      
+      /*
       $this->load->model('Games', 'games');
       $src = $this->games->find($srcGameId);
       $dest = $this->games->find($destGameId);
@@ -41,6 +43,40 @@ class Crosspromos extends MY_Model
       $return['ga_value'] = 1;      
       
       return $return;
+      */
+      
+      $crosspromo = $this->find($id);
+      
+      if (!$crosspromo) return false;
+      
+      $this->load->model('Crosspromolists', 'list');
+      
+      $list = $this->list->find($crosspromo->list_id);
+      
+      if (!$list) return false;
+      
+      $data = array();
+      $data['ga_value'] = 1;
+      $data['ga_action'] = 'Click';
+      $data['ga_category'] = 'Crosspromo - ' . $list->name;
+      
+      // {Game Name} - {Version} - {OS} - {Offer Name} - {Timestamp}
+      
+      $this->load->model('Gameplatforms', 'gp');
+      $gp = $this->gp->find($crosspromo->promo_game_id);
+      
+      if (!$gp) return false;
+      
+      $this->load->model('Games', 'game');
+      
+      $game = $this->game->find($gp->game_id);
+      
+      if (!$game) return false;
+      
+      $data['ga_label'] = $game->name . ' - ' . $gp->version . ' - ' . $list->name . ' - ' . time();
+      
+      //dump($data);
+      $this->update($data, $id);
     }
     
     private function _getByOrder($items, $column, $order) 
