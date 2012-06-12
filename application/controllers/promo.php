@@ -61,6 +61,8 @@ class Promo extends Promo_Controller
       
       $data['list_id'] = $list_id;
       
+      $data['is_free'] = $this->lists->isFree($list_id);
+      
       if ($this->lists->find($list_id)) {
         
         $data['items'] = $this->model->fetchByGame($id, $list_id);

@@ -140,8 +140,8 @@
           
           if (el.find('[name=promo_price]').val().length && el.find('[name=promo_price]').val() != '0') {
             
-            promo.html(el.find('[name=promo_price]').val())
-            price.html('<del>'+price.html()+'</del>')
+            promo.html(el.find('[name=promo_price]').val() + '$')
+            price.html('<del>'+price.html()+'$'+'</del>')
           } else {
             
             promo.html('')

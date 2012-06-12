@@ -38,8 +38,8 @@
                     <span class="icon-bar"></span>
                   </a>
                   <a href="<?php echo base_url() ?>" class="brand" style="margin-top:10px; margin-right:3px; color:#fff">
-                    <i class="icon-big roundabout-icon" style="display:inline-block"></i>
-                    In-game crosspromo
+                    <i class="icon-big exchange-icon" style="display:inline-block"></i>
+                    in-game crosspromo
                   </a>
                   
                   <div class="nav-collapse">

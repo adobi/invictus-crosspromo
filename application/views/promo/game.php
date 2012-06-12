@@ -30,7 +30,7 @@
               <td class="promo-item-image">
                 <img src="<?php echo base_url() ?>/uploads/original/<?php echo $item->logo ?>" alt="" style="width:128px">
                 <h3 class="tk-ff-cocon-web-pro">
-                  <?php echo $item->promo_price ? $item->promo_price . ' $' : 'FREE' ?>
+                  <?php echo $is_free ? 'FREE' : ($item->promo_price ? $item->promo_price . ($item->currency ? $item->currency : '$') : ($item->price ? $item->price . ($item->currency ? $item->currency : '$') : '')) ?>
                 </h3>
               </td>
               <td class="promo-item-content">
@@ -43,7 +43,7 @@
                 <?php endif ?>
                 <p><?php echo $item->description ?></p>
                 <?php if ($item->until): ?>
-                  <p style="font-weight:bold">Until <?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
+                  <p style="font-weight:bold"><?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
                 <?php endif ?>
               </td>
               <td class="promo-item-download">

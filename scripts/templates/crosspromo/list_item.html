@@ -16,17 +16,20 @@
                             <span class="price">{{price}}</span>
                             <strong class="promo-price"></strong>
                           {{/if}}
+                          $
                         </span>
                       {{else}}
                         {{#if promo_price_or_null}}
                           <span class="pull-right badge badge-warning">
                             <span class="price"></span>
                             <strong class="promo-price">{{promo_price_or_null}}</strong>
+                            $
                           </span>
                         {{else}}
                           <span class="pull-right badge badge-warning hide">
                             <span class="price"></span>
                             <strong class="promo-price"></strong>
+                            $
                           </span>
                         {{/if}}
                       {{/if}}

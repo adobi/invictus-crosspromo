@@ -21,7 +21,7 @@
           //less.watch();        
         </script>
       <?php else: ?>
-        <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css//all.css">
+        <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css/all.css">
       <?php endif ?>       
        
     </head>
