@@ -1,111 +1,76 @@
-  <div>
-    <ul class="nav nav-tabs crosspromo-tabs tk-ff-cocon-web-pro">
-      <li class="pull-right no-tab text-center">
-        <!-- <i class="close-icon"></i> -->
-        <a href="#"><img src="<?php echo base_url() ?>img/icon-close.png" alt=""></a>
-      </li>
-      <!-- 
-      <?php if ($types): ?>
-        <?php foreach ($types as $item): ?>
-          <li class="active">
-            <a href="#">
-              <img src="<?php echo base_url() ?>img/icon-hot.png" alt="">
-              <span><?php echo $item->name ?></span>
-            </a>
-          </li>
-        <?php endforeach ?>
-      <?php endif ?>
-       -->
-      <li class="active">
-        <a href="#">
-          <!-- <i class="hot-icon"></i> -->
-          <img src="<?php echo base_url() ?>img/icon-hot.png" alt="">
-          <span>Hot</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <!-- <i class="offer-icon"></i> -->
-          <img src="<?php echo base_url() ?>img/icon-offer.png" alt="">
-          <span>Offer</span>
-        </a>
-      </li>
-    </ul>
+  <div class="navbar-fixed-top">
+    <div class="container">
+      <ul class="nav nav-tabs crosspromo-tabs tk-ff-cocon-web-pro">
+        <li class="pull-right no-tab text-center">
+          <!-- <i class="close-icon"></i> -->
+          <a href="#" id="close"><img src="<?php echo base_url() ?>img/icon-close.png" alt=""></a>
+        </li>
+        <?php if ($lists): ?>
+          <?php foreach ($lists as $i=>$item): ?>
+            <li <?php echo (!$list_id && $i === 0) || $list_id === $item->id ? 'class="active"' : '' ?>>
+              <a href="<?php echo base_url() ?>promo/game/<?php echo $game_id ?>/<?php echo $item->id ?>">
+                <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->image ?>" alt="">
+                <span><?php echo $item->name ?></span>
+              </a>
+            </li>
+          <?php endforeach ?>
+        <?php endif ?>
+      </ul>
+    </div>
   </div>
   
-  <div class="items">
-    <div class="item">
-      <table>
-        <tr>
-          <td class="promo-item-image">
-            <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
-            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
-          </td>
-          <td class="promo-item-content">
-            <h2>
-              <!-- <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span> -->
-              Froggy Jump
-            </h2>
-            <h3><span class="raquo">&raquo;</span> Bonus theme</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p style="font-weight:bold">Sale for 2 more days</p>
-          </td>
-          <td class="promo-item-download">
-            <a href="#"  class="download-new text-right">
-              <!-- <i class="new-icon pull-right"></i> -->
-              <!-- <img src="<?php echo base_url() ?>img/download-icon-arrow-red.png" alt=""> -->
-              <img src="<?php echo base_url() ?>img/icon-new.png" alt="" class="new-icon">
-              <h3 class="tk-ff-cocon-web-pro _red silver">DOWNLOAD NOW</h3>
-            </a>
-          </td>
-        </tr>
-      </table>
+  <?php if ($items && $lists): ?>
+    <div class="items">
+      <?php foreach ($items as $item): ?>
+        
+        <div class="item">
+          <a href="<?php echo $item->long_url ?>" target="_blank" <?php echo event_tracking($item) ?>>
+          <table>
+            <tr>
+              <td class="promo-item-image">
+                <img src="<?php echo base_url() ?>/uploads/original/<?php echo $item->logo ?>" alt="" style="width:128px">
+                <h3 class="tk-ff-cocon-web-pro">
+                  <?php echo $item->promo_price ? $item->promo_price . ' $' : 'FREE' ?>
+                </h3>
+              </td>
+              <td class="promo-item-content">
+                <h2>
+                  <!-- <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span> -->
+                  <?php echo $item->name ?>
+                </h2>
+                <?php if ($item->title): ?>
+                  <h3><span class="raquo">&raquo;</span> <?php echo $item->title ?></h3>
+                <?php endif ?>
+                <p><?php echo $item->description ?></p>
+                <?php if ($item->until): ?>
+                  <p style="font-weight:bold">Until <?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
+                <?php endif ?>
+              </td>
+              <td class="promo-item-download">
+                <span href="#"  class="download-new text-right">
+                  <?php if ($item->type_id): ?>
+                    <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->type_image ?>" alt="" class="<?php echo strtolower($item->type_name) ?>-icon">
+                  <?php else: ?>
+                    <img src="<?php echo base_url() ?>img/download-icon-arrow-original.png" alt="">
+                  <?php endif ?>
+                  <h3 class="tk-ff-cocon-web-pro _red silver">
+                    <?php if ($item->type_text): ?>
+                      <?php echo strtoupper($item->type_text) ?>
+                    <?php else: ?>
+                      DOWNLOAD NOW
+                    <?php endif ?>
+                  </h3>
+                </span>
+              </td>
+            </tr>
+          </table>
+          </a>
+        </div>        
+      <?php endforeach ?>
     </div>
-    <div class="item">
-      <table>
-        <tr>
-          <td class="promo-item-image">
-            <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
-            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
-          </td>
-          <td class="promo-item-content">
-            <h2>
-              <!-- <span class="badge badge-warning tk-ff-cocon-web-pro">UPDATE</span> -->
-              Froggy Jump
-            </h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </td>
-          <td class="promo-item-download">
-            <a href="#"  class="download-new text-right">
-              <!-- <i class="new-icon pull-right"></i> -->
-              <!-- <img src="<?php echo base_url() ?>img/download-icon-arrow-orange.png" alt=""> -->
-              <img src="<?php echo base_url() ?>img/icon-update.png" alt="" class="update-icon">
-              <h3 class="tk-ff-cocon-web-pro _orange silver">UPDATE NOW</h3>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="item">
-      <table>
-        <tr>
-          <td class="promo-item-image">
-            <img src="<?php echo base_url() ?>/img/1338471215_1334757893_Froggy_Jump_Icon.png" alt="" style="width:128px">
-            <h3 class="tk-ff-cocon-web-pro">FREE</h3>
-          </td>
-          <td class="promo-item-content">
-            <h2>Race Of Champions</h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </td>
-          <td class="promo-item-download">
-            <a href="#"  class="download-new text-right">
-              <!-- <i class="new-icon pull-right"></i> -->
-              <img src="<?php echo base_url() ?>img/download-icon-arrow-original.png" alt="">
-              <h3 class="tk-ff-cocon-web-pro">DOWNLOAD NOW</h3>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </div>        
-  </div>
+  <?php else: ?>
+    <div class="alert alert-error">
+      No items
+    </div>  
+  <?php endif ?>
   

@@ -17,9 +17,9 @@
 
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
     
-    $config['base_url']	= 'http://localhost/invictus-crosspromo//';    
+    $config['base_url']	= 'http://localhost/invictus-crosspromo/';    
 } else {
-    $config['base_url'] = '';
+    $config['base_url'] = 'http://press.invictus.com/cp/';
 }
 
 /*

@@ -39,11 +39,17 @@
                   </a>
                   <a href="<?php echo base_url() ?>" class="brand" style="margin-top:10px; margin-right:3px; color:#fff">
                     <i class="icon-big roundabout-icon" style="display:inline-block"></i>
-                    Invictus in-game crosspromo
+                    In-game crosspromo
                   </a>
                   
                   <div class="nav-collapse">
                     <ul class="nav systems">
+                      <!-- 
+                      <li><a href="#">
+                        <i class="icon-big iphone-icon"></i>
+                        devices
+                      </a></li>
+                       -->
                     </ul>
                     <div class="pull-right">
                         <ul class="nav">
@@ -51,7 +57,6 @@
                             <li>
                               <a href="<?php echo base_url() ?>auth/logout" style="font-weight:bold;margin-top:5px;" rel="tooltip" title="Logout" data-placement="bottom">
                                 <i class="icon-big power-icon"></i>
-                                
                               </a>
                             </li>
                         </ul>

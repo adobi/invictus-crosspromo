@@ -7,6 +7,12 @@
         <form action=""  style="margin-bottom:0" id = "edit-description-form">
           <div class="modal-body">
             <div class="control-group">
+              <label class="control-label">Title</label>
+              <div class="controls">
+                <input type="text" name="title" value="{{item.title}}" id="title"  class="span6">
+              </div>
+            </div>              
+            <div class="control-group">
               <label class="control-label">Description</label>
               <div class="controls">
                 <textarea name="description"  class="span6" rows="3" data-countable="1" data-limit="160" data-parent=".modal-body" data-prepend=".modal-footer">{{item.description}}</textarea>
@@ -28,7 +34,7 @@
               <div class="span3 control-group">
                 <label class="control-label">Promo price</label>
                 <div class="controls">
-                  <input type="text" name="promo_price" class="span2" value="{{item.promo_price}}"> <strong>$</strong>
+                  <input type="text" name="promo_price" class="span2 text-right" value="{{item.promo_price}}"> <strong>$</strong>
                 </div>
               </div>           
             </div>         

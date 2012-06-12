@@ -6,9 +6,20 @@
 <?php endif ?>
 
 <?php echo form_open('', array('class'=>'form-horizontal')) ?>
-        
-	    <legend>Please login</legend>
-    
+      
+      
+	    <legend>
+	      Please login
+        <div class="btn-group pull-right">
+          <a href="<?php echo base_url() ?>promo" class="btn dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-align-justify"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo base_url() ?>promo">Crosspromos</a></li>
+            <li><a href="<?php echo base_url() ?>promo/add_device_ui">Add device</a></li>
+          </ul>
+        </div>
+      </legend>
         <fieldset class="control-group">
             <label class="control-label" for="name">Name</label>
             <div class="controls">

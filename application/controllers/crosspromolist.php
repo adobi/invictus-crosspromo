@@ -49,6 +49,17 @@ class Crosspromolist extends MY_Controller
 
             if ($id) {
                 $this->model->update($_POST, $id);
+                
+                $this->load->model('Crosspromos', 'promo');
+                
+                $items = $this->promo->fetchBy('list_id', $id);
+                
+                if ($items) {
+                  foreach ($items as $item) {
+                    $this->promo->setupAnalytics($item->id);
+                  }
+                }
+                
             } else {
                 $id = $this->model->insert($_POST);
             }

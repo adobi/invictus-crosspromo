@@ -113,9 +113,7 @@
   
   App.enhanceChosen = function() 
   {
-    $(".chosen").chosen({
-        no_results_text: "No results matched", 
-    }); 
+ 
     
     $('.chosen-select-all').bind('click', function(e) {
         e.preventDefault();
@@ -349,6 +347,10 @@
 	  //App.Editable()
 	  
 	  //App.Toggle()
+
+    $(".chosen").chosen({
+        no_results_text: "No results matched", 
+    });
 	  
     $('body').on('click', '.games-filter a', function(e) {
       

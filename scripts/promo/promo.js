@@ -119,18 +119,54 @@
   }
   window.App = App;
   
+  App.CloseWindow = function() 
+  {
+    $('#close').on('click', function(e) {
+      window.close()
+      e.preventDefault()
+    })
+  }
+  
+  App.OpenPromoWindow = function() 
+  {
+    
+    $('.open-window').on('click', function(e) {
+      
+      window.open($(this).attr('href'))
+      
+      e.preventDefault()
+    })
+  }
+  
   $(function() 
   {
-    App.PreloadImages($('.teasers [data-src], .all-games [data-src], .crosspromo [data-src]'))
-    
+    $(".chosen").chosen({
+        no_results_text: "No results matched", 
+    });
+        
+    window.opener = window.window
+    App.CloseWindow()
+    App.OpenPromoWindow()
     $('.show').show()
     $('.dont-show').hide()
     
-    App.Tooltip()
-    
-    App.Loader()
-    
     $.subnav();
+
+    /*
+    $('.add-device-form').on('submit', function(e) {
+      var self = $(this)
+      self.find('.alert-success').hide()
+      self.find('.alert-error').hide()
+      $.post(self.attr('action'), self.serialize(), function(response) {
+        response = $.parseJSON(response)
+        //console.log(response)
+        response.error && self.find('.alert-error').show().html(response.error)
+        response.success && self.find('.alert-success').show().html(response.success)
+      })
+      
+      e.preventDefault()
+    })    
+    */
   });
   
 } (jQuery);

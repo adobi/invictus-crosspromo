@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" style="overflow: hidden_">
     <head>
-      <title><?php echo SITE_TITLE ?></title>
+      <title>Invictus Crosspromo</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
       
@@ -21,7 +21,7 @@
           //less.watch();        
         </script>
       <?php else: ?>
-        <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>css/promo/all.css">
+        <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css//all.css">
       <?php endif ?>       
        
     </head>

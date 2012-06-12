@@ -23,6 +23,11 @@
                             <span class="price"></span>
                             <strong class="promo-price">{{promo_price_or_null}}</strong>
                           </span>
+                        {{else}}
+                          <span class="pull-right badge badge-warning hide">
+                            <span class="price"></span>
+                            <strong class="promo-price"></strong>
+                          </span>
                         {{/if}}
                       {{/if}}
                       {{name}} 

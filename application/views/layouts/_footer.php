@@ -21,7 +21,7 @@
                       </div>
                       
                       <div>
-                        <input class="search-query" id="quick-search-by-game-name" type="text" name="name" style="font-size:1.2em; padding:10px;width:97%;" placeholder="Start type the name of the game" />
+                        <input class="search-query" id="quick-search-by-game-name" type="text" name="name" style="" placeholder="Start type the name of the game" />
                       </div>
                       <div class="subnav platforms-filter-bar" style="margin:10px 0 10px 0"></div>
                       

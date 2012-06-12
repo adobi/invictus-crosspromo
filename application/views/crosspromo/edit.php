@@ -6,6 +6,12 @@
         <?php echo form_open('', array('style'=>'margin-bottom:0;', 'id'=>'edit-description-form')) ?>
         <div class="modal-body">
           <div class="control-group">
+            <label class="control-label">Title</label>
+            <div class="controls">
+              <input type="text" name="title" value="<?php echo $item->title ?>" id="title">
+            </div>
+          </div>          
+          <div class="control-group">
             <label class="control-label">Description</label>
             <div class="controls">
               <textarea name="description"  class="span6" rows="3" data-countable="1" data-limit="160" data-parent=".modal-body" data-prepend=".modal-footer"><?php echo $item->description ?></textarea>
@@ -27,7 +33,7 @@
             <div class="span3 control-group">
               <label class="control-label">Promo price</label>
               <div class="controls">
-                <input type="text" name="promo_price" class="span2"> <strong>$</strong>
+                <input type="text" name="promo_price" class="span2" style="text-align:right"> <strong>$</strong>
               </div>
             </div>           
             </div>         

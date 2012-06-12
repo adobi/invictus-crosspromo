@@ -133,6 +133,8 @@
               promo = item.find('.promo-price'),
               price = item.find('.price')
           
+          item.find('.badge').show()    
+              
           item.find('.description').html(el.find('textarea').val())
           item.find('.crosspromo-type').html(el.find('[name=type_id] option:selected').text())
           
