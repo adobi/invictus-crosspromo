@@ -33,6 +33,16 @@
       $('body').on('click', '.delete-type', function(e) {e.preventDefault(); self.deleteType($(this))})
       
       self.dragAndDropTypes()
+      /*
+      $('.badge-price').each(function(index) {
+        var self = $(this)
+            price = self.find('.price')
+            promo = self.find('.promo-price')
+            
+        if (price.html().length) self.css('color', '#000')
+        
+        if (promo.html().length) self.css('color', '#fff')
+      })*/
     },
     
     dragAndDropTypes: function() 
@@ -140,8 +150,8 @@
           
           if (el.find('[name=promo_price]').val().length && el.find('[name=promo_price]').val() != '0') {
             
-            promo.html(el.find('[name=promo_price]').val() + '$')
-            price.html('<del>'+price.html()+'$'+'</del>')
+            promo.html(el.find('[name=promo_price]').val())
+            price.html('<del>'+price.html()+'</del>')
           } else {
             
             promo.html('')
