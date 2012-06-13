@@ -23,8 +23,9 @@
       <?php else: ?>
         <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css/all.css">
       <?php endif ?>       
+      
        
     </head>
     
     <body>    
-        <div class="container <?php echo $this->uri->segment(2) === 'game' ? 'well' : '' ?>" id="container">
+        <div class="container <?php echo isset($params['game']) ? 'well' : '' ?>" id="container">

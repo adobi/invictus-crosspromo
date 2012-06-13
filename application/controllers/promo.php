@@ -18,12 +18,21 @@ class Promo extends Promo_Controller
     $this->template->build('promo/index', $data);
   }
   
-  public function game() 
+  public function show() 
   {
+    
+    //dump($this->uri->uri_to_assoc(3)); die;
+    
     $data = array();
+    $params = $this->uri->uri_to_assoc(3);
+    
+    $data['params'] = $params;
+    
+
     $this->load->model('Crosspromos', 'model');
     
-    $id = $this->uri->segment(3);
+    //$id = $this->uri->segment(3);
+    $id = $params['game'];
 
     $data['game_id'] = $id;
     
@@ -40,7 +49,7 @@ class Promo extends Promo_Controller
     
       $this->load->model('Crosspromolists', 'lists');
       
-      $lists = $this->lists->fetchRows(array('where'=>array('is_active'=>1),'order'=>array('by'=>'order', 'dest'=>'asc')));
+      $lists = $this->lists->fetchForGame($id);
       
       //$return = array();
       //foreach ($types as $value) {
@@ -50,14 +59,17 @@ class Promo extends Promo_Controller
       //$data['result'] = $return;
       
       $data['lists'] = $lists;
-
-      if ($lists && $lists[0] && !$this->uri->segment(4)) {
+      
+      $list_id = false;
+      if ($lists && $lists[0] && !isset($params['list'])) {
         $list_id = $lists[0]->id;
       } else {
-        if ($this->uri->segment(4)) {
-          $list_id = $this->uri->segment(4);
+        if (isset($params['list'])) {
+          $list_id = $params['list'];
         }
       }
+      
+      unset($data['params']['list']);
       
       $data['list_id'] = $list_id;
       
@@ -65,7 +77,7 @@ class Promo extends Promo_Controller
       
       if ($this->lists->find($list_id)) {
         
-        $data['items'] = $this->model->fetchByGame($id, $list_id);
+        $data['items'] = $this->model->fetchByGame($id, $list_id, $params);
       }
       
     }

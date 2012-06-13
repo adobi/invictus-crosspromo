@@ -6,4 +6,13 @@ class Usergames extends MY_Model
 {
     protected $_name = "cp_user_game";
     protected $_primary = "id";
+    
+    public function hasGame($userId, $gameId) 
+    {
+      if (!$userId || !$gameId) return false;
+      
+      $result = $this->fetchRows(array('where'=>array('user_id'=>$userId, 'game_id'=>$gameId)));
+            
+      return $result ? $result[0] : false; 
+    }
 }

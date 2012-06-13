@@ -17,7 +17,7 @@ class Games extends MY_Model
       $d = array();
       foreach ($data as $item) {
         
-        $d[] = array('id'=>$item['id'], 'name'=>$item['name'], 'url'=>$item['url'], 'logo'=>$this->_getImageFromUrl($item['logo'], $item['logo_name']), 'is_active'=>$item['is_active']);
+        $d[] = array('id'=>$item['id'], 'name'=>$item['name'], 'url'=>$item['url'], 'logo'=>$this->_getImageFromUrl($item['logo'], $item['logo_name']), 'is_active'=>$item['is_active'], 'category_id'=>$item['category_id']);
         
         
       }
