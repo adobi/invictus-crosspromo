@@ -33,7 +33,8 @@ class Crosspromos extends MY_Model
               ),
               'order'=>array('by'=>"order", 'dest'=>'asc'))
       , false, true);
-     
+      
+      
       if ($params) {
 
         if (!$result || !isset($params['platform'])) return $result;
@@ -81,9 +82,9 @@ class Crosspromos extends MY_Model
             *
             * @author Dobi Attila
             */
-           if ($game = $this->usergames->hasGame($user->id, $item->gp_id)) {
-             
-             if ($game->game_version < $item->version) {
+           if ($ownedGame = $this->usergames->hasGame($user->id, $item->gp_id)) {
+
+             if ($ownedGame->game_version < $item->version) {
                $item->is_updated = true;
              } else {
                /**
@@ -104,7 +105,7 @@ class Crosspromos extends MY_Model
         
       }
       
-      //dump($result); die;
+      
       return $result;
     }
     

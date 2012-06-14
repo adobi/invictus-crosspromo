@@ -30,7 +30,7 @@
                 <td class="promo-item-image">
                   <img src="<?php echo base_url() ?>/uploads/original/<?php echo $item->logo ?>" alt="" style="width:128px">
                   <h3 class="tk-ff-cocon-web-pro">
-                    <?php echo $is_free ? 'FREE' : ($item->promo_price ? $item->promo_price . ($item->currency ? $item->currency : '$') : ($item->price ? $item->price . ($item->currency ? $item->currency : '$') : '')) ?>
+                    <?php echo $is_free ? 'FREE' : (isset($item->promo_price) && $item->promo_price ? $item->promo_price . ($item->currency ? $item->currency : '$') : ($item->price ? $item->price . ($item->currency ? $item->currency : '$') : '')) ?>
                   </h3>
                 </td>
                 <td class="promo-item-content">
