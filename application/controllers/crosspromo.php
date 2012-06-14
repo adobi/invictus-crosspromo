@@ -220,6 +220,23 @@ class Crosspromo extends MY_Controller
       
       if ($this->uri->segment(3) && $_POST) {
         $this->model->update($_POST, $this->uri->segment(3));
+
+        /**
+         * ha a kivalasztott tipus "NEW" akkor beallitjuk az is_new flag-et, egyebkent 0
+         *
+         * @author Dobi Attila
+         */
+        $this->load->model('Crosspromotypes', 'type');
+        $type = $this->type->find($_POST['type_id']);
+        $promo = $this->model->find($this->uri->segment(3));
+        $this->load->model('Gameplatforms', 'gp');
+        
+        if (strpos(strtolower($type->name), 'new') !== false) {
+          $this->gp->update(array('is_new'=>1), $promo->promo_game_id);
+        } else {
+          $this->gp->update(array('is_new'=>0), $promo->promo_game_id);
+        }
+
       }
       
       die;

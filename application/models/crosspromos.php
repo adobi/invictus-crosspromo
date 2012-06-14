@@ -33,7 +33,7 @@ class Crosspromos extends MY_Model
               ),
               'order'=>array('by'=>"order", 'dest'=>'asc'))
       , false, true);
-      
+     
       if ($params) {
 
         if (!$result || !isset($params['platform'])) return $result;
@@ -111,13 +111,15 @@ class Crosspromos extends MY_Model
     /**
      * keres egy megfelelo jatekot a kapot parametereknek megfeleloen
      * - nincs meg az adott jatekosnak
-     * - os tipos megfelelo
+     * - nem szerepelt a listaban
+     * - os tipus megfelelo
      * - os verzio megfelelo
-     * - jatek kategoria megfelelo
      *
      * @param array $params a keresben kapott parameterek
-     * @param object $item az listaelem aminek a helyere bekerul az uj elem 
-     * @return void
+     * @param array $result a list lyukakkal
+     * @param array $holes a lyukakat tartalmazo tomb: [lyuk_index] = elem a $resultbol
+     * @param int $listId melyik listarol van szo
+     * @return array
      * @author Dobi Attila
      */
     public function findSimilarGame($params, $result, $holes, $listId) 
@@ -156,6 +158,11 @@ class Crosspromos extends MY_Model
       $holesValues = array_values($holes);
       $holesKeys = array_keys($holes);
       
+      /**
+       * az lyukak potlasat szolgalo elemek analitikaja
+       *
+       * @author Dobi Attila
+       */
       foreach ($return as $res) {
         
         if ($res) {
@@ -174,12 +181,37 @@ class Crosspromos extends MY_Model
         }
       }
       
+      /**
+       * az uj elemeket visszapakoljuk a listaba a megfelelo helyre
+       *
+       * @author Dobi Attila
+       */
       foreach ($holesKeys as $index=>$value) {
-        if (isset($return[$index]))
+        if (isset($return[$index])) {
+          
           $result[$value] = $return[$index];
+        }
+        else {
+          unset($result[$value]);
+        }
       }
-      
+      //dump($result);
+      /**
+       * rendezzuk a listat az is_new szerint, hogy azok legyenek elol
+       *
+       * @author Dobi Attila
+       */
+      usort($result, array('Crosspromos', 'isNewComparator'));
+       
       return $result;
+    }
+    
+    public static function isNewComparator($a, $b)
+    {
+      if (is_null($a->is_new)) $a->is_new = 0;
+      if (is_null($b->is_new)) $b->is_new = 0;
+      //dump($a); dump($b);
+      return intval($a->is_new) < intval($b->is_new);
     }
     
     /**

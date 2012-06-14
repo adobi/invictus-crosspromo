@@ -60,6 +60,7 @@
                       <li>min os version: <?php echo $item->min_os_version ?></li>
                       <li>game version: <?php echo $item->version ?></li>
                       <li>random inserted: <?php echo @$item->inserted ?></li>
+                      <li>is new game: <?php echo $item->is_new ?></li>
                     </ul>
                   </p>
                 </td>
