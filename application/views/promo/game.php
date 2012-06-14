@@ -23,7 +23,7 @@
     <div class="items">
       <?php foreach ($items as $item): ?>
         <?php if (is_object($item)): ?>
-          <div class="item">
+          <div class="item" style="<?php echo isset($item->removed) ? 'opacity:.6' : '' ?>">
             <a href="<?php echo $item->long_url ?>" target="_blank" <?php echo event_tracking($item) ?>>
             <table>
               <tr>
@@ -38,17 +38,28 @@
                     <!-- <span class="badge badge-important tk-ff-cocon-web-pro">NEW</span> -->
                     <?php echo $item->name ?>
                   </h2>
-                  <?php if ($item->title): ?>
+                  <?php if (isset($item->title) && $item->title): ?>
                     <h3><span class="raquo">&raquo;</span> <?php echo $item->title ?></h3>
                   <?php endif ?>
-                  <p><?php echo $item->description ?></p>
-                  <?php if (to_date($item->until) !== '1970-01-01'): ?>
+                  <p>
+                    <?php if (isset($item->description)): ?>
+                      <?php echo $item->description ?>
+                    <?php else: ?>
+                      <?php if (isset($item->short_description)): ?>
+                        <?php echo $item->short_description ?>
+                      <?php endif ?>
+                    <?php endif ?>
+                    
+                  </p>
+                  <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01'): ?>
                     <p style="font-weight:bold"><?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
                   <?php endif ?>
                   <p>
                     <ul>
+                      <li>os type: <?php echo $item->platform_name ?></li>
                       <li>min os version: <?php echo $item->min_os_version ?></li>
                       <li>game version: <?php echo $item->version ?></li>
+                      <li>random inserted: <?php echo @$item->inserted ?></li>
                     </ul>
                   </p>
                 </td>
@@ -68,13 +79,13 @@
                         </h3>
                     <?php endif ?>
                     <?php if (!$flag): ?>
-                        <?php if ($item->type_id): ?>
+                        <?php if (isset($item->type_id)): ?>
                           <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->type_image ?>" alt="" class="<?php echo strtolower($item->type_name) ?>-icon">
                         <?php else: ?>
                           <img src="<?php echo base_url() ?>img/download-icon-arrow-original.png" alt="">
                         <?php endif ?>
                         <h3 class="tk-ff-cocon-web-pro _red silver">
-                          <?php if ($item->type_text): ?>
+                          <?php if (isset($item->type_text) && $item->type_text): ?>
                             <?php echo strtoupper($item->type_text) ?>
                           <?php else: ?>
                             DOWNLOAD NOW

@@ -50,15 +50,20 @@ class Crosspromos extends MY_Model
         $listSize = count($result);
         $holes = array();
         
+        $platform = array();
         if (strtolower($params['platform']) === 'ios') $platforms = array(1,2,5);
         
         if (strtolower($params['platform']) === 'android') $platforms = array(7,8);
+        
+        $criteria = $params;
+        $criteria['user_id'] = $user->id;
+        $criteria['platforms'] = $platforms;
         
         foreach ($result as $index=>$item) {
           
           /**
            * ha az item min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
-           * valasztas: ami nincs meg a jatekosnak, es a min_os_version kisebb mint az kapott os verzio
+           * valasztas: ami nincs meg a jatekosnak, es azonos os-sel rendelkezik mint ami a keresben jon, es a min_os_version kisebb mint az kapott os verzio
            *
            * @author Dobi Attila
            */
@@ -67,8 +72,9 @@ class Crosspromos extends MY_Model
              
              $result[$index] = -1;
              
-             $holes[] = $index;
-           }
+             $holes[$index] = $item;
+             //$result[$index] = $this->findSimilarGame($criteria, $item);
+            }
            
            /**
             * ha megvan neki a jatek, es a listaban levo jatek verzioszama nagyobb mint a parameterkent kapott verzio akkor marad a listaba
@@ -87,12 +93,92 @@ class Crosspromos extends MY_Model
                 * @author Dobi Attila
                 */  
                $result[$index] = -2; 
+               
+               //$result[$index] = $this->findSimilarGame($criteria, $item);
+               $holes[$index] = $item;
              }
            } 
         }
+        
+        $result = $this->findSimilarGame($criteria, $result, $holes, $list);
+        
       }
       
       //dump($result); die;
+      return $result;
+    }
+    
+    /**
+     * keres egy megfelelo jatekot a kapot parametereknek megfeleloen
+     * - nincs meg az adott jatekosnak
+     * - os tipos megfelelo
+     * - os verzio megfelelo
+     * - jatek kategoria megfelelo
+     *
+     * @param array $params a keresben kapott parameterek
+     * @param object $item az listaelem aminek a helyere bekerul az uj elem 
+     * @return void
+     * @author Dobi Attila
+     */
+    public function findSimilarGame($params, $result, $holes, $listId) 
+    {
+      //$item->removed = true;
+
+      if (!$holes) return $result;
+      
+      $sql = "select 
+                cp_game.*, 
+                cp_game_platform.id as gp_id,
+                if(cp_game_platform.is_new=0 || ISNULL(cp_game_platform.is_new), NULL, 1) as is_new,
+                if(cp_game_platform.is_update=0 || ISNULL(cp_game_platform.is_update), NULL, 1) as is_update,
+                if(cp_game_platform.price=0, NULL, price) as price,
+                cp_game_platform.platform_id,
+                cp_game_platform.game_id,
+                cp_game_platform.long_url,
+                cp_game_platform.currency,
+                cp_game_platform.min_os_version,
+                cp_game_platform.version,
+                cp_platform.name as platform_name
+              from cp_game
+                join cp_game_platform on cp_game_platform.game_id = cp_game.id
+                join cp_platform on cp_platform.id = cp_game_platform.platform_id
+              where 
+								cp_game_platform.id not in (select game_id from cp_user_game where user_id = ".$params['user_id'].")
+								and cp_game_platform.id not in (select promo_game_id from cp_crosspromo where list_id = ".$listId.")
+								and cp_game_platform.platform_id in (".join(',', $params['platforms']).")
+								and cp_game_platform.min_os_version < ".$params['os']."
+              order by rand()
+              limit ".count($holes);
+      $return = $this->execute($sql);
+      
+      if (!$return) return $result;
+      
+      $holesValues = array_values($holes);
+      $holesKeys = array_keys($holes);
+      
+      foreach ($return as $res) {
+        
+        if ($res) {
+          
+          $res->ga_value = 1;
+          $res->ga_action = 'Click';
+          $res->ga_noninteraction = '';
+          
+          $this->load->model('Crosspromolists', 'list');
+          $list = $this->list->find($listId);
+          $res->ga_category = 'Crosspromo - ' . $list->name;
+          
+          $res->ga_label = $res->name . ' - ' . $res->version . ' - ' . $list->name . ' - ' . time();
+          
+          $res->inserted = 1;
+        }
+      }
+      
+      foreach ($holesKeys as $index=>$value) {
+        if (isset($return[$index]))
+          $result[$value] = $return[$index];
+      }
+      
       return $result;
     }
     
@@ -114,23 +200,6 @@ class Crosspromos extends MY_Model
     //public function setupAnalytics($srcGameId, $destGameId, &$return)
     public function setupAnalytics($id)
     {
-      /*
-        product page cross promo a másik product page-re	játék_neve	játék neve	cross_promo	fájl_név	timestamp	Outbound link	Click																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
-
-      */
-      /*
-      $this->load->model('Games', 'games');
-      $src = $this->games->find($srcGameId);
-      $dest = $this->games->find($destGameId);
-      
-      $return['ga_category'] = 'Inbound link';
-      //$return['ga_label'] = $src->name.' - '.$dest->name.' - Crosspromo - '.strip_ext($src->logo);
-      $return['ga_action'] = 'Click';
-      $return['ga_value'] = 1;      
-      
-      return $return;
-      */
-      
       $crosspromo = $this->find($id);
       
       if (!$crosspromo) return false;
