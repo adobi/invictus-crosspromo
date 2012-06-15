@@ -63,7 +63,7 @@ class Crosspromos extends MY_Model
         foreach ($result as $index=>$item) {
           
           /**
-           * ha az item min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
+           * ha az listsitem min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
            * valasztas: ami nincs meg a jatekosnak, es azonos os-sel rendelkezik mint ami a keresben jon, es a min_os_version kisebb mint az kapott os verzio
            *
            * @author Dobi Attila

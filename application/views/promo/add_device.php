@@ -1,5 +1,19 @@
 <br><br>
-<?php echo form_open('http://press.invictus.com/cp/'.'promo/add_device', array('class'=>'add-device-form form-horizontal')) ?>
+
+<div>
+  <legend>Token</legend>
+  <fieldset class="control-group">
+    <input type="text" value="<?php echo $token ? $token->name : '' ?>" disabled placeholder="token name"/>
+
+    <input type="text" value="<?php echo $token ? $token->value : '' ?>" disabled placeholder="token value"/>
+  </fieldset>
+  <fieldset class="form-actions">
+    <a href="<?php echo base_url() ?>promo/add_device_ui/get_token" class="btn btn-primary">Get token</a>
+  </fieldset>
+</div>
+
+<?php if ($token): ?>
+  <form action="<?php echo base_url() ?>promo/add_device_ui"  class="add-device-form form-horizontal">
       <div class="hide alert alert-error"></div>
       <div class="hide alert alert-success"></div>
 	    <legend>
@@ -21,15 +35,25 @@
           </div>
       </fieldset>
       <fieldset class="control-group">
+          <label class="control-label" for="device_id">Device OS type</label>
+          <div class="controls">
+		        <select name="platform" id="">
+		          <option value="ios">ios</option>
+		          <option value="android">android</option>
+	          </select>
+          </div>
+      </fieldset>      
+      <fieldset class="control-group">
           <label class="control-label" for="os_version">Device OS version</label>
           <div class="controls">
 		        <input type="text" name="os_version" id="os_version" class="span2" />
           </div>
       </fieldset>
       <fieldset class="control-group">
-          <label class="control-label" for="os_version">Select a game</label>
+          <label class="control-label" for="os_version">Game name</label>
           <div class="controls">
-		        <?php echo form_dropdown('game_id', $games, '', 'class="input-xlarge chosen" data-placeholder="Select a game"') ?>
+		        <?php //echo form_dropdown('game_id', $games, '', 'class="input-xlarge chosen" data-placeholder="Select a game"') ?>
+		        <input type="text" name="game_name" value="">
           </div>
       </fieldset>
       <fieldset class="control-group">
@@ -39,8 +63,9 @@
           </div>
       </fieldset>
       <fieldset class="form-actions">
+          <input type="hidden" name="<?php echo $token->name ?>" value="<?php echo $token->value ?>">
           <button type="submit" class="btn btn-primary">Create</button>
       </fieldset> 
-
-<?php echo form_close() ?>
+  <?php echo form_close() ?>
+<?php endif ?>
 

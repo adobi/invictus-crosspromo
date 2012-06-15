@@ -7,7 +7,7 @@
 
 <?php echo form_open('', array('class'=>'form-horizontal')) ?>
       
-      
+    <fieldset>
 	    <legend>
 	      Please login
         <div class="btn-group pull-right">
@@ -20,20 +20,24 @@
           </ul>
         </div>
       </legend>
-        <fieldset class="control-group">
-            <label class="control-label" for="name">Name</label>
-            <div class="controls">
-			    <input type="text" name="username" id="username" class="username input-xlarge" />
+      <div class="control-group">
+          <label class="control-label" for="name">&nbsp;</label>
+          <div class="controls">
+		        <div class="input-prepend">
+              <span class="add-on"><i class="icon-user"></i></span><input type="text" name="username" id="username" class="username span4" />
             </div>
-        </fieldset>
-        <fieldset class="control-group">
-            <label class="control-label" for="password">Password</label>
-            <div class="controls">
-			    <input type="password" name="password" id="password" class="password input-xlarge" />
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="password">&nbsp;</label>
+          <div class="controls">
+		        <div class="input-prepend">
+              <span class="add-on"><i class="icon-lock"></i></span><input type="password" name="password" id="password" class="password span4" />
             </div>
-        </fieldset>
-        <fieldset class="form-actions">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </fieldset> 
-
+          </div>
+      </div>
+      <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Login</button>
+      </div> 
+    </fieldset>  
 <?php echo form_close() ?>
