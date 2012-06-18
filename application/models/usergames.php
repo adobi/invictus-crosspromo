@@ -15,4 +15,13 @@ class Usergames extends MY_Model
             
       return $result ? $result[0] : false; 
     }
+    
+    public function findGameByDevice($gameId, $deviceId) 
+    {
+      if (!$deviceId || !$gameId) return false;
+      
+      $result = $this->fetchRows(array('where'=>array('user_id'=>$deviceId, 'game_id'=>$gameId)));
+      //dump($deviceId); die;      
+      return $result ? $result[0] : false; 
+    }
 }

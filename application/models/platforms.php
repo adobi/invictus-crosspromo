@@ -31,5 +31,30 @@ class Platforms extends MY_Model
       
       $this->bulk_insert($data);
       
-    }    
+    }
+    
+    public function findByName($name, $type) 
+    {
+      $name = strtolower($name);
+      
+      $platform = false;
+      
+      if ($name === 'ios') {
+        if ($type === 'phone') $platform = 'iphone';
+        
+        if ($type === 'tablet') $platform = 'ipad';
+      }
+      
+      if ($name === 'android') {
+        if ($type === 'phone') $platform = 'android phone';
+        
+        if ($type === 'tablet') $platform = 'android tablet';
+      }
+      
+      $result = $this->execute("select id from $this->_name where lcase(name) like '%$platform%'");
+      
+      if (empty($result)) return false;
+      
+      return $result[0];
+    }        
 }

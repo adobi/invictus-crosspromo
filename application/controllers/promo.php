@@ -95,17 +95,21 @@ class Promo extends Promo_Controller
     
     $token = false;
     
+    //dump($_COOKIE);
+    
     if ($this->uri->segment(3) === 'get_token') {
       
       $response = file_get_contents(base_url().'promo/get_token');
       
       $token = json_decode($response);
+      
+      //dump($token);
     }
     
     if ($_POST) {
       $res = $this->curl->simple_post(base_url().'promo/add_device', $_POST);      
     }
-    
+
     $data['token'] = $token;
     
     $data['games'] = $this->model->toAssocArray('id', 'game_name+platform_name', $this->model->fetchAllWithGameAndPlatform());  
@@ -116,11 +120,11 @@ class Promo extends Promo_Controller
   public function add_device() 
   {
     $this->form_validation->set_rules('device_id', 'user id', 'trim|required');
-    $this->form_validation->set_rules('game_id', 'game id', 'trim|required');
-    $this->form_validation->set_rules('os_version', 'os version', 'trim|required');
-    $this->form_validation->set_rules('game_version', 'game version', 'trim|required');
+    //$this->form_validation->set_rules('game_id', 'game id', 'trim|required');
+    //$this->form_validation->set_rules('os_version', 'os version', 'trim|required');
+    //$this->form_validation->set_rules('game_version', 'game version', 'trim|required');
     
-    $_POST[$this->security->get_csrf_token_name()] = $this->security->get_csrf_hash();
+    //$_POST[$this->security->get_csrf_token_name()] = $this->security->get_csrf_hash();
     //$response['token_value'] = $this->security->get_csrf_hash();
     
     $response = array();
@@ -129,21 +133,35 @@ class Promo extends Promo_Controller
       $this->load->model('Users', 'user');
       $this->load->model('Usergames', 'usergame');
       $this->load->model('Gameplatforms', 'gameplatform');
-      
+      $this->load->model('Games', 'game');
+      $this->load->model('Platforms', 'platform');
+            
       $game = $this->game->findByName($_POST['game_name']);
-      $platform = $this->platform->findByName($_POST['platform_name']);
+      $platform = $this->platform->findByName($_POST['platform_name'], $_POST['platform_type']);
       
-      if ($this->gameplatform->find($_POST['game_id'])) {
+      $game = $game ? $game->id : $game;
+      $platform = $platform ? $platform->id : $platform;
+      
+      $_POST['game_id'] = $this->gameplatform->findByGameAndPlatform($game, $platform);
+      
+      $userid = false;
+      if ($_POST['game_id']) {
         
+        $_POST['game_id'] = $_POST['game_id']->id;
+        
+        $insert = false;
         /**
-         * ellenorizni, hogy az adott device_id szerepelt e mar nelunk
+         * ellenorizni, hogy az adott device_id szerepelt e mar nalunk
          *
          * @author Dobi Attila
          */
-        if (!$this->user->findByDeviceId($_POST['device_id'])) {
+        if (! ($device = $this->user->findBy('device_id', $_POST['device_id']))) {
           
           $user = array('device_id'=>$_POST['device_id'], 'os_version'=>$_POST['os_version'], 'os_type'=>$_POST['os_type']);
           $userid = $this->user->insert($user);
+          $insert = true;
+        } else {
+          $userid = $this->user->find($device->id)->id;
         }
         
         /**
@@ -154,16 +172,24 @@ class Promo extends Promo_Controller
          *
          * @author Dobi Attila
          */
-        $usergame = array('user_id'=>$userid, 'game_id'=>$_POST['game_id'], 'game_version'=>$_POST['game_version']);
-        $this->usergame->insert($usergame);
-        
+         if (! ($usergame = $this->usergame->findGameByDevice($game, $userid))) {
+           $this->usergame->insert(array('user_id'=>$userid, 'game_id'=>$game, 'game_version'=>$_POST['game_version']));
+         } else {
+           if (!$insert) {
+             if ($usergame->game_version < $_POST['game_version']) {
+               $this->usergame->update(array('game_version'=>$_POST['game_version']), $usergame->id);
+             }
+           }
+         }
+
         /**
          * megkeressuk a jatek id es a platform alapjan, hogy miylen game_platform_id tartozik a kapott parameterkhez
          *
          * @author Dobi Attila
          */
+         
         
-        $response['success'] = '';
+        $response['success'] = array('game'=>$_POST['game_id']);
       } else {
         $response['error'] = 'Invalid game id';
       }
@@ -183,6 +209,7 @@ class Promo extends Promo_Controller
   {
     $response['name'] = $this->security->get_csrf_token_name();
     $response['value'] = $this->security->get_csrf_hash();
+    //$response['value'] = $_COOKIE['invictus_crosspromo_csrf_coockie'];
     
     echo json_encode($response); die;
   }

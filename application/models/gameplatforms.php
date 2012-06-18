@@ -7,6 +7,13 @@ class Gameplatforms extends MY_Model
     protected $_name = "cp_game_platform";
     protected $_primary = "id";
     
+    public function findByGameAndPlatform($game, $platform) 
+    {
+      
+      if (!$game || !$platform) return false;
+      
+      return current($this->fetchRows(array('where'=>array('game_id'=>$game, 'platform_id'=>$platform))));
+    }
 
     public function initFromApi()
     {

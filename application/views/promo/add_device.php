@@ -13,7 +13,8 @@
 </div>
 
 <?php if ($token): ?>
-  <form action="<?php echo base_url() ?>promo/add_device_ui"  class="add-device-form form-horizontal">
+  <!-- <form action="<?php echo base_url() ?>promo/add_device_ui"  class="add-device-form form-horizontal" method="post"> -->
+  <?php echo form_open( base_url() ."promo/add_device/", array('class'=>'add-device-form form-horizontal')) ?>
       <div class="hide alert alert-error"></div>
       <div class="hide alert alert-success"></div>
 	    <legend>
@@ -32,23 +33,24 @@
           <label class="control-label" for="device_id">Device ID</label>
           <div class="controls">
 		        <input type="text" name="device_id" id="device_id" class="input-xlarge" value="<?php echo md5('a') ?>"/>
+		        Type: 
+		        <select name="platform_type" id="" class="span2">
+		          <option value="phone">phone</option>
+		          <option value="table">tablet</option>
+	          </select>
           </div>
       </fieldset>
       <fieldset class="control-group">
-          <label class="control-label" for="device_id">Device OS type</label>
+          <label class="control-label" for="device_id">Device OS</label>
           <div class="controls">
-		        <select name="platform" id="">
+		        <select name="platform_name" id="" class="span2">
 		          <option value="ios">ios</option>
 		          <option value="android">android</option>
 	          </select>
+	          Version: 
+		        <input type="text" name="os_version" id="os_version" class="span1" />
           </div>
       </fieldset>      
-      <fieldset class="control-group">
-          <label class="control-label" for="os_version">Device OS version</label>
-          <div class="controls">
-		        <input type="text" name="os_version" id="os_version" class="span2" />
-          </div>
-      </fieldset>
       <fieldset class="control-group">
           <label class="control-label" for="os_version">Game name</label>
           <div class="controls">
@@ -59,11 +61,11 @@
       <fieldset class="control-group">
           <label class="control-label" for="game_version">Game version</label>
           <div class="controls">
-		        <input type="text" name="game_version" id="game_version" class="span2" />
+		        <input type="text" name="game_version" id="game_version" class="span1" />
           </div>
       </fieldset>
       <fieldset class="form-actions">
-          <input type="hidden" name="<?php echo $token->name ?>" value="<?php echo $token->value ?>">
+          <!-- <input type="hidden" name="<?php echo $token->name ?>" value="<?php echo $token->value ?>"> -->
           <button type="submit" class="btn btn-primary">Create</button>
       </fieldset> 
   <?php echo form_close() ?>

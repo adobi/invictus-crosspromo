@@ -7,6 +7,16 @@ class Games extends MY_Model
     protected $_name = "cp_game";
     protected $_primary = "id";
 
+    public function findByName($name) 
+    {
+      $name = strtolower($name);
+      $result = $this->execute("select id from $this->_name where lcase(name) like '%$name%'");
+      
+      if (empty($result)) return false;
+      
+      return $result[0];
+    }
+
     public function initFromApi()
     {
       
