@@ -1,10 +1,11 @@
   <div class="navbar-fixed-top">
     <div class="container">
       <ul class="nav nav-tabs crosspromo-tabs tk-ff-cocon-web-pro">
+        <!-- 
         <li class="pull-right no-tab text-center">
-          <!-- <i class="close-icon"></i> -->
           <a href="#" id="close"><img src="<?php echo base_url() ?>img/icon-close.png" alt=""></a>
         </li>
+         -->
         <?php if ($lists): ?>
           <?php foreach ($lists as $i=>$item): ?>
             <li <?php echo (!$list_id && $i === 0) || $list_id === $item->id ? 'class="active"' : '' ?>>

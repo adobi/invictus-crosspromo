@@ -20,18 +20,13 @@ class Promo extends Promo_Controller
   
   public function show() 
   {
-    
-    //dump($this->uri->uri_to_assoc(3)); die;
-    
     $data = array();
     $params = $this->uri->uri_to_assoc(3);
     
     $data['params'] = $params;
-    
 
     $this->load->model('Crosspromos', 'model');
     
-    //$id = $this->uri->segment(3);
     $id = $params['game'];
 
     $data['game_id'] = $id;
@@ -50,13 +45,6 @@ class Promo extends Promo_Controller
       $this->load->model('Crosspromolists', 'lists');
       
       $lists = $this->lists->fetchForGame($id);
-      
-      //$return = array();
-      //foreach ($types as $value) {
-      //  $return[] = array('list'=>$value, 'games'=>$this->model->fetchByGame($this->uri->segment(3), $value->id));
-      //}
-      
-      //$data['result'] = $return;
       
       $data['lists'] = $lists;
       
@@ -81,13 +69,11 @@ class Promo extends Promo_Controller
       }
       
     }
-    //dump($list_id);
-    //dump($data['items']); die;
     
     $this->template->build('promo/game', $data);
   }
   
-  public function add_device_ui()
+  public function console()
   {
     $data = array();
 
@@ -106,8 +92,11 @@ class Promo extends Promo_Controller
       //dump($token);
     }
     
+    $data['response'] = false;
     if ($_POST) {
-      $res = $this->curl->simple_post(base_url().'promo/add_device', $_POST);      
+      $res = $this->curl->simple_post(base_url().'promo/add_device', $_POST); 
+      
+      $data['response'] = $res;
     }
 
     $data['token'] = $token;
@@ -157,7 +146,7 @@ class Promo extends Promo_Controller
          */
         if (! ($device = $this->user->findBy('device_id', $_POST['device_id']))) {
           
-          $user = array('device_id'=>$_POST['device_id'], 'os_version'=>$_POST['os_version'], 'os_type'=>$_POST['os_type']);
+          $user = array('device_id'=>$_POST['device_id'], 'os_version'=>$_POST['os_version'], 'os_type'=>$_POST['platform_name'], 'device_type'=>$_POST['platform_type']);
           $userid = $this->user->insert($user);
           $insert = true;
         } else {

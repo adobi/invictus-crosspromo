@@ -140,6 +140,13 @@
   
   $(function() 
   {
+    $('body').on('click', '.toggle', function(e) {
+      e.preventDefault();
+      
+      $(this).find('i').toggleClass('icon-minus').toggleClass('icon-plus')
+      $(this).parent().next().toggle()
+    })    
+    
     $(".chosen").chosen({
         no_results_text: "No results matched", 
     });

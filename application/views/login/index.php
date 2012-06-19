@@ -16,7 +16,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url() ?>promo">Crosspromos</a></li>
-            <li><a href="<?php echo base_url() ?>promo/add_device_ui">Add device</a></li>
+            <li><a href="<?php echo base_url() ?>promo/console">API</a></li>
           </ul>
         </div>
       </legend>
