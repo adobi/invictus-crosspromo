@@ -81,40 +81,38 @@ class Promo extends Promo_Controller
     
     $token = false;
     
-    //dump($_COOKIE);
-    
-    if ($this->uri->segment(3) === 'get_token') {
-      
-      $response = file_get_contents(base_url().'promo/get_token');
-      
-      $token = json_decode($response);
-      
-      //dump($token);
-    }
-    
     $data['response'] = false;
+    
+    if (isset($_GET['device_id'])) $_POST = $_GET;
+    
     if ($_POST) {
-      $res = $this->curl->simple_post(base_url().'promo/add_device', $_POST); 
+      
+      $responseType = $_POST['response_type'];
+      //unset($_POST['response_type']);
+      $res = $this->curl->simple_post(base_url().'promo/add_device/xml', $_POST); 
       
       $data['response'] = $res;
+      //dump($this->curl->error_string); die;
+      //dump(base_url().'promo/add_device/'.$responseType); die;
     }
-
-    $data['token'] = $token;
     
-    $data['games'] = $this->model->toAssocArray('id', 'game_name+platform_name', $this->model->fetchAllWithGameAndPlatform());  
+    //$data['games'] = $this->model->toAssocArray('id', 'game_name+platform_name', $this->model->fetchAllWithGameAndPlatform());  
     
     $this->template->build('promo/add_device', $data);
   }
   
   public function add_device() 
   {
-    $this->form_validation->set_rules('device_id', 'user id', 'trim|required');
-    //$this->form_validation->set_rules('game_id', 'game id', 'trim|required');
-    //$this->form_validation->set_rules('os_version', 'os version', 'trim|required');
-    //$this->form_validation->set_rules('game_version', 'game version', 'trim|required');
     
-    //$_POST[$this->security->get_csrf_token_name()] = $this->security->get_csrf_hash();
-    //$response['token_value'] = $this->security->get_csrf_hash();
+    $this->form_validation->set_error_delimiters('', '');
+    
+    //dump($_POST); die;
+    $this->form_validation->set_rules('device_id', 'device_id', 'trim|required');
+    $this->form_validation->set_rules('game_name', 'game id', 'trim|required');
+    $this->form_validation->set_rules('platform_name', 'platform_name', 'trim|required');
+    $this->form_validation->set_rules('platform_type', 'platform_type', 'trim|required');
+    $this->form_validation->set_rules('os_version', 'os version', 'trim|required');
+    $this->form_validation->set_rules('game_version', 'game version', 'trim|required');
     
     $response = array();
     if ($this->form_validation->run()) {
@@ -130,7 +128,13 @@ class Promo extends Promo_Controller
       
       $game = $game ? $game->id : $game;
       $platform = $platform ? $platform->id : $platform;
-      
+
+
+      /** 
+       * megkeressuk a jatek id es a platform alapjan, hogy miylen game_platform_id tartozik a kapott parameterkhez
+       *
+       * @author Dobi Attila
+       */
       $_POST['game_id'] = $this->gameplatform->findByGameAndPlatform($game, $platform);
       
       $userid = false;
@@ -170,13 +174,6 @@ class Promo extends Promo_Controller
              }
            }
          }
-
-        /**
-         * megkeressuk a jatek id es a platform alapjan, hogy miylen game_platform_id tartozik a kapott parameterkhez
-         *
-         * @author Dobi Attila
-         */
-         
         
         $response['success'] = array('game'=>$_POST['game_id']);
       } else {
@@ -185,10 +182,30 @@ class Promo extends Promo_Controller
     } else {
       $response['error'] = validation_errors();
     }
+
+    if ($this->uri->segment(3)) {
+      $responseType = $this->uri->segment(3);
+    }
     
-    //redirect($_SERVER['HTTP_REFERER']);
+    if (isset($_POST['response_type'])) {
+      $responseType = $_POST['response_type'];
+    }
     
-    echo json_encode($response);
+    if ($responseType === 'json') {
+      
+      echo json_encode($response);
+    }
+    
+    if ($responseType === 'xml') {
+      
+      if (isset($response['success'])) {
+        echo '<success><game>'.$response['success']['game'].'</game></success>';
+      }
+      
+      if (isset($response['error'])) {
+        echo '<error>'.htmlspecialchars($response['error']).'</error>';
+      }
+    }
     
     die;
     

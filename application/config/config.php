@@ -301,9 +301,9 @@ $config['global_xss_filtering'] = true;
 */
 $config['csrf_protection'] = true;
 $config['csrf_token_name'] = 'invictus_crosspromo_csrf_token';
-$config['csrf_cookie_name'] = 'invictus_crosspromo_csrf_coockie';
+$config['csrf_cookie_name'] = 'invictus_crosspromo_csrf_cookie';
 $config['csrf_expire'] = 7200;
-$config['csrf_exclude_uris'] = array('promo/add_device');
+$config['csrf_exclude_uris'] = array('promo/add_device', 'promo/add_device/xml', 'promo/add_device//json');
 
 /*
 |--------------------------------------------------------------------------

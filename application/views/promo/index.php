@@ -1,3 +1,18 @@
+<br>
+<h1>
+  Select a game
+  <div class="btn-group pull-right">
+    <a href="<?php echo base_url() ?>promo" class="btn dropdown-toggle" data-toggle="dropdown">
+      <i class="icon-align-justify"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="<?php echo base_url() ?>promo/console" style="font-size:13px">API</a></li>
+      <li><a href="<?php echo base_url() ?>auth/login" style="font-size:13px">Login</a></li>
+    </ul>
+  </div>
+  
+</h1>
+<br>
 <ul class="thumbnails well">
   <?php if ($games): ?>
     <?php foreach ($games as $item): ?>
