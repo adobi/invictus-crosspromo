@@ -1,0 +1,1 @@
+{"device_id":"7a951116de2a4c23c74733d76046a5b4","platform_type":"phone","platform_name":"ios","os_version":"4.3","game_name":"Froggy Jump","game_version":"1","response_type":"xml"}
