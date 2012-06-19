@@ -36,7 +36,7 @@
 
 
   <legend><a href="#" class="btn btn-mini toggle"><i class="icon-<?php echo $response ? 'minus' : 'plus' ?>"></i></a> Test console</legend>
-  <?php echo form_open(base_url() . 'promo/console', array('class'=>'add-device-form form-horizontal well ' . ($response ? '' : 'hide'), 'method'=>'get')) ?>
+  <?php echo form_open(base_url() . 'promo/console', array('class'=>'add-device-form form-horizontal well ' . ($response ? '' : 'hide'))) ?>
   <!-- <?php echo form_open(base_url() . 'promo/add_device/xml', array('class'=>'add-device-form form-horizontal well ' . ($response ? '' : 'hide'))) ?> -->
       <div class="hide alert alert-error"></div>
       <div class="hide alert alert-success"></div>

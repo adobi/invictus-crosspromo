@@ -92,7 +92,7 @@ class Promo extends Promo_Controller
       $res = $this->curl->simple_post(base_url().'promo/add_device/xml', $_POST); 
       
       $data['response'] = $res;
-      //dump($this->curl->error_string); die;
+      //dump($this->curl->error_string);
       //dump(base_url().'promo/add_device/'.$responseType); die;
     }
     
