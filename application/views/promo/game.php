@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="items">
-    <p class="text-center hide" id="ajax-loader-img">
+    <p class="text-center" id="ajax-loader-img">
       <img src="<?php echo base_url() ?>img/ajax-loader.gif" alt="">
     </p>
     <?php if ($items && $lists): ?>

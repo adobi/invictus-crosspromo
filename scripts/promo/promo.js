@@ -146,7 +146,7 @@
       $(this).find('i').toggleClass('icon-minus').toggleClass('icon-plus')
       $(this).parent().next().toggle()
     }) 
-    
+    $('#ajax-loader-img').hide()
     $('body').on('click', 'a', function() {
       $('#ajax-loader-img').show()
     })   
