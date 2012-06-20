@@ -97,6 +97,9 @@ class Promo extends Promo_Controller
     
     //$data['games'] = $this->model->toAssocArray('id', 'game_name+platform_name', $this->model->fetchAllWithGameAndPlatform());  
     
+    $this->load->model('Games', 'games');
+    $data['games'] = $this->games->fetchAll();
+    
     $this->template->build('promo/add_device', $data);
   }
   

@@ -134,7 +134,7 @@
       </tr>
       <tr>
         <td><span class="label label-info">game_name</span></td>
-        <td>The name of the game (e.g. <em>Froggy Jump</em>)</td>
+        <td>The name of the game (e.g. <em>Froggy Jump</em>) <a data-toggle="modal" href="#games-modal" class="btn" rel="tooltip" title="Show games list"><i class="icon-list"></i></a></td>
       </tr>
       <tr>
         <td><span class="label label-info">game_version</span></td>
@@ -231,3 +231,24 @@ Error
   <h6>Response type</h6>
   <pre>HTML</pre>
 </fieldset>
+
+<div id="games-modal" class="hide fade modal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Game names</h3>
+    </div>
+    <div class="modal-body">
+      <?php if ($games): ?>
+        <?php foreach ($games as $item): ?>
+          <?php if ($item): ?>
+            <input type="text" class="span5" value="<?php echo $item->name ?>" />
+          <?php endif ?>
+        <?php endforeach ?>
+      <?php else: ?>
+        <div class="alert alert-error">No games</div>
+      <?php endif ?>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+</div>

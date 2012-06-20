@@ -151,6 +151,8 @@
       $('#ajax-loader-img').show()
     })   
     
+    App.Tooltip();
+    
     $(".chosen").chosen({
         no_results_text: "No results matched", 
     });
