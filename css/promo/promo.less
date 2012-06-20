@@ -15,6 +15,16 @@
 @itemBoxShadow:#5c5c5c;
 @itemColor:#fff;
 
+.header{
+  .gradientBar(#F5F5F5, #ececec);
+  .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.10) inset);
+  border-bottom:1px solid rgba(0, 0, 0, 0.15); 
+  border-bottom:1px solid #DDDDDD;
+}
+
+.modal-header {
+  .header;
+}
 
 .font-border(@color) {
   text-shadow: -1px 0 @color, 0 1px @color, 1px 0 @color, 0 -1px @color;
