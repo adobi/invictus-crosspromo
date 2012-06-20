@@ -145,7 +145,11 @@
       
       $(this).find('i').toggleClass('icon-minus').toggleClass('icon-plus')
       $(this).parent().next().toggle()
-    })    
+    }) 
+    
+    $('body').on('click', 'a', function() {
+      $('#ajax-loader-img').show()
+    })   
     
     $(".chosen").chosen({
         no_results_text: "No results matched", 
@@ -176,5 +180,6 @@
     */
   });
   
+  $(window).unload( function () { $('#ajax-loader-img').show() } );  
 } (jQuery);
 

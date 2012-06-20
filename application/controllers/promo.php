@@ -83,7 +83,6 @@ class Promo extends Promo_Controller
     
     $data['response'] = false;
     
-    if (isset($_GET['device_id'])) $_POST = $_GET;
     
     if ($_POST) {
       
@@ -103,6 +102,12 @@ class Promo extends Promo_Controller
   
   public function add_device() 
   {
+
+    if (isset($_GET['device_id'])) {
+      $_POST = $_GET;
+      $_POST['game_name'] = urldecode($_POST['game_name']);
+    }
+    
     file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
     $this->form_validation->set_error_delimiters('', '');
     

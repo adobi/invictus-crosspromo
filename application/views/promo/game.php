@@ -19,9 +19,11 @@
       </ul>
     </div>
   </div>
-  
-  <?php if ($items && $lists): ?>
-    <div class="items">
+  <div class="items">
+    <p class="text-center hide" id="ajax-loader-img">
+      <img src="<?php echo base_url() ?>img/ajax-loader.gif" alt="">
+    </p>
+    <?php if ($items && $lists): ?>
       <?php foreach ($items as $item): ?>
         <?php if (is_object($item)): ?>
           <div class="item" style="<?php echo isset($item->removed) ? 'opacity:.6' : '' ?>">
@@ -102,10 +104,10 @@
           </div>        
         <?php endif ?>
       <?php endforeach ?>
-    </div>
-  <?php else: ?>
-    <div class="alert alert-error">
-      No items
-    </div>  
-  <?php endif ?>
+    <?php else: ?>
+      <div class="alert alert-error">
+        No items
+      </div>  
+    <?php endif ?>
+  </div>
   
