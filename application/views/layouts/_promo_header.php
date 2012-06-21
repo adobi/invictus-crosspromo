@@ -32,6 +32,15 @@
         
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-27571060-2']);
+            <?php if (isset($params) && isset($params["device"])) : ?>
+              _gaq.push(['_setCustomVar', 1, 'UserID', '<?php echo $params["device"] ?>', 1]);
+            <?php endif; ?>
+            <?php if ($game) : ?>
+              _gaq.push(['_setCustomVar', 2, 'SourceGame', '<?php echo $game->id . "-" . $game->name ?>', 1]);
+            <?php endif; ?>
+            <?php if ($game_platform) : ?>
+              _gaq.push(['_setCustomVar', 3, 'GameVersion', '<?php echo $game_platform->version ?>', 1]);
+            <?php endif; ?>
             _gaq.push(['_setSiteSpeedSampleRate', 100]);
             _gaq.push(['_setDomainName', 'crosspromo.invictus.com']);
             _gaq.push(['_trackPageview']);

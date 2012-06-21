@@ -147,7 +147,7 @@
       $(this).parent().next().toggle()
     }) 
     $('#ajax-loader-img').hide()
-    $('body').on('click', 'a', function() {
+    $('body').on('click', '.crosspromo-tabs a', function() {
       $('#ajax-loader-img').show()
     })   
     

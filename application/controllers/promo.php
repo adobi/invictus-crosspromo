@@ -40,6 +40,11 @@ class Promo extends Promo_Controller
     
     $data['list_id'] = false;
     $data['lists'] = false;
+    
+    $data['game'] = $this->games->find($gp->game_id);
+    
+    $data['game_platform'] = $gp;
+    
     if ($gp) {
     
       $this->load->model('Crosspromolists', 'lists');
