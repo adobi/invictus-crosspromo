@@ -261,7 +261,11 @@ class Crosspromos extends MY_Model
       
       if (!$game) return false;
       
-      $data['ga_label'] = $game->name . ' - ' . $gp->version . ' - ' . $list->name . ' - ' . time();
+      $this->load->model('Crosspromotypes', 'types');
+      
+      $type = $this->types->find($crosspromo->type_id);
+      
+      $data['ga_label'] = $game->name . ' - '. $list->name . ' - ' . ($type ? $type->name : 'No type') . ' - '  . time();
       
       //dump($data);
       $this->update($data, $id);
