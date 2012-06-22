@@ -9,14 +9,16 @@
         <a href="" class="btn {{is_active list.is_active}}" rel="tooltip" title="Activate/Inactivate">
           <input class="switch-value" type="checkbox" name="is_active" value="1" style="margin:-3px 0 0 0" data-crosspromo-id="{{list.id}}" {{is_checked list.is_active}}>
         </a>
-        <a href="#" class="btn toggle" data-parent=".crosspromo-type" data-target=".thumbnails" rel="tooltip" title="Toggle list"><i class="icon-resize-vertical"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
           <i class="icon-cog"></i>
         </a>
         <ul class="dropdown-menu text-left">
-          <li><a href="#" class=" editable_ edit-list-modal" data-parent=".crosspromo-type" data-target="legend span" data-list-id="{{list.id}}" rel="_tooltip" title="Edit list"><i class="icon-edit"></i> Edit</a>
-            <li><a href="#" class=" editable_ copy-list-modal" data-parent=".crosspromo-type" data-target="legend span" data-list-id="{{list.id}}" rel="_tooltip" title="Copy list"><i class="icon-hdd"></i> Copy</a>
-          <a href="#" class=" delete-list-item" data-id="{{list.id}}" rel="_tooltip" title="Delete list"><i class="icon-trash"></i> Delete</a></li>
+          <li><a href="#" class=" editable_ edit-list-modal" data-parent=".crosspromo-type" data-target="legend span" data-list-id="{{list.id}}" rel="_tooltip" title="Edit list"><i class="icon-edit"></i> Edit</a></li>
+          <li class="divider"></li>
+          <li><a href="#" class="toggle" data-parent=".crosspromo-type" data-target=".thumbnails" _rel="tooltip" title="Toggle list"><i class="icon-resize-vertical"></i> Toggle</a></li>
+          <li><a href="#" class=" editable_ copy-list-modal" data-parent=".crosspromo-type" data-target="legend span" data-list-id="{{list.id}}" rel="_tooltip" title="Copy list"><i class="icon-hdd"></i> Copy</a></li>
+          <li class="divider"></li>
+          <li><a href="#" class=" delete-list-item" data-id="{{list.id}}" rel="_tooltip" title="Delete list"><i class="icon-trash"></i> Delete</a></li>
         </ul>
       </div>
     </legend>

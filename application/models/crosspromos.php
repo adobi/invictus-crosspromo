@@ -265,7 +265,7 @@ class Crosspromos extends MY_Model
       
       $type = $this->types->find($crosspromo->type_id);
       
-      $data['ga_label'] = $game->name . ' - '. $list->name . ' - ' . ($type ? $type->name : 'No type') . ' - '  . time();
+      $data['ga_label'] = $game->name . ' - ' . ($type ? $type->name : 'No type') . ' - '  . time();
       
       //dump($data);
       $this->update($data, $id);
