@@ -37,12 +37,12 @@ class Crosspromos extends MY_Model
       
       if ($params) {
 
-        if (!$result || !isset($params['platform'])) return $result;
+        if (!isset($params['platform'])) return $result;
 
         $this->load->model('Users', 'user');
         
         $user = $this->user->findBy('device_id', $params['device']);
-        
+        //dump($params);
         if (!$user) return $result;
         
         $this->load->model('UserGames', 'usergames');
@@ -60,49 +60,53 @@ class Crosspromos extends MY_Model
         $criteria['user_id'] = $user->id;
         $criteria['platforms'] = $platforms;
         
-        foreach ($result as $index=>$item) {
+        if ($result) {
           
-          /**
-           * ha az listsitem min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
-           * valasztas: ami nincs meg a jatekosnak, es azonos os-sel rendelkezik mint ami a keresben jon, es a min_os_version kisebb mint az kapott os verzio
-           *
-           * @author Dobi Attila
-           */
-           
-           if (in_array($item->platform_id, $platforms) && !$this->isOsVersionOk($item->min_os_version, $params['os'])) {
+          foreach ($result as $index=>$item) {
+            
+            /**
+             * ha az listsitem min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
+             * valasztas: ami nincs meg a jatekosnak, es azonos os-sel rendelkezik mint ami a keresben jon, es a min_os_version kisebb mint az kapott os verzio
+             *
+             * @author Dobi Attila
+             */
              
-             $result[$index] = -1;
-             
-             $holes[$index] = $item;
-             //$result[$index] = $this->findSimilarGame($criteria, $item);
-            }
-           
-           /**
-            * ha megvan neki a jatek, es a listaban levo jatek verzioszama nagyobb mint a parameterkent kapott verzio akkor marad a listaba
-            *
-            * @author Dobi Attila
-            */
-           if ($ownedGame = $this->usergames->hasGame($user->id, $item->gp_id)) {
-
-             if ($ownedGame->game_version < $item->version) {
-               $item->is_updated = true;
-             } else {
-               /**
-                * ha megvan neki a jatek, es a listaban levo jatek verziszama = a parameterkent kapott verzioval akkor kikerul a listabol
-                * valasztas: olyan jatek, ami nincs meg a jatekosnak es a kategoriaja megegyezik a kikerult jatek kategoriajaval
-                *
-                * @author Dobi Attila
-                */  
-               $result[$index] = -2; 
+             if (in_array($item->platform_id, $platforms) && !$this->isOsVersionOk($item->min_os_version, $params['os'])) {
                
-               //$result[$index] = $this->findSimilarGame($criteria, $item);
+               $result[$index] = -1;
+               
                $holes[$index] = $item;
-             }
-           } 
+               //$result[$index] = $this->findSimilarGame($criteria, $item);
+              }
+             
+             /**
+              * ha megvan neki a jatek, es a listaban levo jatek verzioszama nagyobb mint a parameterkent kapott verzio akkor marad a listaba
+              *
+              * @author Dobi Attila
+              */
+             if ($ownedGame = $this->usergames->hasGame($user->id, $item->gp_id)) {
+  
+               if ($ownedGame->game_version < $item->version) {
+                 $item->is_updated = true;
+               } else {
+                 /**
+                  * ha megvan neki a jatek, es a listaban levo jatek verziszama = a parameterkent kapott verzioval akkor kikerul a listabol
+                  * valasztas: olyan jatek, ami nincs meg a jatekosnak es a kategoriaja megegyezik a kikerult jatek kategoriajaval
+                  *
+                  * @author Dobi Attila
+                  */  
+                 $result[$index] = -2; 
+                 
+                 //$result[$index] = $this->findSimilarGame($criteria, $item);
+                 $holes[$index] = $item;
+               }
+             } 
+          }
+        } else {
+          $holes = range(0,4);
         }
-        
+
         $result = $this->findSimilarGame($criteria, $result, $holes, $list);
-        
       }
       
       
