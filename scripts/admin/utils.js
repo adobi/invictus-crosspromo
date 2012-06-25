@@ -355,8 +355,6 @@
     
   })
   
-  App.Utils = {
-    
-  }
+  App.Utils = Utils
    
 }(jQuery);

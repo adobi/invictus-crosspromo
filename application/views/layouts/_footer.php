@@ -125,6 +125,25 @@
         </div>
         <?php echo form_close() ?>
       </div>
+      
+      <div class="modal hide fade" id="copy-list-modal">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Copy list</h3>
+        </div>
+        <?php echo form_open('', array('style'=>'margin-bottom:0;', 'id'=>'copy-list-form', 'data-action'=>'crosspromo/copy_list/')) ?>
+        <div class="modal-body">
+          <div class="alert alert-error hide"></div>
+          <div style="margin-bottom:200px">
+            <?php echo form_dropdown('target_games[]', $games_select, '', 'class="span6 chosen" data-placeholder="Select games" multiple') ?>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Copy</button>
+        </div>
+        <?php echo form_close() ?>
+      </div>      
+      
 	  </div>
     <!-- /javascript templates -->
     

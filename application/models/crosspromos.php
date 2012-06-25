@@ -52,9 +52,25 @@ class Crosspromos extends MY_Model
         $holes = array();
         
         $platform = array();
-        if (strtolower($params['platform']) === 'ios') $platforms = array(1,2,5);
+        if (strtolower($params['platform']) === 'ios') {
+          if (strtolower($params['type']) === 'phone') {
+            $platforms = array(2);
+          }
+          
+          if (strtolower($params['type']) === 'tablet') {
+            $platforms = array(5);
+          }
+        }
         
-        if (strtolower($params['platform']) === 'android') $platforms = array(7,8);
+        if (strtolower($params['platform']) === 'android') {
+          if (strtolower($params['type']) === 'phone') {
+            $platforms = array(7);
+          }
+          
+          if (strtolower($params['type']) === 'tablet') {
+            $platforms = array(8);
+          }
+        }
         
         $criteria = $params;
         $criteria['user_id'] = $user->id;

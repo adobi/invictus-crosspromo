@@ -241,4 +241,34 @@ class Crosspromo extends MY_Controller
       
       die;
     }
+    
+    public function copy_list()
+    {
+      //$this->form_validation->set_rules('target_games[]', 'Target games', 'required');
+      
+      $response = array();
+      //dump($_POST);
+      //if ($this->form_validation->run()) {
+      if (isset($_POST) && isset($_POST['target_games'])) {
+        
+        $list = $this->uri->segment(3);
+        
+        $this->load->model('Crosspromolists', 'lists');
+        
+        if ($this->lists->copyList($list, $_POST['target_games'])) {
+          $response['success'] = 1;
+        } else {
+          $response['error'] = 'Something went wrong, try again later';
+        }
+        
+      } else {
+        
+        if (isset($_POST))
+          $response['error'] = 'Select some games';
+      }
+      
+      echo json_encode($response);
+      
+      die;
+    }
 }

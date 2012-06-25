@@ -266,11 +266,54 @@
     }
   }
   
+  Crosspromo.CopyListModal = function(el) 
+  {
+    $('#copy-list-modal').modal()
+    
+    $('#copy-list-form').attr('action', $('#copy-list-form').data('action') + el.data('list-id'))
+    
+    $('#copy-list-modal').on('hide', function() {
+      $(this).find('button').attr('disabled', false)
+      
+      $(this).find('select').val('').trigger("liszt:updated");
+    })
+  }
+  
+  Crosspromo.CopyList = function(el) 
+  {
+    App.Utils.save(el.attr('action'), el.serialize(), function(response) {
+      
+      if(response.error) {
+        
+        el.find('.alert-error').html(response.error).show()
+        
+        el.find('.button').attr('disabled', false)
+      }
+      
+      if (response.success) {
+        $('#copy-list-modal').modal('hide')
+      }
+      
+    }, function() {
+      
+    })
+  }
+  
   $(function() {
     
     //$('body').on('crosspromo-laod-games', Crosspromo.LoadAllGames);
     
     Crosspromo.TriggerLoadAllGames()
+
+    $('body').on('click', '.copy-list-modal', function(e) {
+      e.preventDefault()
+      Crosspromo.CopyListModal($(this))
+    })
+    
+    $('body').on('submit', '#copy-list-form', function(e) {
+      e.preventDefault()
+      Crosspromo.CopyList($(this))
+    })
     
     $('body').on('change', '#crosspromo_base_game', function(e) {
       Crosspromo.LoadForGame($(this).val())
