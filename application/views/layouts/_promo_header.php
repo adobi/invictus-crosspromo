@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" style="overflow: hidden_">
     <head>
-      <title>Invictus Crosspromo</title>
+      <title><?php echo isset($game) && $game->name && isset($current_list) ? $game->name .' - '. $current_list->name : 'Invictus Crosspromo' ?></title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
       

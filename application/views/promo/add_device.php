@@ -153,7 +153,8 @@ Success
   "success": 
   {
     "game": <strong>52</strong> /* used at the Get crosspromo list api call*/
-  }
+  },
+  "has_list": 1 /* 0 or 1 */
 }</pre>
 Error
 <pre>
@@ -169,6 +170,9 @@ Success
   <game>
     52 /* used at the Get crosspromo list api call*/
   </game>
+  <has_list>
+    1  /* 0 or 1 */
+  </has_list>
 </success>
 ") ?></pre>
 Error

@@ -24,4 +24,13 @@ class Crosspromolists extends MY_Model
       
       return $result;
     }
+    
+    public function hasGameList($gamePlatformId) 
+    {
+      if (!$gamePlatformId) return 0;
+      
+      $result = $this->findBy('game_id', $gamePlatformId);
+      
+      return !empty($result) ? 1 : 0;
+    }
 }

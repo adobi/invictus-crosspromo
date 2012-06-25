@@ -40,6 +40,7 @@ class Promo extends Promo_Controller
     
     $data['list_id'] = false;
     $data['lists'] = false;
+    $data['current_list'] = false;
     
     $data['game'] = $this->games->find($gp->game_id);
     
@@ -56,9 +57,11 @@ class Promo extends Promo_Controller
       $list_id = false;
       if ($lists && $lists[0] && !isset($params['list'])) {
         $list_id = $lists[0]->id;
+        $data['current_list'] = $lists[0];
       } else {
         if (isset($params['list'])) {
           $list_id = $params['list'];
+          $data['current_list'] = $this->lists->find($params['list']);
         }
       }
       
@@ -108,6 +111,19 @@ class Promo extends Promo_Controller
     $this->template->build('promo/add_device', $data);
   }
   
+  /**
+   * keszulek elmetese
+   *
+   * @param device_id string md5 hash
+   * @param game_name string
+   * @param platform_name ios|android
+   * @param plartform_type phone|tablet
+   * @param os_version 
+   * @param game_version
+   *
+   * @return json|xml game_platfor_id es van e lista az adott jatekhoz
+   * @author Dobi Attila
+   */
   public function add_device() 
   {
 
@@ -190,6 +206,11 @@ class Promo extends Promo_Controller
          }
         
         $response['success'] = array('game'=>$_POST['game_id']);
+        
+        $this->load->model('Crosspromolists', 'lists');
+        
+        $response['success']['has_list'] = $this->lists->hasGameList($_POST['game_id']);
+        
       } else {
         $response['error'] = 'Invalid game id';
       }
@@ -218,7 +239,11 @@ class Promo extends Promo_Controller
     if ($responseType === 'xml') {
       
       if (isset($response['success'])) {
-        $result = '<success><game>'.$response['success']['game'].'</game></success>';
+        $result = '<success><game>'.$response['success']['game'].'</game>';
+        
+        $result .= '<has_list>'.$response['success']['has_list'].'<has_list>';
+        
+        $result .= '</success>';
       }
       
       if (isset($response['error'])) {
