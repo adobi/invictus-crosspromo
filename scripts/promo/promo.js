@@ -149,7 +149,7 @@
   
   $(function() 
   {
-    //App.Redirect()
+    App.Redirect()
     
     $('body').on('click', '.toggle', function(e) {
       e.preventDefault();
@@ -164,9 +164,9 @@
     
     App.Tooltip();
     
-    $(".chosen").chosen({
-        no_results_text: "No results matched", 
-    });
+    //$(".chosen").chosen({
+    //    no_results_text: "No results matched", 
+    //});
         
     window.opener = window.window
     App.CloseWindow()

@@ -46,11 +46,11 @@
             <?php if (isset($params) && isset($params["device"])) : ?>
               _gaq.push(['_setCustomVar', 1, 'UserID', '<?php echo $params["device"] ?>', 1]);
             <?php endif; ?>
-            <?php if ($game && $game_platform) : ?>
+            <?php if (isset($game) && isset($game_platform)) : ?>
               _gaq.push(['_setCustomVar', 2, 'SourceGame', '<?php echo $game->name . " - " . $game_platform->version?>', 2]);
             <?php endif; ?>
             <?php if (isset($params['thanks'])) : ?>
-              //_gaq.push(['_setCustomVar', 3, '', '', 2]);
+              //_gaq.push(['_setCustomVar', 3, 'Loyalty', '', 1]);
             <?php endif; ?>
             _gaq.push(['_setSiteSpeedSampleRate', 100]);
             _gaq.push(['_setDomainName', 'crosspromo.invictus.com']);

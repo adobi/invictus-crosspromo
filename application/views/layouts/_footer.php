@@ -125,25 +125,26 @@
         </div>
         <?php echo form_close() ?>
       </div>
-      
-      <div class="modal hide fade" id="copy-list-modal">
-        <div class="modal-header">
-          <a class="close" data-dismiss="modal">×</a>
-          <h3>Copy list</h3>
-        </div>
-        <?php echo form_open('', array('style'=>'margin-bottom:0;', 'id'=>'copy-list-form', 'data-action'=>'crosspromo/copy_list/')) ?>
-        <div class="modal-body">
-          <div class="alert alert-error hide"></div>
-          <div style="margin-bottom:200px">
-            <?php echo form_dropdown('target_games[]', $games_select, '', 'class="span6 chosen" data-placeholder="Select games" multiple') ?>
+
+      <?php if (isset($games_select)): ?>
+        <div class="modal hide fade" id="copy-list-modal">
+          <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>Copy list</h3>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Copy</button>
-        </div>
-        <?php echo form_close() ?>
-      </div>      
-      
+          <?php echo form_open('', array('style'=>'margin-bottom:0;', 'id'=>'copy-list-form', 'data-action'=>'crosspromo/copy_list/')) ?>
+          <div class="modal-body">
+            <div class="alert alert-error hide"></div>
+            <div style="margin-bottom:200px">
+              <?php echo form_dropdown('target_games[]', $games_select, '', 'class="span6 chosen" data-placeholder="Select games" multiple') ?>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Copy</button>
+          </div>
+          <?php echo form_close() ?>
+        </div>      
+      <?php endif ?>
 	  </div>
     <!-- /javascript templates -->
     
@@ -162,18 +163,11 @@
   	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
   	            "https://raw.github.com/cowboy/jquery-hashchange/v1.3/jquery.ba-hashchange.min.js",
   	            "http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js",
-
+              <?php if (ENVIRONMENT === 'development') : ?>
                 "<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap.js",
-
                 "<?php echo base_url() ?>scripts/plugins/chosen/chosen.jquery.min.js",
-                
-                //"<?php echo base_url(); ?>scripts/plugins/scroll/jquery.scrollTo-min.js",
-                //"<?php echo base_url() ?>scripts/plugins/google-code-prettify/prettify.js",
                 "<?php echo base_url() ?>scripts/plugins/charcounter/jquery.charcounter.js",
-                "<?php echo base_url() ?>scripts/plugins/prettify-upload/jquery.prettify-upload.js",
-                //"<?php echo base_url() ?>scripts/plugins/lionbars/jquery.lionbars.0.3.min.js",
-                "<?php echo base_url() ?>scripts/plugins/spinjs/spin.min.js",
-                
+
                 "<?php echo base_url() ?>scripts/admin/nav.js?<?php echo time(); ?>",
                 "<?php echo base_url() ?>scripts/admin/template.js?<?php echo time(); ?>",
                 "<?php echo base_url() ?>scripts/admin/utils.js?<?php echo time(); ?>",
@@ -181,6 +175,9 @@
                   "<?php echo base_url() ?>scripts/admin/crosspromo.js?<?php echo time(); ?>",
                 <?php endif; ?>
                 "<?php echo base_url() ?>scripts/admin/page.js?<?php echo time(); ?>",
+              <?php else: ?>
+                "<?php echo base_url() ?>assets/scripts/admin.min.js",
+              <?php endif; ?>
                 function() {
                 
                     <?php if ($this->session->flashdata('message')): ?>

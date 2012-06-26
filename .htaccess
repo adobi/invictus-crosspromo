@@ -12,13 +12,8 @@ RewriteCond $1 !^(index\.php|uploads|css|images|scripts)
 RewriteRule ^.*$ index.php [NC,L]
 
 
-RewriteCond %{QUERY_STRING} full=(.*)&?
-RewriteRule (.*)rwd-router/.*\.(jpe?g|png|gif|webp) $1%1 [L]
-# ignore trap for non-image requests, rewrite URL without trap segment
-RewriteRule (.*)rwd-router/(.*)$ $1$2
-
-Header unset ETag
-FileETag None
+#Header unset ETag
+#FileETag None
 
 <FilesMatch "(?i)^.*\.(ico|flv|jpg|jpeg|png|gif|js|css)$">
     Header unset Last-Modified

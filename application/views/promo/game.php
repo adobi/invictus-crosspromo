@@ -57,15 +57,17 @@
                   <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01'): ?>
                     <p style="font-weight:bold"><?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
                   <?php endif ?>
-                  <p>
-                    <ul>
-                      <li>os type: <?php echo $item->platform_name ?></li>
-                      <li>min os version: <?php echo $item->min_os_version ?></li>
-                      <li>game version: <?php echo $item->version ?></li>
-                      <li>random inserted: <?php echo @$item->inserted ?></li>
-                      <li>is new game: <?php echo $item->is_new ?></li>
-                    </ul>
-                  </p>
+                  <?php if (ENVIRONMENT === 'development'): ?>
+                    <p>
+                      <ul>
+                        <li>os type: <?php echo $item->platform_name ?></li>
+                        <li>min os version: <?php echo $item->min_os_version ?></li>
+                        <li>game version: <?php echo $item->version ?></li>
+                        <li>random inserted: <?php echo @$item->inserted ?></li>
+                        <li>is new game: <?php echo $item->is_new ?></li>
+                      </ul>
+                    </p>
+                  <?php endif ?>
                 </td>
                 <td class="promo-item-download">
                   <div class="download-new text-right">
