@@ -42,7 +42,7 @@
         <script type="text/javascript">
         
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27571060-2']);
+            _gaq.push(['_setAccount', 'UA-32951803-1']);
             <?php if (isset($params) && isset($params["device"])) : ?>
               _gaq.push(['_setCustomVar', 1, 'UserID', '<?php echo $params["device"] ?>', 1]);
             <?php endif; ?>
@@ -53,7 +53,7 @@
               //_gaq.push(['_setCustomVar', 3, 'Loyalty', '', 1]);
             <?php endif; ?>
             _gaq.push(['_setSiteSpeedSampleRate', 100]);
-            _gaq.push(['_setDomainName', 'crosspromo.invictus.com']);
+            _gaq.push(['_setDomainName', 'invictus.com']);
             _gaq.push(['_trackPageview']);
             
             (function() {
