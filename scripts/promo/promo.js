@@ -138,8 +138,19 @@
     })
   }
   
+  App.Redirect = function() 
+  {
+    if ($('#redirect').length) {
+      setTimeout(function() {
+        window.location = $('#redirect').attr('href')
+      }, 3000)
+    }
+  }
+  
   $(function() 
   {
+    //App.Redirect()
+    
     $('body').on('click', '.toggle', function(e) {
       e.preventDefault();
       

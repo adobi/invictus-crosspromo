@@ -46,39 +46,45 @@ class Promo extends Promo_Controller
     
     $data['game_platform'] = $gp;
     
-    if ($gp) {
-    
-      $this->load->model('Crosspromolists', 'lists');
+    if (isset($params['thanks'])) {
       
-      $lists = $this->lists->fetchForGame($id);
+      $this->template->build('promo/thanks', $data);
+    } else {
       
-      $data['lists'] = $lists;
+      if ($gp) {
       
-      $list_id = false;
-      if ($lists && $lists[0] && !isset($params['list'])) {
-        $list_id = $lists[0]->id;
-        $data['current_list'] = $lists[0];
-      } else {
-        if (isset($params['list'])) {
-          $list_id = $params['list'];
-          $data['current_list'] = $this->lists->find($params['list']);
-        }
-      }
-      
-      unset($data['params']['list']);
-      
-      $data['list_id'] = $list_id;
-      
-      $data['is_free'] = $this->lists->isFree($list_id);
-      
-      if ($this->lists->find($list_id)) {
+        $this->load->model('Crosspromolists', 'lists');
         
-        $data['items'] = $this->model->fetchByGame($id, $list_id, $params);
+        $lists = $this->lists->fetchForGame($id);
+        
+        $data['lists'] = $lists;
+        
+        $list_id = false;
+        if ($lists && $lists[0] && !isset($params['list'])) {
+          $list_id = $lists[0]->id;
+          $data['current_list'] = $lists[0];
+        } else {
+          if (isset($params['list'])) {
+            $list_id = $params['list'];
+            $data['current_list'] = $this->lists->find($params['list']);
+          }
+        }
+        
+        unset($data['params']['list']);
+        
+        $data['list_id'] = $list_id;
+        
+        $data['is_free'] = $this->lists->isFree($list_id);
+        
+        if ($this->lists->find($list_id)) {
+          
+          $data['items'] = $this->model->fetchByGame($id, $list_id, $params);
+        }
+        
       }
       
+      $this->template->build('promo/game', $data);
     }
-    
-    $this->template->build('promo/game', $data);
   }
   
   public function console()
