@@ -186,7 +186,7 @@ Error
 
 <br>
 
-<legend>
+<legend id="get_crosspromo_list">
   <a href="#" class="btn btn-mini toggle"><i class="icon-minus"></i></a> 
   Get crosspromo list
 </legend>
@@ -235,7 +235,17 @@ Error
   <h6>Response type</h6>
   <pre>HTML</pre>
 </fieldset>
+<br>
 
+<legend>
+  <a href="#" class="btn btn-mini toggle"><i class="icon-minus"></i></a> 
+  Thank you page after crosspromo list
+</legend>
+<fieldset class="doc-section">
+  <h6>Request uri</h6>
+  <pre><a href="#get_crosspromo_list">get_crosspromo_list_uri</a>/thanks</pre>
+
+</fieldset>
 <div id="games-modal" class="hide fade modal">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">×</button>
