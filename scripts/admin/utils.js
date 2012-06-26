@@ -118,7 +118,7 @@
         
         el.parent().html('<input type="file" name="image">')
         $('#'+id).find('legend').find('img').remove()
-        $('#'+id).find('img').attr('src', '//placehold.it/80x80')
+        //$('#'+id).find('legend img').attr('src', '//placehold.it/80x80')
       })
     },
     
