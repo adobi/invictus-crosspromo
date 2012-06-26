@@ -251,6 +251,9 @@
 
         $('.all-games').find('li.hide').removeClass('hide')
         $('.all-games').find('[data-id='+id+']').parents('li').addClass('hide')
+        
+        $('.games-filter').find('[data-platform='+json.platform.id+']').trigger('click')
+        
         App.Tooltip('hide')
 
       })
