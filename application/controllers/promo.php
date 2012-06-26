@@ -247,7 +247,7 @@ class Promo extends Promo_Controller
       if (isset($response['success'])) {
         $result = '<success><game>'.$response['success']['game'].'</game>';
         
-        $result .= '<has_list>'.$response['success']['has_list'].'<has_list>';
+        $result .= '<has_list>'.$response['success']['has_list'].'</has_list>';
         
         $result .= '</success>';
       }
@@ -256,7 +256,7 @@ class Promo extends Promo_Controller
         $result = '<error>'.htmlspecialchars($response['error']).'</error>';
       }
     }
-
+    header ("Content-Type:text/xml");  
     echo $result;
 
     //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
