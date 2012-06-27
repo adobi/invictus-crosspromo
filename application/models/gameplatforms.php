@@ -7,6 +7,23 @@ class Gameplatforms extends MY_Model
     protected $_name = "cp_game_platform";
     protected $_primary = "id";
     
+    public function getActualPrice($id)
+    {
+      if (!$id) return 0;
+      
+      $item = $this->find($id);
+      
+      if (!$item) return 0;
+      
+      $this->load->model('Crosspromos', 'promo');
+      
+      $promos = $this->promo->fetchBy('promo_game_id', $id);
+      
+      if (!$promos) return $item->price ? $item->price : 0;
+      
+      return $promos[0]->promo_price ? $promos[0]->promo_price : 0;
+    }
+    
     public function findByGameAndPlatform($game, $platform) 
     {
       

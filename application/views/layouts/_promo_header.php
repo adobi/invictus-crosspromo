@@ -35,6 +35,9 @@
         <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css/all.css">
       <?php endif ?>       
       
+      <?php if ($this->uri->segment(2) !== 'show'): ?>
+        <link rel = "stylesheet" type="text/css" href="<?= base_url() ?>assets/css/bootstrap.css">
+      <?php endif ?>
        
     </head>
     
@@ -49,12 +52,35 @@
             <?php if (isset($game) && isset($game_platform)) : ?>
               _gaq.push(['_setCustomVar', 2, 'SourceGame', '<?php echo $game->name . " - " . $game_platform->version?>', 2]);
             <?php endif; ?>
-            <?php if (isset($params['thanks'])) : ?>
-              //_gaq.push(['_setCustomVar', 3, 'Loyalty', '', 1]);
+            <?php if (isset($params['thanks']) && isset($loyalty)) : ?>
+              _gaq.push(['_setCustomVar', 3, 'Loyalty', '<?php echo $loyalty ?>', 1]);
             <?php endif; ?>
             _gaq.push(['_setSiteSpeedSampleRate', 100]);
             _gaq.push(['_setDomainName', 'invictus.com']);
             _gaq.push(['_trackPageview']);
+            
+            <?php if (isset($transaction)) : ?>
+              _gaq.push(['_addTrans', 
+                '<?php echo $transaction["order_id"] ?>', 
+                '<?php echo $transaction["store_name"] ?>', 
+                '<?php echo $transaction["price"] ?>', 
+                '<?php echo $transaction["tax"] ?>', 
+                '<?php echo $transaction["shipping"] ?>', 
+                '<?php echo $transaction["city"] ?>', 
+                '<?php echo $transaction["state"] ?>', 
+                '<?php echo $transaction["country"] ?>', 
+
+              ]);
+              _gaq.push(['_addItem',
+                '<?php echo $transaction["order_id"] ?>', 
+                '<?php echo $transaction["sku"] ?>', 
+                '<?php echo $transaction["name"] ?>', 
+                '<?php echo $transaction["category"] ?>', 
+                '<?php echo $transaction["price"] ?>',
+                '<?php echo $transaction["quantity"] ?>',
+              ]);
+              _gaq.push(['_trackTrans']);
+            <?php endif; ?>
             
             (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

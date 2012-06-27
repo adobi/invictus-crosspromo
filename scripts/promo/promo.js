@@ -147,9 +147,31 @@
     }
   }
   
+  App.TrackClick = function() 
+  {
+    $('body').on('click', '.item a', function() {
+      var self = $(this),
+          data = {
+            'game_id':self.parents('.item:first').data('game-id'),
+            'user_id': $('.items').data('user-id')
+          },
+          name = $('.csrf-form').find('[type=hidden]').attr('name'),
+          value = $('.csrf-form').find('[type=hidden]').attr('value')
+      
+      data[name] = value
+      $.post(App.URL+'promo/click', data, function(response) {
+        
+      })
+    })
+    
+    return true;
+  }
+  
   $(function() 
   {
-    App.Redirect()
+    //App.Redirect()
+    
+    App.TrackClick()
     
     $('body').on('click', '.toggle', function(e) {
       e.preventDefault();

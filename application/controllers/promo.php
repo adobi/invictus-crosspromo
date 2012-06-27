@@ -48,6 +48,61 @@ class Promo extends Promo_Controller
     
     if (isset($params['thanks'])) {
       
+      $this->load->model('Users', 'user');
+      
+      $user = $this->user->findBy('device_id', $params['device']);
+      
+      if ($user) {
+        
+        $this->load->model('Clicks', 'click');
+        
+        if ($this->click->isGameClickedBy($gp->id, $user->id)) {
+          /*
+            TODO record the order, pass the parameters for the analytics
+          */
+
+          $this->load->model('Users', 'user');
+          
+          $user = $this->user->findBy('device_id', $params['device']);      
+          
+          if (!$user) return false;
+                    
+          $this->load->model('Orders', 'order');
+          
+          $order = array(
+            'created'=>date('Y-m-d H:i:s', time()),
+            'game_id'=>$params['game'],
+            'user_id'=>$user->id,
+            'quantity'=>1
+          );
+          
+          $orderId = $this->order->insert($order);
+          
+          $this->load->model('Orders', 'order');
+          $data['loyalty'] = $this->order->getLoyalty($user->id);
+          
+          $this->load->model('Categorys', 'category');
+          
+          $category = $this->category->find($data['game']->category_id);
+          
+          $data['transaction'] = array(
+            "order_id"=>$orderId,
+            "sku"=>$params['game'],
+            "name"=>$data['game']->name,
+            "category"=>$category ? $category->name : '',
+            "price"=>$this->gp->getActualPrice($gp->id), // crosspromos ar ha van neki olyan
+            "quantity"=>1,
+            'store_name'=>'Invictus Games',
+            'tax'=>'',
+            'shipping'=>'',
+            'city'=>'Debrecen',
+            'state'=>'Hajdú-Bihar',
+            'country'=>'HUN'
+          );
+          //dump($data['transaction']);
+        }
+      }
+      
       $this->template->build('promo/thanks', $data);
     } else {
       
@@ -244,6 +299,8 @@ class Promo extends Promo_Controller
     
     if ($responseType === 'xml') {
       
+      header ("Content-Type:text/xml");  
+      
       if (isset($response['success'])) {
         $result = '<success><game>'.$response['success']['game'].'</game>';
         
@@ -256,7 +313,6 @@ class Promo extends Promo_Controller
         $result = '<error>'.htmlspecialchars($response['error']).'</error>';
       }
     }
-    header ("Content-Type:text/xml");  
     echo $result;
 
     //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
@@ -264,6 +320,31 @@ class Promo extends Promo_Controller
     //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
     die;
     
+  }
+  
+  public function click() 
+  {
+    $this->form_validation->set_rules('game_id', 'game id', 'trim|required');
+    $this->form_validation->set_rules('user_id', 'user id', 'trim|required');
+    
+    if ($this->form_validation->run()) {
+      $_POST['created'] = date('Y-m-d H:i:s', time());
+      
+
+      $this->load->model('Users', 'user');
+      
+      $user = $this->user->findBy('device_id', $_POST['user_id']);      
+      
+      if (!$user) return false;
+      
+      $_POST['user_id'] = $user->id;
+      
+      $this->load->model('Clicks', 'click');
+      
+      $this->click->insert($_POST);
+    }
+    
+    die;
   }
   
   public function get_token()

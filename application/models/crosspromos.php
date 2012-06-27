@@ -150,7 +150,8 @@ class Crosspromos extends MY_Model
       if (!$holes) return $result;
       
       $sql = "select 
-                cp_game.*, 
+                cp_game.*,
+                cp_game.id as promo_game_id, 
                 cp_game_platform.id as gp_id,
                 if(cp_game_platform.is_new=0 || ISNULL(cp_game_platform.is_new), NULL, 1) as is_new,
                 if(cp_game_platform.is_update=0 || ISNULL(cp_game_platform.is_update), NULL, 1) as is_update,
@@ -169,7 +170,7 @@ class Crosspromos extends MY_Model
 								cp_game_platform.id not in (select game_id from cp_user_game where user_id = ".$params['user_id'].")
 								and cp_game_platform.id not in (select promo_game_id from cp_crosspromo where list_id = ".$listId.")
 								and cp_game_platform.platform_id in (".join(',', $params['platforms']).")
-								and cp_game_platform.min_os_version < ".$params['os']."
+								and cp_game_platform.min_os_version < '".$params['os']."'
               order by rand()
               limit ".count($holes);
       $return = $this->execute($sql);

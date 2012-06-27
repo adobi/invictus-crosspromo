@@ -180,6 +180,15 @@ class Crosspromo extends MY_Controller
           $this->load->model('Crosspromos', 'model');
           
           $this->model->update($_POST, $id);
+          
+          if (isset($_POST['promo_price']) && $_POST['promo_price']) {
+            
+            $item = $this->model->find($id);
+            
+            if (!$item) return false;
+            
+            $this->model->update(array('promo_price'=>$_POST['promo_price']), array('promo_game_id'=>$item->promo_game_id));
+          }
         }
       }
       
