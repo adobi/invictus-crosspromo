@@ -151,7 +151,7 @@ class Crosspromos extends MY_Model
       
       $sql = "select 
                 cp_game.*,
-                cp_game.id as promo_game_id, 
+                cp_game_platform.id as promo_game_id, 
                 cp_game_platform.id as gp_id,
                 if(cp_game_platform.is_new=0 || ISNULL(cp_game_platform.is_new), NULL, 1) as is_new,
                 if(cp_game_platform.is_update=0 || ISNULL(cp_game_platform.is_update), NULL, 1) as is_update,

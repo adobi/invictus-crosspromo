@@ -153,15 +153,14 @@
       var self = $(this),
           data = {
             'game_id':self.parents('.item:first').data('game-id'),
-            'user_id': $('.items').data('user-id')
+            'user_id': $('.items').data('user-id'),
+            'type': self.parents('.item:first').data('type')
           },
           name = $('.csrf-form').find('[type=hidden]').attr('name'),
           value = $('.csrf-form').find('[type=hidden]').attr('value')
       
       data[name] = value
-      $.post(App.URL+'promo/click', data, function(response) {
-        
-      })
+      $.post(App.URL+'promo/click', data, function(response) {})
     })
     
     return true;

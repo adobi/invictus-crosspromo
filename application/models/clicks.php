@@ -27,4 +27,15 @@ class Clicks extends MY_Model
     {
       return count($this->getGameClicksBy($game, $user));
     }
-}
+    
+    public function getTypeFromLatestClick($game, $user) 
+    {
+      if (!$game || !$user) return '';
+      
+      $result = $this->fetchRows(array('where'=>array('game_id'=>$game, 'user_id'=>$user), 'order'=>array('by'=>'created', 'dest'=>'desc'), 'limit'=>1, 'offset'=>0));
+      
+      if (empty($result)) return '';
+      
+      return $result[0]->type ? $result[0]->type : '';
+    }
+} 

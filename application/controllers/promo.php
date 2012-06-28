@@ -85,6 +85,8 @@ class Promo extends Promo_Controller
           
           $category = $this->category->find($data['game']->category_id);
           
+          $this->load->model('Clicks', 'click');
+          
           $data['transaction'] = array(
             "order_id"=>$orderId,
             "sku"=>$params['game'],
@@ -92,7 +94,7 @@ class Promo extends Promo_Controller
             "category"=>$category ? $category->name : '',
             "price"=>$this->gp->getActualPrice($gp->id), // crosspromos ar ha van neki olyan
             "quantity"=>1,
-            'store_name'=>'Invictus Games',
+            'store_name'=>$this->click->getTypeFromLatestClick($gp->id, $user->id), // item type a click utan
             'tax'=>'',
             'shipping'=>'',
             'city'=>'Debrecen',

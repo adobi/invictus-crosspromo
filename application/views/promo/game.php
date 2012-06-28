@@ -5,7 +5,9 @@
           <?php foreach ($lists as $i=>$item): ?>
             <li <?php echo (!$list_id && $i === 0) || $list_id === $item->id ? 'class="active"' : '' ?>>
               <a href="<?php echo base_url() ?>promo/show/list/<?php echo $item->id ?>/<?php echo $this->uri->assoc_to_uri($params); ?>">
-                <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->image ?>" alt="">
+                <?php if ($item->image): ?>
+                  <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->image ?>" alt="">
+                <?php endif ?>
                 <span><?php echo $item->name ?></span>
               </a>
             </li>
@@ -27,7 +29,7 @@
   <?php if ($items && $lists): ?>
     <?php foreach ($items as $item): ?>
       <?php if (is_object($item)): ?>
-        <div class="item" style="<?php echo isset($item->removed) ? 'opacity:.6' : '' ?>" data-game-id="<?php echo $item->promo_game_id ?>">
+        <div class="item" style="<?php echo isset($item->removed) ? 'opacity:.6' : '' ?>" data-game-id="<?php echo $item->promo_game_id ?>" data-type="<?php echo get_item_type($item) ?>">
           <a href="<?php echo $item->long_url ?>" target="_blank" <?php echo event_tracking($item) ?>>
           <table>
             <tr>
