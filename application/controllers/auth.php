@@ -30,6 +30,8 @@ class Auth extends MY_Controller
           $this->gp->initFromApi();        
           
           
+          $this->load->model('Categories', 'category');
+          $this->category->initFromApi();           
           
     			redirect(base_url() . 'crosspromo');
     		}

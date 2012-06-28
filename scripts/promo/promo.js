@@ -104,7 +104,7 @@
     $.each(items, function(i, v) {
       //console.log('loading image: ', $(v).data('src'))
       if (!$(v).attr('src'))
-        $(v).parent().spin()
+        //$(v).parent().spin()
       
       $(v).attr('src', $(v).data('src')+'?'+ new Date().getTime()).bind('load', function() {
         //console.log($(v), ' loaded')
@@ -170,6 +170,9 @@
   $(function() 
   {
     //App.Redirect()
+    
+    App.PreloadImages($('.promo-item-image img'))
+    
     
     App.TrackClick()
     

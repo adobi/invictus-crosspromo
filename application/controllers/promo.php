@@ -81,7 +81,7 @@ class Promo extends Promo_Controller
           $this->load->model('Orders', 'order');
           $data['loyalty'] = $this->order->getLoyalty($user->id);
           
-          $this->load->model('Categorys', 'category');
+          $this->load->model('Categories', 'category');
           
           $category = $this->category->find($data['game']->category_id);
           
@@ -99,7 +99,7 @@ class Promo extends Promo_Controller
             'state'=>'Hajdú-Bihar',
             'country'=>'HUN'
           );
-          //dump($data['transaction']);
+          
         }
       }
       
