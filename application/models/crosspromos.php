@@ -7,12 +7,38 @@ class Crosspromos extends MY_Model
     protected $_name = "cp_crosspromo";
     protected $_primary = "id";
     
+    public function find($id, $isXML = false)  
+    {
+      $item = parent::find($id, $isXML);
+      
+      if (!$item) return $item;
+      
+      
+      if (!$item->description) {
+        $this->load->model('Gameplatforms', 'gp');
+        
+        $gp = $this->gp->find($item->promo_game_id);
+        
+        $this->load->model('Games', 'game');
+        
+        $game = $this->game->find($gp->game_id);
+        
+        $item->description = $game->short_description;
+      }
+      
+      return $item;
+    }
+    
     public function fetchByGame($id, $list, $params = false) 
     {
       if (!$id || !$list) return false;
       
       $result = $this->fetchRows(
-        array('columns'=>array('cp_crosspromo.*', 'if(cp_crosspromo.promo_price=0, NULL, promo_price) as promo_price_or_null '),
+        array('columns'=>array(
+                'cp_crosspromo.id', 'cp_crosspromo.base_game_id', 'cp_crosspromo.promo_game_id', 'cp_crosspromo.order', 'cp_crosspromo.ga_category', 'cp_crosspromo.ga_action', 'cp_crosspromo.ga_label', 'cp_crosspromo.ga_value', 'cp_crosspromo.ga_noninteraction', 
+                'cp_crosspromo.created', 'cp_crosspromo.until', 'cp_crosspromo.list_id', 'cp_crosspromo.type_id', 'cp_crosspromo.promo_price', 'cp_crosspromo.title', 
+                '(if (cp_crosspromo.description is null || cp_crosspromo.description = "", cp_game.short_description, cp_crosspromo.description)) as description', 
+                'if(cp_crosspromo.promo_price=0, NULL, promo_price) as promo_price_or_null '),
               'where'=>array("base_game_id"=>$id, 'list_id'=>$list), 
               'join'=>array(
                 array('table'=>'cp_game_platform', 'condition'=>'cp_game_platform.id = promo_game_id', 'columns'=>array(

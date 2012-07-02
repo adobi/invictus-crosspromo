@@ -195,11 +195,19 @@ class Crosspromo extends MY_Controller
       die;
     }
     
+    /**
+     * edit crosspromo list item
+     *
+     * @return void
+     * @author Dobi Attila
+     */
     public function get()
     {
       $this->load->model('Crosspromos', 'model');
       $this->load->model('Crosspromotypes', 'types');
+
       $response['item'] = $this->model->find($this->uri->segment(3));
+      
       //$response['types'] = $this->types->toAssocArray('id', 'name', $this->types->fetchAll());
       $response['types'] = $this->types->fetchAll();
       echo json_encode($response);
