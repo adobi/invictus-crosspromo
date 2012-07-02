@@ -105,8 +105,8 @@ class Promo extends Promo_Controller
         }
       }
       
-      $this->template->build('promo/thanks', $data);
-    } else {
+      //$this->template->build('promo/thanks', $data);
+    } //else {
       
       if ($gp) {
       
@@ -141,7 +141,7 @@ class Promo extends Promo_Controller
       }
       
       $this->template->build('promo/game', $data);
-    }
+    //}
   }
   
   public function console()
