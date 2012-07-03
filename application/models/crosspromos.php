@@ -60,7 +60,6 @@ class Crosspromos extends MY_Model
               'order'=>array('by'=>"order", 'dest'=>'asc'))
       , false, true);
       
-      
       if ($params) {
 
         if (!isset($params['platform'])) return $result;
@@ -68,6 +67,8 @@ class Crosspromos extends MY_Model
         $this->load->model('Users', 'user');
         
         $user = $this->user->findBy('device_id', $params['device']);
+        
+        //dump($user); die;
         //dump($params);
         if (!$user) return $result;
         
@@ -150,7 +151,6 @@ class Crosspromos extends MY_Model
 
         $result = $this->findSimilarGame($criteria, $result, $holes, $list);
       }
-      
       
       return $result;
     }

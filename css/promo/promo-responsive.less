@@ -3,6 +3,7 @@
     &.well {  
       .items {
         .item {
+          height:85px!important;
           .promo-item-download {
             .download-new {
               img {
@@ -20,11 +21,16 @@
       }
     }
   }
-  
 }
+
 @media (max-width: 480px) {
   body {
     padding:0;
+  }
+  p {
+    font-size: 12px;
+    line-height: 14px;
+    margin-left: 5px;  
   }
   #container {
     &.well {  
@@ -59,15 +65,18 @@
               }
               img {
                 //max-width:35%;
+                 height:24px;
               }
             }
           }
       }
       .items {
-        margin-top:70px;
+        margin-top:50px;
         .item {
+          height:112.5px;
           border-bottom-width:1px;
           border-top-width:1px;
+          .border-radius(10px);
           .promo-item-image {
             h3 {
               font-size:0.9em;
@@ -76,19 +85,24 @@
           }
           .promo-item-image {
             width:20%;
-            text-align:center;
+            //text-align:center;
+            padding-top:5px;
+            padding-left:5px;   
+            h3 {
+              margin-top:0px;
+            }         
           }          
           .promo-item-content {
             width:55%;
             h2 {
               font-size:1.1em;
               margin-bottom:0;
-              line-height:24px;
+              line-height:20px;
             }
             h3 {
               font-size:1em;
               margin-bottom:0;
-              line-height:18px;
+              line-height:14px;
             }
             padding-top:0!important;
           }
@@ -101,6 +115,8 @@
             .download-new {
               img {
                 //width:94px;
+                top:-5px;
+                right:-5px;                
                 &.update-icon {
                   position:relative;
                   right:-3px;
@@ -129,12 +145,29 @@
   .navbar-fixed-top {
     margin-left:0;
   }
-  
 }
 
 @media (max-width: 979px) {
   .navbar-fixed-top {
     position: fixed;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #container {
+      .items {
+        .item {
+          .promo-item-download {
+            .download-new {
+              img {
+                //width:94px;
+                height:128px;
+              }
+            }
+          }          
+        }
+      }
+    }
   }
   
 }

@@ -23,7 +23,7 @@
 </div>
     
 <div class="items" data-game-id="<?php echo isset($game_platform) ? $game_platform->id : '' ?>" data-user-id="<?php echo $params ? $params['device'] : '' ?>">
-  <p class="text-center" id="ajax-loader-img">
+  <p class="text-center hidden" id="_ajax-loader-img">
     <img src="<?php echo base_url() ?>img/ajax-loader.gif" alt="">
   </p>
   <?php if ($items && $lists): ?>
@@ -35,7 +35,7 @@
             <tr>
               <td class="promo-item-image">
                 <img data-src="<?php echo base_url() ?>/uploads/original/<?php echo $item->logo ?>" alt="" style="width:128px">
-                <h3 class="tk-ff-cocon-web-pro">
+                <h3 class="_tk-ff-cocon-web-pro" >
                   <?php echo $is_free ? 'FREE' : (isset($item->promo_price) && $item->promo_price ? $item->promo_price . ($item->currency ? $item->currency : '$') : ($item->price ? $item->price . ($item->currency ? $item->currency : '$') : '')) ?>
                 </h3>
               </td>
@@ -48,10 +48,10 @@
                 <?php endif ?>
                 <p>
                   <?php if (isset($item->description)): ?>
-                    <?php echo $item->description ?>
+                    <?php echo substr($item->description, 0, 80) ?>
                   <?php else: ?>
                     <?php if (isset($item->short_description)): ?>
-                      <?php echo $item->short_description ?>
+                      <?php echo substr($item->short_description, 0, 80) ?>
                     <?php endif ?>
                   <?php endif ?>
                   
@@ -59,19 +59,18 @@
                 <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01'): ?>
                   <p style="font-weight:bold"><?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
                 <?php endif ?>
-                <?php if (ENVIRONMENT === 'development'): ?>
-                  <p>
-                    <ul>
-                      <li>os type: <?php echo $item->platform_name ?></li>
-                      <li>min os version: <?php echo $item->min_os_version ?></li>
-                      <li>game version: <?php echo $item->version ?></li>
-                      <li>random inserted: <?php echo @$item->inserted ?></li>
-                      <li>is new game: <?php echo $item->is_new ?></li>
-                    </ul>
-                  </p>
+                <?php if (ENVIRONMENT === '_development'): ?>
+                  <div class="well">
+                      os type: <?php echo $item->platform_name ?>
+                      min os version: <?php echo $item->min_os_version ?>
+                      game version: <?php echo $item->version ?>
+                      random inserted: <?php echo @$item->inserted ?>
+                      is new game: <?php echo $item->is_new ?>
+                  </div>
                 <?php endif ?>
               </td>
               <td class="promo-item-download">
+                <!-- 
                 <div class="download-new text-right">
                   <?php $flag = false; ?>
                   <?php if (isset($item->is_updated)): $flag = true; ?>
@@ -100,6 +99,14 @@
                         <?php endif ?>
                       </h3>
                   <?php endif ?>
+                </div>
+                 -->
+                 <div class="download-new text-right">
+                   <?php if (isset($item->type_id)): ?>
+                    <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->type_image ?>" alt="" >                      
+                  <?php else: ?>
+                    <img src="<?php echo base_url() ?>uploads/original/cricon_downloadnow.png" alt="" >   
+                   <?php endif ?>
                 </div>
               </td>
             </tr>

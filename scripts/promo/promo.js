@@ -110,7 +110,7 @@
         //console.log($(v), ' loaded')
         $(v).parent().find('.spinner').remove()
 
-        $('the-selected-game').addClass('selected-game').removeClass('the-selected-game')
+        $('.the-selected-game').addClass('selected-game').removeClass('the-selected-game')
         
       })
       //$(v).prevAll('.spinner').remove()
@@ -181,9 +181,10 @@
       $(this).find('i').toggleClass('icon-minus').toggleClass('icon-plus')
       $(this).parent().next().toggle()
     }) 
-    $('#ajax-loader-img').hide()
+    $('#ajax-loader-img, #loading-global').hide()
     $('body').on('click', '.crosspromo-tabs a', function() {
-      $('#ajax-loader-img').show()
+      $('#ajax-loader-img, #loading-global').show()
+      //$(this).find('img').attr('src', App.URL+'img/ajax-loader.gif').css({'width':"15px", 'height':"15px"})
     })   
     
     App.Tooltip();
@@ -217,6 +218,6 @@
     */
   });
   
-  $(window).unload( function () { $('#ajax-loader-img').show() } );  
+  $(window).unload( function () { $('#ajax-loader-img, #loading-global').show() } );  
 } (jQuery);
 

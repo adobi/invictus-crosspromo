@@ -24,7 +24,7 @@ class Promo extends Promo_Controller
     $params = $this->uri->uri_to_assoc(3);
     
     $data['params'] = $params;
-
+    
     $this->load->model('Crosspromos', 'model');
     
     $id = $params['game'];
@@ -101,7 +101,6 @@ class Promo extends Promo_Controller
             'state'=>'Hajdú-Bihar',
             'country'=>'HUN'
           );
-          
         }
       }
       
@@ -200,7 +199,7 @@ class Promo extends Promo_Controller
     
     //dump($_POST); die;
     $this->form_validation->set_rules('device_id', 'device_id', 'trim|required');
-    $this->form_validation->set_rules('game_name', 'game id', 'trim|required');
+    $this->form_validation->set_rules('game_name', 'game name', 'trim|required');
     $this->form_validation->set_rules('platform_name', 'platform_name', 'trim|required');
     $this->form_validation->set_rules('platform_type', 'platform_type', 'trim|required');
     $this->form_validation->set_rules('os_version', 'os version', 'trim|required');
@@ -250,6 +249,7 @@ class Promo extends Promo_Controller
           $userid = $this->user->find($device->id)->id;
         }
         
+        //echo $_POST['game_id'];
         /**
          * megnezni, hogy a jatek szerepelt e mar
          * - ha igen, es kulonboznek a verziok, akkor frissiteni a verziot

@@ -239,7 +239,7 @@ Error
 
 <legend>
   <a href="#" class="btn btn-mini toggle"><i class="icon-minus"></i></a> 
-  Thank you page after crosspromo list
+  Request made after the first run
 </legend>
 <fieldset class="doc-section">
   <h6>Request uri</h6>
