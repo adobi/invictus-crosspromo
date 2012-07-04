@@ -58,7 +58,7 @@ class Games extends MY_Model
         return $image;
       } 
       
-      return false;
+      return '';
     }    
     
     public function fetchAllWithPlatforms()

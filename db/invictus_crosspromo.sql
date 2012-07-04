@@ -10,10 +10,51 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2012-06-26 12:00:10
+Date: 2012-07-04 16:00:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `cp_category`
+-- ----------------------------
+DROP TABLE IF EXISTS `cp_category`;
+CREATE TABLE `cp_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cp_category
+-- ----------------------------
+INSERT INTO `cp_category` VALUES ('1', 'Casual');
+INSERT INTO `cp_category` VALUES ('2', 'Car');
+INSERT INTO `cp_category` VALUES ('3', 'Jump');
+INSERT INTO `cp_category` VALUES ('5', 'Social');
+INSERT INTO `cp_category` VALUES ('6', 'Fighting');
+
+-- ----------------------------
+-- Table structure for `cp_click`
+-- ----------------------------
+DROP TABLE IF EXISTS `cp_click`;
+CREATE TABLE `cp_click` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `game_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cp_click
+-- ----------------------------
+INSERT INTO `cp_click` VALUES ('5', '25', '3', '2012-06-27 08:37:31', null);
+INSERT INTO `cp_click` VALUES ('6', '52', '3', '2012-06-27 08:40:07', null);
+INSERT INTO `cp_click` VALUES ('7', '33', '3', '2012-06-28 08:52:07', 'New');
+INSERT INTO `cp_click` VALUES ('8', '52', '3', '2012-06-28 09:21:54', 'New');
+INSERT INTO `cp_click` VALUES ('9', '45', '3', '2012-07-02 11:30:37', 'New');
 
 -- ----------------------------
 -- Table structure for `cp_crosspromo`
@@ -43,23 +84,27 @@ CREATE TABLE `cp_crosspromo` (
   KEY `fk_crosspromo_crosspromo_typ` (`type_id`),
   CONSTRAINT `fk_crosspromo_crosspromo_list` FOREIGN KEY (`list_id`) REFERENCES `cp_crosspromo_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_crosspromo_crosspromo_typ` FOREIGN KEY (`type_id`) REFERENCES `cp_crosspromo_type` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of cp_crosspromo
 -- ----------------------------
-INSERT INTO `cp_crosspromo` VALUES ('20', '75', '85', '0', 'Crosspromo - Free', 'Click', '4x4 Jam - Free - No type - 1340350699', '1', null, null, '2012-06-30 00:00:00', '36', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '4', '1.99', 'Free all over the world');
-INSERT INTO `cp_crosspromo` VALUES ('25', '75', '52', '6', 'Crosspromo - Free', 'Click', 'Froggy Jump - Free - No type - 1340350699', '1', null, null, null, '36', null, null, null, null);
-INSERT INTO `cp_crosspromo` VALUES ('30', '75', '45', '1', 'Crosspromo - Free', 'Click', 'Race of Champions - Free - No type - 1340350700', '1', null, null, '0000-00-00 00:00:00', '36', '', '9', '1.99', '');
-INSERT INTO `cp_crosspromo` VALUES ('32', '75', '77', '1000', 'Crosspromo - Free', 'Click', 'Blastwave - Free - No type - 1340350700', '1', null, null, '0000-00-00 00:00:00', '36', '', '4', '0', '');
-INSERT INTO `cp_crosspromo` VALUES ('33', '75', '56', '1000', 'Crosspromo - Free', 'Click', 'Fly Control - Free - No type - 1340350700', '1', null, null, null, '36', null, null, null, null);
-INSERT INTO `cp_crosspromo` VALUES ('34', '75', '45', '1000', 'Crosspromo - Hot', 'Click', 'Race of Champions - Hot - No type - 1340350917', '1', null, null, null, '32', null, '9', null, null);
-INSERT INTO `cp_crosspromo` VALUES ('35', '75', '83', '1000', 'Crosspromo - Hot', 'Click', 'Fly Fu Pro - Hot - No type - 1340350917', '1', null, null, null, '32', null, null, null, null);
-INSERT INTO `cp_crosspromo` VALUES ('36', '85', '85', '0', 'Crosspromo - Free', 'Click', '4x4 Jam - Nothing - 1340693881', '1', null, null, '2012-06-30 00:00:00', '39', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '4', '1.99', 'Free all over the world');
-INSERT INTO `cp_crosspromo` VALUES ('37', '85', '52', '6', 'Crosspromo - Free', 'Click', 'Froggy Jump - No type - 1340693881', '1', null, null, null, '39', null, null, null, null);
-INSERT INTO `cp_crosspromo` VALUES ('39', '85', '77', '1000', 'Crosspromo - Free', 'Click', 'Blastwave - Nothing - 1340693881', '1', null, null, '0000-00-00 00:00:00', '39', '', '4', '0', '');
+INSERT INTO `cp_crosspromo` VALUES ('20', '75', '85', '0', 'Crosspromo - Free', 'Click', '4x4 Jam - Update - 1341385146', '1', null, null, '2012-06-30 00:00:00', '36', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '3', '1.99', 'Free all over the world');
+INSERT INTO `cp_crosspromo` VALUES ('25', '75', '52', '6', 'Crosspromo - Free', 'Click', 'Froggy Jump - Download now - 1341385147', '1', null, null, '0000-00-00 00:00:00', '36', '', '1', '1.99', '');
+INSERT INTO `cp_crosspromo` VALUES ('30', '75', '45', '1', 'Crosspromo - Free', 'Click', 'Race of Champions - New - 1341385147', '1', null, null, '0000-00-00 00:00:00', '36', '', '2', '1.99', '');
+INSERT INTO `cp_crosspromo` VALUES ('32', '75', '77', '1000', 'Crosspromo - Free', 'Click', 'Blastwave - Download now - 1341385147', '1', null, null, '0000-00-00 00:00:00', '36', '', '1', '0', '');
+INSERT INTO `cp_crosspromo` VALUES ('33', '75', '56', '1000', 'Crosspromo - Free', 'Click', 'Fly Control - Download now - 1341385147', '1', null, null, null, '36', null, '1', null, null);
+INSERT INTO `cp_crosspromo` VALUES ('34', '75', '45', '0', 'Crosspromo - Hot', 'Click', 'Race of Champions - No type - 1341316095', '1', null, null, null, '32', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('35', '75', '83', '1', 'Crosspromo - Hot', 'Click', 'Fly Fu Pro - No type - 1341316095', '1', null, null, null, '32', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('36', '85', '85', '0', 'Crosspromo - Free', 'Click', '4x4 Jam - Nothing - 1340693881', '1', null, null, '2012-06-30 00:00:00', '39', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', null, '1.99', 'Free all over the world');
+INSERT INTO `cp_crosspromo` VALUES ('37', '85', '52', '6', 'Crosspromo - Free', 'Click', 'Froggy Jump - No type - 1340693881', '1', null, null, null, '39', null, null, '1.99', null);
+INSERT INTO `cp_crosspromo` VALUES ('39', '85', '77', '1000', 'Crosspromo - Free', 'Click', 'Blastwave - Nothing - 1340693881', '1', null, null, '0000-00-00 00:00:00', '39', '', null, '0', '');
 INSERT INTO `cp_crosspromo` VALUES ('40', '85', '56', '1000', 'Crosspromo - Free', 'Click', 'Fly Control - No type - 1340693881', '1', null, null, null, '39', null, null, null, null);
 INSERT INTO `cp_crosspromo` VALUES ('41', '85', '50', '1000', 'Crosspromo - Free', 'Click', 'Froggy Launcher - No type - 1340693881', '1', null, null, null, '39', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('42', '77', '84', '1000', 'Crosspromo - Free', 'Click', '4x4 Jam - No type - 1340724870', '1', null, null, null, '40', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('43', '77', '77', '1000', 'Crosspromo - Free', 'Click', 'Blastwave - No type - 1340724870', '1', null, null, null, '40', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('44', '77', '55', '1000', 'Crosspromo - Free', 'Click', 'Fly Control - No type - 1340724870', '1', null, null, null, '40', null, null, null, null);
+INSERT INTO `cp_crosspromo` VALUES ('46', '75', '85', '1000', 'Crosspromo - Offer', 'Click', '4x4 Jam - No type - 1341316107', '1', null, null, null, '33', null, null, '1.99', null);
 
 -- ----------------------------
 -- Table structure for `cp_crosspromo_list`
@@ -79,17 +124,20 @@ CREATE TABLE `cp_crosspromo_list` (
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_crosspromo_list_game_platforms` (`game_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cp_crosspromo_list
 -- ----------------------------
-INSERT INTO `cp_crosspromo_list` VALUES ('32', 'Hot', '75', '1', null, null, null, null, null, '1', '1339069995_icon-hot.png');
-INSERT INTO `cp_crosspromo_list` VALUES ('33', 'Offer', '75', '2', null, null, null, null, null, '1', '1338993077_icon-offer.png');
-INSERT INTO `cp_crosspromo_list` VALUES ('36', 'Free', '75', '0', null, null, null, null, null, '1', '1338993086_icon-hot.png');
+INSERT INTO `cp_crosspromo_list` VALUES ('32', 'Hot', '75', '1', null, null, null, null, null, '1', '1341316095_crtabicon_hot.png');
+INSERT INTO `cp_crosspromo_list` VALUES ('33', 'Offer', '75', '2', null, null, null, null, null, '1', '1341316107_crtabicon_offer.png');
+INSERT INTO `cp_crosspromo_list` VALUES ('36', 'Free', '75', '0', null, null, null, null, null, '1', '1341385146_crtabicon_free.png');
 INSERT INTO `cp_crosspromo_list` VALUES ('37', 'Free', '52', null, null, null, null, null, null, '1', '1340623288_icon-hot.png');
 INSERT INTO `cp_crosspromo_list` VALUES ('38', 'Offer', '52', null, null, null, null, null, null, '1', '1340624140_icon-offer.png');
 INSERT INTO `cp_crosspromo_list` VALUES ('39', 'Free', '85', null, null, null, null, null, null, '1', '1340693881_icon-hot.png');
+INSERT INTO `cp_crosspromo_list` VALUES ('40', 'Free', '77', null, null, null, null, null, null, '1', '1340724859_icon-hot.png');
+INSERT INTO `cp_crosspromo_list` VALUES ('41', 'Free', '45', null, null, null, null, null, null, '1', null);
+INSERT INTO `cp_crosspromo_list` VALUES ('42', 'Free', '47', null, null, null, null, null, null, '1', '1341325820_crtabicon_free.png');
 
 -- ----------------------------
 -- Table structure for `cp_crosspromo_type`
@@ -101,16 +149,14 @@ CREATE TABLE `cp_crosspromo_type` (
   `image` varchar(255) DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cp_crosspromo_type
 -- ----------------------------
-INSERT INTO `cp_crosspromo_type` VALUES ('4', 'Nothing', '1340112710_download-icon-arrow-original.png', 'Download Now');
-INSERT INTO `cp_crosspromo_type` VALUES ('6', 'Sale', '1339076584_icon-new.png', null);
-INSERT INTO `cp_crosspromo_type` VALUES ('7', 'Update', '1339076603_icon-update.png', 'Update now');
-INSERT INTO `cp_crosspromo_type` VALUES ('8', 'Featured', '1339076652_icon-update.png', null);
-INSERT INTO `cp_crosspromo_type` VALUES ('9', 'New', '1339076633_icon-new.png', 'Download now');
+INSERT INTO `cp_crosspromo_type` VALUES ('1', 'Download now', '1341385167_cricon_downloadnow.png', '');
+INSERT INTO `cp_crosspromo_type` VALUES ('2', 'New', '1341307479_cricon_new.png', '');
+INSERT INTO `cp_crosspromo_type` VALUES ('3', 'Update', '1341307493_cricon_updated.png', '');
 
 -- ----------------------------
 -- Table structure for `cp_game`
@@ -133,6 +179,7 @@ CREATE TABLE `cp_game` (
   `facebook_page` varchar(250) DEFAULT NULL,
   `order` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `crosspromo_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_game_meta` (`meta_id`),
   KEY `fk_game_game_category` (`category_id`)
@@ -141,27 +188,27 @@ CREATE TABLE `cp_game` (
 -- ----------------------------
 -- Records of cp_game
 -- ----------------------------
-INSERT INTO `cp_game` VALUES ('13', null, 'Race of Champions', 'race-of-champions', null, '1340695510_1334598165_Icon170.png', null, null, 'Race of Champions Mobile Game is the official game of the actual event. It includes 6 original tracks and 8 cars from the official racing event.', null, '1', null, null, null, null, '2');
-INSERT INTO `cp_game` VALUES ('14', null, 'Greed Corp', 'greed-corp', null, '1340695510_1334672493_Greed_Corp_Icon.png', null, null, 'Greed Corp is a fun strategy game situated in a steam-punk world, offering single player mode and multiplayer options for up to four players.', null, '1', null, null, null, null, '3');
-INSERT INTO `cp_game` VALUES ('15', null, 'Wild Slide', 'wild-slide', null, '1340695510_1335445561_Wild_Slide_Icon.png', null, null, 'Wild Slide is a  fun bobsleigh-race simulator. Race against the clock or challenge your opponents in the championship!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('16', null, 'Groovy Garage', 'groovy-garage', null, '1340695510_1334918503_facebook_logo.png', null, null, 'Service cars, employ friends, design a car-repair garage and build items to attract more customers in our latest game for Facebook!', null, '1', null, null, null, null, '5');
-INSERT INTO `cp_game` VALUES ('17', null, 'Froggy Jump', 'froggy-jump', null, '1340695510_1334757893_Froggy_Jump_Icon.png', null, null, 'Froggy Jump is Invictus\' mobile game for iOS and Android. Jump with the help of platforms and power-ups into the galaxy and beyond!', null, '1', null, null, null, null, '3');
-INSERT INTO `cp_game` VALUES ('19', null, 'Mist Bouncer', 'mist-bouncer', null, '1340695510_1334844880_Mist_Bouncer_Icon.png', null, null, 'Help the robots of Greed Corp reach the top of each level with the use of power-ups and by avoiding the enemies who stand in the way!', null, '1', null, null, null, null, '3');
-INSERT INTO `cp_game` VALUES ('20', null, 'Froggy Launcher', 'froggy-launcher', null, '1340695510_1335445614_Froggy_Launcher_Icon.png', null, null, 'Launch Froggy into the sky with the help of the slighshot and use power ups from the in-game shop to reach the Sun God!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('22', null, 'Truck Jam', 'truck-jam', null, '1340695510_1335445472_Truck_Jam_Icon.png', null, null, 'Truck Jam is the most unique off road truck racing game you will ever see on iPhone or iPad with realistic tilted or tapped game control!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('23', null, '1nsane', '1nsane', null, '1340695511_1334924690_1nsane_Icon.png', null, null, 'Insane, where dangerous driving is the safest bet. The game turns the ignition key on the multiplayer all-terrain racing game 4x4 Jam.', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('24', null, 'Overspeed', 'overspeed', null, '1340695511_1334923840_Overspeed_Icon.png', null, null, 'Overspeed is the European title for LASR. Modify your rides, take up challenges and c become the new illegal street-car racing king of L.A.!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('26', null, 'L.A. Street Racing', 'la-street-racing', null, '1340695510_1334925376_LASR_Icon.png', null, null, 'LASR is the USA title of Overspeed. Modify your rides, take up challenges and c become the new  illegal street-car racing king of L.A.!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('27', null, 'Monster Garage', 'monster-garage', null, '1340695510_1335172442_Monster_Garage_Icon.png', null, null, 'Monster Garage is based on the hit Discovery Channel TV series. Twist, mold and modify a standard vehicle into the monster machine of your dreams!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('28', null, 'Cross Racing Championship', 'cross-racing-championship', null, '1340695510_1335259854_CRC_Icon.png', null, null, 'Cross Racing Championship (CRC) allows players to experience the thrills of high-speed on and off road racing across vast open terrains.', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('29', null, 'Heat Online', 'heat-online', null, '1340695511_1335259869_Heat_Online_Icon.png', null, null, 'Level-R / Heat Online offers experiencing the thrills of high-speed on and off road racing.', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('30', null, 'Street Legal', 'street-legal', null, '1340695511_1335259945_Street_Legal_Icon.png', null, null, 'Street Legal takes it all to the next level! Whether you\'re in to \"Trick\'n\", \"Tune\'n\", or \"Drag\'n\", this game is a must-have!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('32', null, 'Santa Ride!', 'santa-ride', null, '1340695510_1335355309_Santa_Ride_Icon.png', null, null, 'Santa Claus lost his gifts! Help him and his reindeers find the presents! Follow the Christmas Star and deliever them to the children!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('33', null, 'Fly Control', 'fly-control', null, '1340695510_1335433597_fly_control_icon.png', null, null, 'Get your buzz on and help the cute little flies reach their stinky targets and avoid flies from crashing into each other or who knows what may happen.', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('34', null, 'Blastwave', 'blastwave', null, '1340695511_1335452187_Blastwave_Icon.png', null, null, 'Blastwave is a funny game about Tittles, who dwell in a special colored fluid called Ooze B-50 and offer loads of funny games to play with!', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('35', null, 'Grim Filler', 'grim-filler', null, '1340695511_1335452950_Grim_Filler_Icon.png', null, null, 'Play with the members of Halloween-land: Zombies, Frankenstein, Jack-o\'-lanterns, Skulls and other scary players of Nightmare-land in this fun and eas', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('36', null, 'Fly Fu Pro', 'fly-fu-pro', null, '1340695510_1335470790_Fly_Fu_Pro_Icon.jpg', null, null, 'The most amazing adventure a fly can ever have! Fly Fu Pro is a classic beat\'em up game with adventure, role playing, puzzle and strategy.', null, '1', null, null, null, null, '0');
-INSERT INTO `cp_game` VALUES ('37', null, '4x4 Jam', '4x4-jam', null, '1340695510_1335508062_4x4jam_icon.png', null, null, '4x4 JAM the most unique all-terrain off-road racing game you will ever see on iPhone and PSP. There are no rules and no boundaries in 4x4 Jam!', null, '1', null, null, null, null, '2');
+INSERT INTO `cp_game` VALUES ('13', null, 'Race of Champions', 'race-of-champions', null, '1341404292_1334598165_Icon170.png', null, null, 'Race of Champions Mobile Game is the official game of the actual event. It includes 6 original tracks and 8 cars from the official racing event.', null, '1', null, null, null, null, '2', 'Race of Champions Mobile Game is the official game of the actual event.');
+INSERT INTO `cp_game` VALUES ('14', null, 'Greed Corp', 'greed-corp', null, '1341404292_1334672493_Greed_Corp_Icon.png', null, null, 'Greed Corp is a fun strategy game situated in a steam-punk world, offering single player mode and multiplayer options for up to four players.', null, '1', null, null, null, null, '3', 'asdas');
+INSERT INTO `cp_game` VALUES ('15', null, 'Wild Slide', 'wild-slide', null, '1341404292_1335445561_Wild_Slide_Icon.png', null, null, 'Wild Slide is a  fun bobsleigh-race simulator. Race against the clock or challenge your opponents in the championship!', null, '1', null, null, null, null, '0', 'asdasd');
+INSERT INTO `cp_game` VALUES ('16', null, 'Groovy Garage', 'groovy-garage', null, '1341404292_1334918503_facebook_logo.png', null, null, 'Service cars, employ friends, design a car-repair garage and build items to attract more customers in our latest game for Facebook!', null, '1', null, null, null, null, '5', 'asdasda');
+INSERT INTO `cp_game` VALUES ('17', null, 'Froggy Jump', 'froggy-jump', null, '1341404292_1334757893_Froggy_Jump_Icon.png', null, null, 'Froggy Jump is Invictus\' mobile game for iOS and Android. Jump with the help of platforms and power-ups into the galaxy and beyond!', null, '1', null, null, null, null, '3', 'sdasdasda');
+INSERT INTO `cp_game` VALUES ('19', null, 'Mist Bouncer', 'mist-bouncer', null, '1341404292_1334844880_Mist_Bouncer_Icon.png', null, null, 'Help the robots of Greed Corp reach the top of each level with the use of power-ups and by avoiding the enemies who stand in the way!', null, '1', null, null, null, null, '3', 'asdasda');
+INSERT INTO `cp_game` VALUES ('20', null, 'Froggy Launcher', 'froggy-launcher', null, '1341404292_1335445614_Froggy_Launcher_Icon.png', null, null, 'Launch Froggy into the sky with the help of the slighshot and use power ups from the in-game shop to reach the Sun God!', null, '1', null, null, null, null, '0', 'sdasdasd');
+INSERT INTO `cp_game` VALUES ('22', null, 'Truck Jam', 'truck-jam', null, '1341404292_1335445472_Truck_Jam_Icon.png', null, null, 'Truck Jam is the most unique off road truck racing game you will ever see on iPhone or iPad with realistic tilted or tapped game control!', null, '1', null, null, null, null, '0', 'asdasda');
+INSERT INTO `cp_game` VALUES ('23', null, '1nsane', '1nsane', null, '1341404293_1334924690_1nsane_Icon.png', null, null, 'Insane, where dangerous driving is the safest bet. The game turns the ignition key on the multiplayer all-terrain racing game 4x4 Jam.', null, '1', null, null, null, null, '0', 'sdasdas');
+INSERT INTO `cp_game` VALUES ('24', null, 'Overspeed', 'overspeed', null, '1341404293_1334923840_Overspeed_Icon.png', null, null, 'Overspeed is the European title for LASR. Modify your rides, take up challenges and c become the new illegal street-car racing king of L.A.!', null, '1', null, null, null, null, '0', 'dasdasdas');
+INSERT INTO `cp_game` VALUES ('26', null, 'L.A. Street Racing', 'la-street-racing', null, '1341404292_1334925376_LASR_Icon.png', null, null, 'LASR is the USA title of Overspeed. Modify your rides, take up challenges and c become the new  illegal street-car racing king of L.A.!', null, '1', null, null, null, null, '0', 'dasdasda');
+INSERT INTO `cp_game` VALUES ('27', null, 'Monster Garage', 'monster-garage', null, '1341404292_1335172442_Monster_Garage_Icon.png', null, null, 'Monster Garage is based on the hit Discovery Channel TV series. Twist, mold and modify a standard vehicle into the monster machine of your dreams!', null, '1', null, null, null, null, '0', 'dasdasdada');
+INSERT INTO `cp_game` VALUES ('28', null, 'Cross Racing Championship', 'cross-racing-championship', null, '1341404293_1335259854_CRC_Icon.png', null, null, 'Cross Racing Championship (CRC) allows players to experience the thrills of high-speed on and off road racing across vast open terrains.', null, '1', null, null, null, null, '0', 'asdasdasd');
+INSERT INTO `cp_game` VALUES ('29', null, 'Heat Online', 'heat-online', null, '1341404293_1335259869_Heat_Online_Icon.png', null, null, 'Level-R / Heat Online offers experiencing the thrills of high-speed on and off road racing.', null, '1', null, null, null, null, '0', 'asdasdasda');
+INSERT INTO `cp_game` VALUES ('30', null, 'Street Legal', 'street-legal', null, '1341404293_1335259945_Street_Legal_Icon.png', null, null, 'Street Legal takes it all to the next level! Whether you\'re in to \"Trick\'n\", \"Tune\'n\", or \"Drag\'n\", this game is a must-have!', null, '1', null, null, null, null, '0', 'sdasdasdsad');
+INSERT INTO `cp_game` VALUES ('32', null, 'Santa Ride!', 'santa-ride', null, '1341404292_1335355309_Santa_Ride_Icon.png', null, null, 'Santa Claus lost his gifts! Help him and his reindeers find the presents! Follow the Christmas Star and deliever them to the children!', null, '1', null, null, null, null, '0', 'dasdasdasdas');
+INSERT INTO `cp_game` VALUES ('33', null, 'Fly Control', 'fly-control', null, '1341404292_1335433597_fly_control_icon.png', null, null, 'Get your buzz on and help the cute little flies reach their stinky targets and avoid flies from crashing into each other or who knows what may happen.', null, '1', null, null, null, null, '0', 'dadsdasd');
+INSERT INTO `cp_game` VALUES ('34', null, 'Blastwave', 'blastwave', null, '1341404293_1335452187_Blastwave_Icon.png', null, null, 'Blastwave is a funny game about Tittles, who dwell in a special colored fluid called Ooze B-50 and offer loads of funny games to play with!', null, '1', null, null, null, null, '0', 'asdasd');
+INSERT INTO `cp_game` VALUES ('35', null, 'Grim Filler', 'grim-filler', null, '1341404293_1335452950_Grim_Filler_Icon.png', null, null, 'Play with the members of Halloween-land: Zombies, Frankenstein, Jack-o\'-lanterns, Skulls and other scary players of Nightmare-land in this fun and eas', null, '1', null, null, null, null, '0', 'asdasdas');
+INSERT INTO `cp_game` VALUES ('36', null, 'Fly Fu Pro', 'fly-fu-pro', null, '1341404292_1335470790_Fly_Fu_Pro_Icon.jpg', null, null, 'The most amazing adventure a fly can ever have! Fly Fu Pro is a classic beat\'em up game with adventure, role playing, puzzle and strategy.', null, '1', null, null, null, null, '0', 'dasdasdsadas');
+INSERT INTO `cp_game` VALUES ('37', null, '4x4 Jam', '4x4-jam', null, '1341404292_1335508062_4x4jam_icon.png', null, null, '4x4 JAM the most unique all-terrain off-road racing game you will ever see on iPhone and PSP. There are no rules and no boundaries in 4x4 Jam!', null, '1', null, null, null, null, '2', 'dasdasdasda');
 
 -- ----------------------------
 -- Table structure for `cp_game_category`
@@ -253,6 +300,48 @@ INSERT INTO `cp_game_platform` VALUES ('87', '17', '14', 'http://amzn.to/JG2h8X'
 INSERT INTO `cp_game_platform` VALUES ('88', '14', '14', 'http://amzn.to/K5hJ4u', 'http://www.amazon.com/Invictus-Games-Ltd-Greed-Corp/dp/B0081J3GXA/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1338798297&sr=1-1', '0', '0', null, null, null, null, null, null, null, '0', '');
 
 -- ----------------------------
+-- Table structure for `cp_order`
+-- ----------------------------
+DROP TABLE IF EXISTS `cp_order`;
+CREATE TABLE `cp_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `game_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cp_order
+-- ----------------------------
+INSERT INTO `cp_order` VALUES ('1', '3', '52', '1', '2012-06-27 11:12:57');
+INSERT INTO `cp_order` VALUES ('2', '3', '52', '1', '2012-06-27 11:13:40');
+INSERT INTO `cp_order` VALUES ('3', '3', '52', '1', '2012-06-27 11:17:37');
+INSERT INTO `cp_order` VALUES ('4', '3', '52', '1', '2012-06-27 11:20:22');
+INSERT INTO `cp_order` VALUES ('5', '3', '52', '1', '2012-06-27 11:26:17');
+INSERT INTO `cp_order` VALUES ('9', '3', '52', '1', '2012-06-27 12:45:50');
+INSERT INTO `cp_order` VALUES ('10', '3', '52', '1', '2012-06-27 12:47:43');
+INSERT INTO `cp_order` VALUES ('11', '3', '52', '1', '2012-06-27 13:19:10');
+INSERT INTO `cp_order` VALUES ('12', '3', '52', '1', '2012-06-27 13:20:08');
+INSERT INTO `cp_order` VALUES ('13', '3', '52', '1', '2012-06-27 15:06:44');
+INSERT INTO `cp_order` VALUES ('14', '3', '52', '1', '2012-06-28 07:58:34');
+INSERT INTO `cp_order` VALUES ('15', '3', '52', '1', '2012-06-28 07:59:35');
+INSERT INTO `cp_order` VALUES ('16', '3', '52', '1', '2012-06-28 07:59:57');
+INSERT INTO `cp_order` VALUES ('17', '3', '52', '1', '2012-06-28 08:00:33');
+INSERT INTO `cp_order` VALUES ('18', '3', '52', '1', '2012-06-28 09:15:18');
+INSERT INTO `cp_order` VALUES ('19', '3', '52', '1', '2012-06-28 09:15:18');
+INSERT INTO `cp_order` VALUES ('20', '3', '52', '1', '2012-06-28 09:15:43');
+INSERT INTO `cp_order` VALUES ('21', '3', '52', '1', '2012-06-28 09:20:18');
+INSERT INTO `cp_order` VALUES ('22', '3', '52', '1', '2012-06-28 09:20:18');
+INSERT INTO `cp_order` VALUES ('23', '3', '52', '1', '2012-06-28 09:20:21');
+INSERT INTO `cp_order` VALUES ('24', '3', '52', '1', '2012-06-28 09:20:24');
+INSERT INTO `cp_order` VALUES ('25', '3', '52', '1', '2012-06-28 09:21:00');
+INSERT INTO `cp_order` VALUES ('26', '3', '52', '1', '2012-06-28 09:22:18');
+INSERT INTO `cp_order` VALUES ('27', '3', '52', '1', '2012-07-02 07:03:17');
+INSERT INTO `cp_order` VALUES ('28', '3', '45', '1', '2012-07-02 11:32:01');
+
+-- ----------------------------
 -- Table structure for `cp_platform`
 -- ----------------------------
 DROP TABLE IF EXISTS `cp_platform`;
@@ -288,7 +377,7 @@ CREATE TABLE `cp_user` (
   `device_type` varchar(10) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cp_user
@@ -311,7 +400,7 @@ CREATE TABLE `cp_user_game` (
   `game_id` int(11) DEFAULT NULL,
   `game_version` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cp_user_game

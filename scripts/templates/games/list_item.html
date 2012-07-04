@@ -1,4 +1,10 @@
-              <li class="span2" data-platforms='{{platforms}}'data-logo="{{logo}}" data-platform-name="{{platform_name}}" data-crosspromo-description="{{crosspromo_description}}">
+              <li class="span2" data-platforms='{{platforms}}'data-logo="{{logo}}" data-platform-name="{{platform_name}}"
+                {{#if crosspromo_description}}
+                  data-crosspromo-description="{{crosspromo_description}}"
+                {{else}}
+                  data-crosspromo-description="{{short_description}}"
+                {{/if}}
+              >
                 <div class="item thumbnail" data-id="{{id}}">
                   <h6 class="center" rel="tooltip" title="{{full_name}}" >
                     {{name}}
