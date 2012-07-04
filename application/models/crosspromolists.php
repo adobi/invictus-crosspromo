@@ -27,11 +27,18 @@ class Crosspromolists extends MY_Model
     
     public function hasGameList($gamePlatformId) 
     {
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList parameter:' . $gamePlatformId . "\r\n", FILE_APPEND);
       if (!$gamePlatformId) return 0;
       
-      $result = $this->findBy('game_id', $gamePlatformId);
+      //$result = $this->findBy('game_id', $gamePlatformId);
       
-      return !empty($result) ? 1 : 0;
+      $result = $this->fetchRows(array('where'=>array('game_id'=>$gamePlatformId, 'is_active'=>1)));
+      
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList result:' . json_encode($result) . "\r\n", FILE_APPEND);
+      
+      if (count($result)) return 1;
+      
+      return 0;
     }
     
     /**

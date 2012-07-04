@@ -34,6 +34,7 @@ class Games extends MY_Model
           'logo'=>$this->_getImageFromUrl($item['logo'], $item['logo_name']), 
           'is_active'=>$item['is_active'], 
           'category_id'=>$item['category_id'],
+          'crosspromo_description'=>$item['crosspromo_description'],
           'short_description'=>$item['short_description'],
         );
       }

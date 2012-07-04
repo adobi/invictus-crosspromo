@@ -194,7 +194,7 @@ class Promo extends Promo_Controller
       $_POST['game_name'] = urldecode($_POST['game_name']);
     }
     
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
     $this->form_validation->set_error_delimiters('', '');
     
     //dump($_POST); die;
@@ -207,7 +207,7 @@ class Promo extends Promo_Controller
     
     $response = array();
     if ($this->form_validation->run()) {
-      //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'after validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'after validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
       
       $this->load->model('Users', 'user');
       $this->load->model('Usergames', 'usergame');
@@ -233,7 +233,7 @@ class Promo extends Promo_Controller
       if ($_POST['game_id']) {
         
         $_POST['game_id'] = $_POST['game_id']->id;
-        //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_platform_id:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_platform_id:' . json_encode($_POST) . "\r\n", FILE_APPEND);
         $insert = false;
         /**
          * ellenorizni, hogy az adott device_id szerepelt e mar nalunk
@@ -280,7 +280,7 @@ class Promo extends Promo_Controller
     } else {
       $response['error'] = validation_errors();
     }
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response:' . json_encode($response) . "\r\n", FILE_APPEND);
+    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response:' . json_encode($response) . "\r\n", FILE_APPEND);
     
     $responseType = "json";
     
@@ -292,7 +292,7 @@ class Promo extends Promo_Controller
       $responseType = $_POST['response_type'];
     }
     
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response_type:' . json_encode($responseType) . "\r\n", FILE_APPEND);
+    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response_type:' . json_encode($responseType) . "\r\n", FILE_APPEND);
     
     if ($responseType === 'json') {
       
@@ -317,9 +317,9 @@ class Promo extends Promo_Controller
     }
     echo $result;
 
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
+    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
 
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
+    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
     die;
     
   }

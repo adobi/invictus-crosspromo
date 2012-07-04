@@ -1,6 +1,6 @@
         </div> <!-- /container -->
 		
-		<div id="loading-global"><img src="<?php echo base_url() ?>img/ajax-loader.gif" alt=""> loading ...</div>		
+		<!-- <div id="loading-global"><img src="<?php echo base_url() ?>img/loading.gif" alt=""></div>		 -->
     
     	            
     <script type="text/javascript">
