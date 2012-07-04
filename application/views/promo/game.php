@@ -50,14 +50,14 @@
                   <?php if (isset($item->description)): ?>
                     <?php echo substr($item->description, 0, 80) ?>
                   <?php else: ?>
-                    <?php if (isset($item->short_description)): ?>
-                      <?php echo substr($item->short_description, 0, 80) ?>
+                    <?php if (isset($item->crosspromo_description)): ?>
+                      <?php echo substr($item->crosspromo_description, 0, 80) ?>
                     <?php endif ?>
                   <?php endif ?>
                   
                 </p>
                 <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01'): ?>
-                  <p style="font-weight:bold"><?php echo round((strtotime($item->until) - time()) / (60*60*24)) ?> more days</p>
+                  <p style="font-weight:bold"><?php echo days_until($item->until) ?> more days</p>
                 <?php endif ?>
                 <?php if (ENVIRONMENT === '_development'): ?>
                   <div class="well">

@@ -110,6 +110,7 @@
           name: src.find('h6').data('original-title'),
           id: src.find('.item').data('id'),
           promo_game_id:src.find('.item').data('id'),
+          description: src.data('crosspromo-description'),
         }
     //console.log(data)
     dest.data('old-id', dest.attr('id'))

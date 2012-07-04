@@ -37,7 +37,7 @@ class Crosspromos extends MY_Model
         array('columns'=>array(
                 'cp_crosspromo.id', 'cp_crosspromo.base_game_id', 'cp_crosspromo.promo_game_id', 'cp_crosspromo.order', 'cp_crosspromo.ga_category', 'cp_crosspromo.ga_action', 'cp_crosspromo.ga_label', 'cp_crosspromo.ga_value', 'cp_crosspromo.ga_noninteraction', 
                 'cp_crosspromo.created', 'cp_crosspromo.until', 'cp_crosspromo.list_id', 'cp_crosspromo.type_id', 'cp_crosspromo.promo_price', 'cp_crosspromo.title', 
-                '(if (cp_crosspromo.description is null || cp_crosspromo.description = "", cp_game.short_description, cp_crosspromo.description)) as description', 
+                '(if (cp_crosspromo.description is null || cp_crosspromo.description = "", cp_game.crosspromo_description, cp_crosspromo.description)) as description', 
                 'if(cp_crosspromo.promo_price=0, NULL, promo_price) as promo_price_or_null '),
               'where'=>array("base_game_id"=>$id, 'list_id'=>$list), 
               'join'=>array(
@@ -176,7 +176,8 @@ class Crosspromos extends MY_Model
       if (!$holes) return $result;
       
       $sql = "select 
-                cp_game.*,
+        /*cp_game.*,*/
+                cp_game.name, cp_game.logo, cp_game.url, cp_game.category_id, cp_game.crosspromo_description, 
                 cp_game_platform.id as promo_game_id, 
                 cp_game_platform.id as gp_id,
                 if(cp_game_platform.is_new=0 || ISNULL(cp_game_platform.is_new), NULL, 1) as is_new,
