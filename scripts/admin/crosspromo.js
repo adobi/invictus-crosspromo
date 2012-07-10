@@ -111,6 +111,7 @@
           id: src.find('.item').data('id'),
           promo_game_id:src.find('.item').data('id'),
           description: src.data('crosspromo-description'),
+          price: src.data('price'),
         }
     //console.log(data)
     dest.data('old-id', dest.attr('id'))
@@ -120,7 +121,7 @@
     dest.attr('id', dest.find('.item').data('id'))
     dest.find('.caption').show()
     dest.attr('rel', src.find('h6').attr('rel')).attr('data-original-title', src.find('h6').attr('data-original-title'))
-    Crosspromo.Add(dest, src)
+    Crosspromo.Add(dest.prev(), src)
   }
   
   Crosspromo.ResetPlaceholder = function() 
@@ -134,7 +135,7 @@
     var item = $('#crosspromo_base_game').val(),//item = el.data('old-id'),
         promoGame = src.find('.item').data('id'),
         type = el.parents('.crosspromo-type').data('list-id')
-    //console.log(type)    
+    //console.log(el, src)    
     if (item && promoGame) {
       //console.log(el)
       Crosspromo.Save(el, item, promoGame, type)
@@ -156,21 +157,21 @@
   { 
     var name = $('.csrf-form').find('[type=hidden]').attr('name'),
         value = $('.csrf-form').find('[type=hidden]').attr('value'),
-        data = {}
+        data = {}, element = el
         
     data[name] = value;
     data['promo_game_id'] = game
     data['base_game_id'] = item
     data['list_id'] = type
     
-    //console.log(data)
+    //console.log(element)
     $.post(App.URL+'crosspromo/edit/', data, function(resp) {
-      
+      //console.log(el, element, resp)
       App.Tooltip('hide')
       el.prev().attr('id', resp)
       //Crosspromo.UpdateOrder(el.parents('.thumbnails:first').sortable('toArray'))
       //Crosspromo.TriggerLoadAllGames()
-      
+      el.find('.edit-description').attr('data-crosspromo-id', resp)
       Crosspromo.ResetPlaceholder()
     })
     

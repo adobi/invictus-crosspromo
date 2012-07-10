@@ -12,7 +12,7 @@
       //$('body').on('click', '.save-new-item', function(e) { self.saveItem($(this)); e.preventDefault() })
       $('body').on('submit', '.new-list-form', function(e) { self.saveItem($(this)); e.preventDefault() })
       
-      $('body').on('click', '.delete-list-item', function(e) { self.deleteItem($(this)); e.preventDefault() })
+      $('body').on('click', '.delete-list-item', function(e) {  e.preventDefault(); self.deleteItem($(this)); })
       
       $('body').on('keyup', '#quick-search-by-game-name', function(e) { e.preventDefault(); self.filterByName($(this)) })
       
@@ -298,13 +298,21 @@
     {
       var self = el,
           id = self.data('id')
-          
+      
+      /*
       this.remove('crosspromolist/delete/'+id, function(response) {
+        
+        el.parents('.crosspromo-type').remove()
+        
+        App.Tooltip('hide')
+      }, function() {})
+      */
+      $.get(App.URL+'crosspromolist/delete/'+id, function(response) {
+        
         el.parents('.crosspromo-type').remove()
         
         App.Tooltip('hide')
       })
-      
     },
     
     request: function(settings, successCallback, errorCallback) 
@@ -318,11 +326,12 @@
       var request = $.ajax(params)
       
       if (typeof successCallback === 'function') {
-        request.done(successCallback)
+        
+        request.success(successCallback)
       } 
 
       if (typeof errorCallback === 'function') {
-        request.fail(errorCallback)
+        request.error(errorCallback)
       } 
     },
     

@@ -102,7 +102,8 @@
           <h3>Error</h3>
         </div>
         <div class="modal-body">
-          <p><strong id="item-to-use"></strong> is already in the list, select something else!</p>
+          <p>
+          <!-- <strong id="item-to-use"></strong> is --> Already in the list, select something else!</p>
         </div>
         <div class="modal-footer">
           <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -159,7 +160,7 @@
     </script>      
   	<script src = "<?php echo base_url() ?>scripts/plugins/headjs/head.min.js"></script> 
   	<script type="text/javascript">
-  	    head.js("http://code.jquery.com/jquery-1.7.2.min.js", 
+  	    head.js("http://code.jquery.com/jquery-latest.min.js", 
   	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
   	            "https://raw.github.com/cowboy/jquery-hashchange/v1.3/jquery.ba-hashchange.min.js",
   	            "http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js",

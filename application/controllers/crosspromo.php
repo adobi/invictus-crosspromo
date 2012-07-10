@@ -208,6 +208,20 @@ class Crosspromo extends MY_Controller
 
       $response['item'] = $this->model->find($this->uri->segment(3));
       
+      if ($response['item']) {
+        
+        $this->load->model('Gameplatforms', 'gp');
+        $this->load->model('Games', 'game');
+        
+        $gp = $this->gp->find($response['item']->promo_game_id);
+        $game = $this->game->find($gp->game_id);
+        
+        $response['item']->description = (
+          $response['item']->description ? 
+          $response['item']->description : 
+          $game->crosspromo_description);
+        
+      }
       //$response['types'] = $this->types->toAssocArray('id', 'name', $this->types->fetchAll());
       $response['types'] = $this->types->fetchAll();
       echo json_encode($response);
