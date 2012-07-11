@@ -15,4 +15,18 @@ class Users extends MY_Model
       
       return $result;
     }
+    
+    public function fetchAllWithGames()
+    {
+      $users = $this->fetchAll();
+      
+      if (!$users) return false;
+      
+      $this->load->model('Usergames', 'usergames');
+      foreach ($users as $item) {
+        $item->games = $this->usergames->fetchByWithGameInfo('user_id', $item->id);
+      }
+      
+      return $users;
+    }
 }

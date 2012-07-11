@@ -86,7 +86,7 @@
   {
     $.getJSON(App.URL+'game/all', function(json) {
       
-      App.Template.load('games/all.html', $('.right-side-scroll'), json, function() { App.Crosspromo && App.Crosspromo.DragAndDropGames(); App.Tooltip()  })
+      App.Template.load('games/all.html', $('#all-games-list .right-side-scroll'), json, function() { App.Crosspromo && App.Crosspromo.DragAndDropGames(); App.Tooltip()  })
       
       App.Template.load('platforms/filter.html', $('.platforms-filter-bar'), json)
     })

@@ -12,6 +12,9 @@
                     <li class="<?php echo $this->session->userdata('selected-sidebar-tab') === 'types' ? 'active' : '' ?>">
                       <a href="#types" data-toggle="tab">Types</a>
                     </li>
+                    <li class="">
+                      <a href="#devices" data-toggle="tab">Devices</a>
+                    </li>                    
                   </ul>
                   
                   <div class="items page-items tab-content">
@@ -27,7 +30,7 @@
                       
                       <div class="right-side-scroll"> 
                       </div> <!-- /right-side-scrol -->
-                    </div>
+                    </div> <!-- all-games-list -->
                     <div class="tab-pane <?php echo $this->session->userdata('selected-sidebar-tab') === 'types' ? 'active' : '' ?>" id="types">
                       <p>
                         <a href="#" class="btn edit-type-modal" data-type-id=""><i class="icon-plus"></i></a>
@@ -56,10 +59,34 @@
                         </ul>
                       </div>
                       <?php  $this->session->unset_userdata('selected-sidebar-tab') ?>
-                    </div>
+                    </div> <!-- /types -->
+                    <div class="tab-pane  right-side-scroll" id="devices">
+                        <?php if ($users): ?>
+                          <?php foreach ($users as $user): ?>
+                            <div class="user-item">
+                              <div class="legend">
+                                <strong><?php echo $user->device_id ?></strong>
+                                <a href="<?php echo base_url() ?>/crosspromo/delete_user/<?php echo $user->id ?>" data-parent=".user-item" class=" delete-user pull-right btn"><i class="icon-trash"></i></a>
+                              </div>
+                              <?php if ($user->games): ?>
+                                <div class="well">
+                                  <ul class="unstyled" style="margin-left:30px; margin-top:20px;">
+                                    <?php foreach ($user->games as $game): ?>
+                                      <li  style="margin-bottom:20px">
+                                        <?php echo $game->name ?>
+                                        <a href="<?php echo base_url() ?>crosspromo/delete_usergame/<?php echo $game->id ?>" data-parent="li" class=" delete-user btn pull-right"><i class="icon-trash"></i></a>
+                                      </li>
+                                    <?php endforeach ?>
+                                  </ul>
+                                </div>  
+                              <?php endif ?>
+                            </div>
+                          <?php endforeach ?>
+                        <?php endif ?>
+                      </div> <!-- /devices -->
                   </div> <!-- /items -->
                 </div> <!-- well -->
-              </div>
+              </div> <!-- /sidebar-navigation-wrapper -->
             <?php endif ?>
           </div> <!-- /content -->   
         </div> <!-- /container -->

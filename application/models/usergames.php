@@ -24,4 +24,11 @@ class Usergames extends MY_Model
       //dump($deviceId); die;      
       return $result ? $result[0] : false; 
     }
+    
+    public function fetchByWithGameInfo($column, $value) 
+    {
+      $sql = "select ug.*, g.name from $this->_name ug join cp_game g on ug.game_id = g.id where $column = $value";
+      
+      return $this->execute($sql);
+    }
 }

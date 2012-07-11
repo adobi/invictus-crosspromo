@@ -304,6 +304,13 @@
     })
   }
   
+  Crosspromo.DeleteUser = function(el) 
+  {
+    $.get(el.attr('href'), function() {
+      el.parents(el.data('parent')).remove()
+    })
+  }
+  
   $(function() {
     
     //$('body').on('crosspromo-laod-games', Crosspromo.LoadAllGames);
@@ -374,6 +381,11 @@
     Crosspromo.WarningModal.on('hide', function () {
       Crosspromo.DropToElement = null
       Crosspromo.DraggedElement = null
+    })
+    
+    $('body').on('click', '.delete-user', function(e) {
+      e.preventDefault()
+      Crosspromo.DeleteUser($(this));
     })
   })
   App.Crosspromo = Crosspromo

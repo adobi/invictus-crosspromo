@@ -1,0 +1,3 @@
+before validation:{"device_id":"4e2ecebbfafe27a7c00e0462fad0873a","platform_type":"phone","platform_name":"ios","os_version":"4.3","game_name":"Mist Bouncer","game_version":"2","width":"320","height":"480","opengl":"1","device":"iPhone3GS","response_type":"xml"}
+hasGameList parameter:51
+hasGameList result:[]

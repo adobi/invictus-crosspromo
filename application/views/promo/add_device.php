@@ -71,6 +71,25 @@
           </div>
       </fieldset>
       <fieldset class="control-group">
+          <label class="control-label" for="os_version">Screen resolution</label>
+          <div class="controls">
+  	        <input type="text" name="width" value="" class="span1"> x 
+  	        <input type="text" name="height" class="span1" />
+          </div>
+      </fieldset>
+      <fieldset class="control-group">
+          <label class="control-label" for="os_version">OpenGL</label>
+          <div class="controls">
+  	        <input type="text" name="opengl" value="" class="span2">
+          </div>
+      </fieldset>      
+      <fieldset class="control-group">
+          <label class="control-label" for="os_version">Device</label>
+          <div class="controls">
+  	        <input type="text" name="device" value="" class="span4">
+          </div>
+      </fieldset>      
+      <fieldset class="control-group">
           <label class="control-label" for="os_version">Response</label>
           <div class="controls">
             <label class="radio inline">
@@ -112,34 +131,61 @@
     <thead>
       <tr>
         <th class="span2">Name</th>
+        <th class="span2">Type</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><span class="label label-info">device_id</span></td>
-        <td>unique device identifier (md5 hash)</td>
+        <td>md5 hash</td>
+        <td>unique device identifier</td>
       </tr>
       <tr>
         <td><span class="label label-info">platform_type</span></td>
+        <td>string</td>
         <td>phone or tablet</td>
       </tr>
       <tr>
         <td><span class="label label-info">platform_name</span></td>
+        <td>string</td>
         <td>ios or android</td>
       </tr>
       <tr>
         <td><span class="label label-info">os_version</span></td>
+        <td>string</td>
         <td>OS version (e.g. <em>4.2</em>)</td>
       </tr>
       <tr>
         <td><span class="label label-info">game_name</span></td>
+        <td>string</td>
         <td>The name of the game (e.g. <em>Froggy Jump</em>) <a data-toggle="modal" href="#games-modal" class="btn" rel="tooltip" title="Show games list"><i class="icon-list"></i></a></td>
       </tr>
       <tr>
         <td><span class="label label-info">game_version</span></td>
-        <td>The version of the game</td>
+        <td>string</td>
+        <td>The version of the game (e.g. <em>1.1.20</em>)</td>
       </tr>
+      <tr>
+        <td><span class="label label-info">width</span></td>
+        <td>int</td>
+        <td>Screen width (e.g. <em>320</em>)</td>
+      </tr>
+      <tr>
+        <td><span class="label label-info">height</span></td>
+        <td>int</td>
+        <td>Screen height (e.g. <em>480</em>)</td>
+      </tr>    
+      <tr>
+        <td><span class="label label-info">opengl</span></td>
+        <td>string</td>
+        <td>OpenGL version (e.g. 2)</td>
+      </tr>    
+      <tr>
+        <td><span class="label label-info">device</span></td>
+        <td>string</td>
+        <td>Device version (e.g. <em>iPhone1G, iPhone3GS, iPhone4S, iPad1G</em>  etc.)</td>
+      </tr>    
     </tbody>
   </table>
   

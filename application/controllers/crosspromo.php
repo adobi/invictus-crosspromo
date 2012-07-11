@@ -24,6 +24,10 @@ class Crosspromo extends MY_Controller
       
       $data['types'] = $this->types->fetchAll();
       
+      $this->load->model('Users', 'users');
+      
+      $data['users'] = $this->users->fetchAllWithGames();
+      
       $this->template->build('crosspromo/index', $data);
     }
     
@@ -302,4 +306,23 @@ class Crosspromo extends MY_Controller
       
       die;
     }
+    
+    public function delete_user()
+    {
+      $this->load->model('Users', 'model');
+      
+      $this->model->delete($this->uri->segment(3));
+      
+      die;
+    }
+    
+    public function delete_usergame()
+    {
+      $this->load->model('Usergames', 'model');
+      
+      $this->model->delete($this->uri->segment(3));
+      
+      die;
+    }
+    
 }

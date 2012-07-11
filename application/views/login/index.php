@@ -36,8 +36,10 @@
             </div>
           </div>
       </div>
+      
       <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" id="login" class="btn btn-primary" onclick="$(this).tooltip('show');" data-placement="right" data-trigger="manual" title="Please wait! <br /> Loading data from invictus.com ...">Login</button>
       </div> 
+      
     </fieldset>  
 <?php echo form_close() ?>
