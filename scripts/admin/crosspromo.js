@@ -113,7 +113,7 @@
           description: src.data('crosspromo-description'),
           price: src.data('price'),
         }
-    //console.log(data)
+    console.log(data)
     dest.data('old-id', dest.attr('id'))
     
     dest.before(template(data))

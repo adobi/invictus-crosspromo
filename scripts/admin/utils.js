@@ -318,30 +318,39 @@
     request: function(settings, successCallback, errorCallback) 
     {
       var params = {
-        dataType: 'json',
+        //dataType: 'json',
+        //contentType: "application/json; charset=utf-8",
       }
       
       $.extend(params, settings)
+      
+      params.url = App.URL+params.url
       
       var request = $.ajax(params)
       
       if (typeof successCallback === 'function') {
         
-        request.success(successCallback)
+        request.done(successCallback)
       } 
 
       if (typeof errorCallback === 'function') {
-        request.error(errorCallback)
+        request.fail(errorCallback)
       } 
+      
+      //console.log(params)
+      
+      //console.log($.ajax(params))
     },
     
     remove: function(url, successCallback, errorCallback) 
     {
       
       this.request({
-        url: App.URL+url,
-        type: 'get'
+        url: url,
+        type: 'GET'
       }, successCallback, errorCallback)
+      
+      //$.getJSON(App.URL+url, successCallback)
     }, 
     
     save: function(url, data, successCallback, errorCallback) 
@@ -352,10 +361,12 @@
       data[name] = value
       //console.log(data)
       this.request({
-        url: App.URL+url,
+        url: url,
         data: data,
-        type: 'post'
+        type: 'POST'
       }, successCallback, errorCallback)
+      
+      //$.post(App.URL+url, data, successCallback)
     }
   }
   
