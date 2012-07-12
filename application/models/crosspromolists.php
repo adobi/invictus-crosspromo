@@ -20,21 +20,25 @@ class Crosspromolists extends MY_Model
     {
       if (!$id) return false;
       
-      $result = $this->fetchRows(array('where'=>array('game_id'=>$id, 'is_active'=>1),'order'=>array('by'=>'order', 'dest'=>'asc')));
+      //$result = $this->fetchRows(array('where'=>array('game_id'=>$id, 'is_active'=>1),'order'=>array('by'=>'order', 'dest'=>'asc')));
+      
+      $sql = "select $this->_name.* from $this->_name where game_id = $id and is_active = 1 and (select count(id) from cp_crosspromo where list_id = $this->_name.id) != 0 order by `order` asc";
+      //dump($sql); die;
+      $result = $this->execute($sql);
       
       return $result;
     }
     
     public function hasGameList($gamePlatformId) 
     {
-      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList parameter:' . $gamePlatformId . "\r\n", FILE_APPEND);
+      //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList parameter:' . $gamePlatformId . "\r\n", FILE_APPEND);
       if (!$gamePlatformId) return 0;
       
       //$result = $this->findBy('game_id', $gamePlatformId);
       
-      $result = $this->fetchRows(array('where'=>array('game_id'=>$gamePlatformId, 'is_active'=>1)));
+      $result = $this->fetchForGame($gamePlatformId);
       
-      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList result:' . json_encode($result) . "\r\n", FILE_APPEND);
+      //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'hasGameList result:' . json_encode($result) . "\r\n", FILE_APPEND);
       
       if (count($result)) return 1;
       
