@@ -61,6 +61,7 @@
                       <?php  $this->session->unset_userdata('selected-sidebar-tab') ?>
                     </div> <!-- /types -->
                     <div class="tab-pane  right-side-scroll" id="devices">
+                      <?php if (ENVIRONMENT === 'development'): ?>
                         <?php if ($users): ?>
                           <?php foreach ($users as $user): ?>
                             <div class="user-item">
@@ -83,7 +84,8 @@
                             </div>
                           <?php endforeach ?>
                         <?php endif ?>
-                      </div> <!-- /devices -->
+                      <?php endif ?>
+                    </div> <!-- /devices -->
                   </div> <!-- /items -->
                 </div> <!-- well -->
               </div> <!-- /sidebar-navigation-wrapper -->
