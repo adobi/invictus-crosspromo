@@ -61,7 +61,8 @@
                       <?php  $this->session->unset_userdata('selected-sidebar-tab') ?>
                     </div> <!-- /types -->
                     <div class="tab-pane  right-side-scroll" id="devices">
-                      <?php if (ENVIRONMENT === 'development'): ?>
+                     
+                      <?php if (ENVIRONMENT === '_development'): ?>
                         <?php if ($users): ?>
                           <?php foreach ($users as $user): ?>
                             <div class="user-item">
@@ -193,6 +194,7 @@
   	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
   	            "https://raw.github.com/cowboy/jquery-hashchange/v1.3/jquery.ba-hashchange.min.js",
   	            "http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js",
+  	            "https://raw.github.com/filamentgroup/jQuery-Visualize/master/js/visualize.jQuery.js",
               <?php if (ENVIRONMENT === 'development') : ?>
                 "<?php echo base_url() ?>scripts/plugins/bootstrap/bootstrap.js",
                 "<?php echo base_url() ?>scripts/plugins/chosen/chosen.jquery.min.js",
@@ -209,7 +211,7 @@
                 "<?php echo base_url() ?>assets/scripts/admin.min.js",
               <?php endif; ?>
                 function() {
-                
+                  //$('.chart-data').visualize({type: 'line', width: '420px'});
                     <?php if ($this->session->flashdata('message')): ?>
                         $(function() {
                             App.showNotification("<?php echo ($this->session->flashdata("message")) ?>")

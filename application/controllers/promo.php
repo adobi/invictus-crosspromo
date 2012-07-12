@@ -194,7 +194,7 @@ class Promo extends Promo_Controller
       $_POST['game_name'] = urldecode($_POST['game_name']);
     }
     
-    file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
     $this->form_validation->set_error_delimiters('', '');
     
     //dump($_POST); die;
