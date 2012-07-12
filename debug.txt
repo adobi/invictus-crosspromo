@@ -1,3 +1,6 @@
 before validation:{"device_id":"4e2ecebbfafe27a7c00e0462fad0873a","platform_type":"phone","platform_name":"ios","os_version":"4.3","game_name":"Mist Bouncer","game_version":"2","width":"320","height":"480","opengl":"1","device":"iPhone3GS","response_type":"xml"}
 hasGameList parameter:51
 hasGameList result:[]
+before validation:{"device_id":"0cc175b9c0f1b6a831c399e269772661","platform_type":"phone","platform_name":"ios","os_version":"4.3","game_name":"4x4 jam","game_version":"1","width":"320","height":"480","opengl":"1","device":"iPhone3GS","response_type":"xml"}
+hasGameList parameter:84
+hasGameList result:[{"id":"67","name":"Free","game_id":"84","order":null,"ga_category":null,"ga_action":null,"ga_label":null,"ga_value":null,"ga_noninteraction":null,"is_active":"1","image":"1342082503_crtabicon_free.png"}]

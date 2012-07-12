@@ -13,7 +13,7 @@
                       <a href="#types" data-toggle="tab">Types</a>
                     </li>
                     <li class="">
-                      <a href="#devices" data-toggle="tab">Devices</a>
+                      <a href="#devices" data-toggle="tab">Devices <span class="badge badge-info" style="position:relative; top:-2px;"><?php echo $users ? count($users) : 0 ?> </span></a>
                     </li>                    
                   </ul>
                   
@@ -65,7 +65,7 @@
                           <?php foreach ($users as $user): ?>
                             <div class="user-item">
                               <div class="legend">
-                                <strong><?php echo $user->device_id ?></strong>
+                                <strong><?php echo $user->device_id ?> </strong><small style="color:#999; font-size:14px; font-weight:normal;"><?php echo ($user->created) ?></small>
                                 <a href="<?php echo base_url() ?>/crosspromo/delete_user/<?php echo $user->id ?>" data-parent=".user-item" class=" delete-user pull-right btn"><i class="icon-trash"></i></a>
                               </div>
                               <?php if ($user->games): ?>

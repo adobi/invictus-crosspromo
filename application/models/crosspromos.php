@@ -33,6 +33,12 @@ class Crosspromos extends MY_Model
     {
       if (!$id || !$list) return false;
       
+      $this->load->model('Gameplatforms', 'gp');
+      
+      $gp = $this->gp->find($id);
+      
+      if (!$gp) return false;
+      
       $result = $this->fetchRows(
         array('columns'=>array(
                 'cp_crosspromo.id', 'cp_crosspromo.base_game_id', 'cp_crosspromo.promo_game_id', 'cp_crosspromo.order', 'cp_crosspromo.ga_category', 'cp_crosspromo.ga_action', 'cp_crosspromo.ga_label', 'cp_crosspromo.ga_value', 'cp_crosspromo.ga_noninteraction', 
@@ -52,6 +58,9 @@ class Crosspromos extends MY_Model
                   'cp_game_platform.currency',
                   'cp_game_platform.min_os_version',
                   'cp_game_platform.version',
+                  'cp_game_platform.width',
+                  'cp_game_platform.height',
+                  'cp_game_platform.opengl',
                 )),
                 array('table'=>'cp_game', 'condition'=>'cp_game.id = cp_game_platform.game_id  and is_active = 1', 'columns'=>array('cp_game.name', 'cp_game.logo', 'cp_game.url', 'cp_game.category_id')),  
                 array('table'=>'cp_platform', 'condition'=>'cp_platform.id = cp_game_platform.platform_id', 'columns'=>array('cp_platform.name as platform_name')),  
@@ -65,19 +74,36 @@ class Crosspromos extends MY_Model
         if (!isset($params['platform'])) return $result;
 
         $this->load->model('Users', 'user');
-        
+
         $user = $this->user->findBy('device_id', $params['device']);
         
-        //dump($user); die;
-        //dump($params);
         if (!$user) return $result;
         
+        /**
+         * get the request game width, height, opengl
+         *
+         * @author Dobi Attila
+         */
         $this->load->model('UserGames', 'usergames');
-        //$userGames = $this->usergames->fetchBy('user_id', $user->id);
         
+        $usergame = $this->usergames->fetchRows(array('where'=>array('user_id'=>$user->id, 'game_id'=>$gp->game_id)));
+        
+        if (!$usergame) return $result;
+        
+        $usergame = $usergame[0];
+        
+        $params['width'] = $usergame->width;
+        $params['height'] = $usergame->height;
+        $params['opengl'] = $usergame->opengl;
+                
         $listSize = count($result);
         $holes = array();
         
+        /**
+         * determine the platform
+         *
+         * @author Dobi Attila
+         */
         $platform = array();
         if (strtolower($params['platform']) === 'ios') {
           if (strtolower($params['type']) === 'phone') {
@@ -113,13 +139,11 @@ class Crosspromos extends MY_Model
              *
              * @author Dobi Attila
              */
-             
              if (in_array($item->platform_id, $platforms) && !$this->isOsVersionOk($item->min_os_version, $params['os'])) {
                
                $result[$index] = -1;
                
                $holes[$index] = $item;
-               //$result[$index] = $this->findSimilarGame($criteria, $item);
               }
              
              /**
@@ -139,16 +163,38 @@ class Crosspromos extends MY_Model
                   * @author Dobi Attila
                   */  
                  $result[$index] = -2; 
-                 
-                 //$result[$index] = $this->findSimilarGame($criteria, $item);
+
                  $holes[$index] = $item;
                }
-             } 
+             }
+             
+             /**
+               * minimal kepernyo felbontast ellenorizni
+               *
+               * @author Dobi Attila
+               */ 
+            //dump($item); dump($params);
+            if ($item->height && $item->width && $item->height >= $params['height'] && $item->width >= $params['width']) {
+              $result[$index] = -3;
+              $holes[$index] = $item;
+            }
+              
+            /** 
+              * opengl verziot ellenorizni
+              *
+              * @author Dobi Attila
+              */
+            if ($item->opengl && $item->opengl >= $params['opengl']) {
+              $result[$index] = -4;
+              $holes[$index] = $item;
+            }   
           }
         } else {
           $holes = range(0,4);
         }
-
+        
+        //dump($result); die;
+        
         $result = $this->findSimilarGame($criteria, $result, $holes, $list);
       }
       
@@ -174,7 +220,7 @@ class Crosspromos extends MY_Model
       //$item->removed = true;
 
       if (!$holes) return $result;
-      
+      //dump($params); die;
       $sql = "select 
         /*cp_game.*,*/
                 cp_game.name, cp_game.logo, cp_game.url, cp_game.category_id, cp_game.crosspromo_description, 
@@ -198,10 +244,13 @@ class Crosspromos extends MY_Model
 								and cp_game_platform.id not in (select promo_game_id from cp_crosspromo where list_id = ".$listId.")
 								and cp_game_platform.platform_id in (".join(',', $params['platforms']).")
 								and cp_game_platform.min_os_version < '".$params['os']."'
+								and (width!=0 && width>=".$params['width'].")
+								and (height!=0 && height>=".$params['height'].")
+								and (opengl!=0 && opengl>=".$params['opengl'].")
               order by rand()
               limit ".count($holes);
       $return = $this->execute($sql);
-      
+      //dump($return); die;
       if (!$return) return $result;
       
       $holesValues = array_values($holes);
