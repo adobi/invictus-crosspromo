@@ -29,4 +29,23 @@ class Users extends MY_Model
       
       return $users;
     }
+    
+    public function fetchDevicesChartData()
+    {
+      $sql = "select 
+              	date(created) as created
+              	, count(device_id) as device_count
+              from cp_user
+              group by date(created)";
+      $result = $this->execute($sql);
+      
+      if (!$result) return false;
+      
+      $return = array();
+      foreach ($result as $item) {
+        $return[] = array($item->created, intval($item->device_count));
+      }
+      
+      return $return;
+    }
 }

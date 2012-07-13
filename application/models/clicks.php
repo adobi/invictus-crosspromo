@@ -38,4 +38,29 @@ class Clicks extends MY_Model
       
       return $result[0]->type ? $result[0]->type : '';
     }
+    
+    public function fetchClicksChartData()
+    {
+      $sql = "select 
+              	date(created) as created
+              	, count(cp_click.game_id) as click_count
+              	, cp_click.game_id
+              	, concat(cp_game.`name`, ' ', cp_platform.`name`) as game_name
+              from cp_click
+              join cp_game_platform on cp_game_platform.id = cp_click.game_id
+              join cp_game on cp_game.id = cp_game_platform.game_id
+              join cp_platform on cp_platform.id = cp_game_platform.platform_id
+              group by date(created)";
+              
+      $result = $this->execute($sql);
+      
+      if (!$result) return false;
+      
+      $return = array();
+      foreach ($result as $item) {
+        $return[] = array($item->game_name, intval($item->click_count));
+      }
+      
+      return $return;
+    }
 } 

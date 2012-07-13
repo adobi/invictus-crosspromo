@@ -12,9 +12,6 @@
                     <li class="<?php echo $this->session->userdata('selected-sidebar-tab') === 'types' ? 'active' : '' ?>">
                       <a href="#types" data-toggle="tab">Types</a>
                     </li>
-                    <li class="">
-                      <a href="#devices" data-toggle="tab">Devices <span class="badge badge-info" style="position:relative; top:-2px;"><?php echo $users ? count($users) : 0 ?> </span></a>
-                    </li>                    
                   </ul>
                   
                   <div class="items page-items tab-content">
@@ -60,33 +57,6 @@
                       </div>
                       <?php  $this->session->unset_userdata('selected-sidebar-tab') ?>
                     </div> <!-- /types -->
-                    <div class="tab-pane  right-side-scroll" id="devices">
-                     
-                      <?php if (ENVIRONMENT === '_development'): ?>
-                        <?php if ($users): ?>
-                          <?php foreach ($users as $user): ?>
-                            <div class="user-item">
-                              <div class="legend">
-                                <strong><?php echo $user->device_id ?> </strong><small style="color:#999; font-size:14px; font-weight:normal;"><?php echo ($user->created) ?></small>
-                                <a href="<?php echo base_url() ?>/crosspromo/delete_user/<?php echo $user->id ?>" data-parent=".user-item" class=" delete-user pull-right btn"><i class="icon-trash"></i></a>
-                              </div>
-                              <?php if ($user->games): ?>
-                                <div class="well">
-                                  <ul class="unstyled" style="margin-left:30px; margin-top:20px;">
-                                    <?php foreach ($user->games as $game): ?>
-                                      <li  style="margin-bottom:20px">
-                                        <?php echo $game->name ?>
-                                        <a href="<?php echo base_url() ?>crosspromo/delete_usergame/<?php echo $game->id ?>" data-parent="li" class=" delete-user btn pull-right"><i class="icon-trash"></i></a>
-                                      </li>
-                                    <?php endforeach ?>
-                                  </ul>
-                                </div>  
-                              <?php endif ?>
-                            </div>
-                          <?php endforeach ?>
-                        <?php endif ?>
-                      <?php endif ?>
-                    </div> <!-- /devices -->
                   </div> <!-- /items -->
                 </div> <!-- well -->
               </div> <!-- /sidebar-navigation-wrapper -->
@@ -188,6 +158,7 @@
         var App = App || {};
         App.URL = "<?php echo base_url() ?>";
     </script>      
+    
   	<script src = "<?php echo base_url() ?>scripts/plugins/headjs/head.min.js"></script> 
   	<script type="text/javascript">
   	    head.js("http://code.jquery.com/jquery-latest.min.js", 

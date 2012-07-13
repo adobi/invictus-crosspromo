@@ -24,10 +24,6 @@ class Crosspromo extends MY_Controller
       
       $data['types'] = $this->types->fetchAll();
       
-      $this->load->model('Users', 'users');
-      
-      $data['users'] = $this->users->fetchAllWithGames();
-      
       $this->template->build('crosspromo/index', $data);
     }
     

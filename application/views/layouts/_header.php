@@ -44,12 +44,12 @@
                   
                   <div class="nav-collapse">
                     <ul class="nav systems">
-                      <!-- 
-                      <li><a href="#">
-                        <i class="icon-big iphone-icon"></i>
-                        devices
+                      
+                      <li <?php echo $this->uri->segment(1) === 'stat' ? 'class="active"' : ''  ?>><a href="<?php echo base_url() ?>stat">
+                        <i class="icon-big icon-signal"></i>
+                        Statistics
                       </a></li>
-                       -->
+                      
                     </ul>
                     <div class="pull-right">
                         <ul class="nav">
