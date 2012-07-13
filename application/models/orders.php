@@ -26,4 +26,23 @@ class Orders extends MY_Model
       
       if ($count >= 5) return "5+";
     }
+    
+    public function fetchOrdersChartData()
+    {
+      $sql = "select 
+              	date(created) as created
+              	, count(game_id) as game_count
+              from cp_order
+              group by date(created)";
+      $result = $this->execute($sql);
+      
+      if (!$result) return false;
+      
+      $return = array();
+      foreach ($result as $item) {
+        $return[] = array($item->created, intval($item->game_count));
+      }
+      
+      return $return;
+    }    
 }

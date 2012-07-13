@@ -26,6 +26,12 @@ class Stat extends MY_Controller
         
         $data['clicks_chart_data'] = json_encode($this->click->fetchClicksChartData());
         
+        $this->load->model('Orders', 'order');
+        
+        $data['orders'] = $this->order->fetchAll();
+        
+        $data['orders_chart_data'] = json_encode($this->order->fetchOrdersChartData());
+        
         $this->template->build('stat/index', $data);
     }
 }
