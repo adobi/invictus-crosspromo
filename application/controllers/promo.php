@@ -99,8 +99,13 @@ class Promo extends Promo_Controller
             'shipping'=>'',
             'city'=>'Debrecen',
             'state'=>'Hajdú-Bihar',
-            'country'=>'HUN'
+            'country'=>'HUN',
+            'created'=>date('Y-m-d H:i:s', time())
           );
+          
+          $this->load->model('Transactions', 'trans');
+          
+          $this->trans->insert($data['transaction']);
         }
       }
       
