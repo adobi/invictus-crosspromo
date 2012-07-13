@@ -16,6 +16,26 @@ class Promo extends Promo_Controller
     $data['games'] = $this->model->fetchAllWithGameAndPlatform();    
     
     $this->template->build('promo/index', $data);
+    
+    $a = '2.0';
+    $b = '2.000000';
+    $l1 = strlen($a);
+    $l2 = strlen($b);
+    $l = abs($l1 - $l2);
+    
+    dump($l);
+    
+    if ($l1 > $l2) {
+      //$a .= str_repeat('0', $l);
+    }
+    
+    if ($l2 > $l1) {
+      //$b .= str_repeat('0', $l);
+    }
+    
+    dump($a >= $b);
+    
+    die;
   }
   
   public function show() 

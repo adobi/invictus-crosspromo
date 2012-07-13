@@ -68,7 +68,7 @@ class Crosspromos extends MY_Model
               ),
               'order'=>array('by'=>"order", 'dest'=>'asc'))
       , false, true);
-      
+      //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'device:' . json_encode($params['device']) . "\r\n", FILE_APPEND);
       if ($params) {
 
         if (!isset($params['platform'])) return $result;
@@ -132,7 +132,14 @@ class Crosspromos extends MY_Model
         if ($result) {
           
           foreach ($result as $index=>$item) {
-            
+             
+             if (!in_array($item->platform_id, $platforms)) {
+               //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad platform:' . json_encode($item) . "\r\n", FILE_APPEND);
+               $result[$index] = -5;
+               
+               $holes[$index] = $item;
+             }
+                         
             /**
              * ha az listsitem min_os_version-je nagyobb mint a kapott os verzio, akkor kivenni es mast valasztani helyette.
              * valasztas: ami nincs meg a jatekosnak, es azonos os-sel rendelkezik mint ami a keresben jon, es a min_os_version kisebb mint az kapott os verzio
@@ -140,7 +147,7 @@ class Crosspromos extends MY_Model
              * @author Dobi Attila
              */
              if (in_array($item->platform_id, $platforms) && !$this->isOsVersionOk($item->min_os_version, $params['os'])) {
-               
+               //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad min_os_version:' . json_encode($item) . "\r\n", FILE_APPEND);
                $result[$index] = -1;
                
                $holes[$index] = $item;
@@ -161,7 +168,8 @@ class Crosspromos extends MY_Model
                   * valasztas: olyan jatek, ami nincs meg a jatekosnak es a kategoriaja megegyezik a kikerult jatek kategoriajaval
                   *
                   * @author Dobi Attila
-                  */  
+                  */
+                 //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'has latest version of game:' . json_encode($item) . "\r\n", FILE_APPEND);    
                  $result[$index] = -2; 
 
                  $holes[$index] = $item;
@@ -174,7 +182,8 @@ class Crosspromos extends MY_Model
                * @author Dobi Attila
                */ 
             //dump($item); dump($params);
-            if ($item->height && $item->width && $item->height >= $params['height'] && $item->width >= $params['width']) {
+            if ($item->height && $item->width && $item->height > $params['height'] && $item->width > $params['width']) {
+              //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad screen ewsolution:' . json_encode($item) . "\r\n", FILE_APPEND);
               $result[$index] = -3;
               $holes[$index] = $item;
             }
@@ -184,7 +193,10 @@ class Crosspromos extends MY_Model
               *
               * @author Dobi Attila
               */
-            if ($item->opengl && $item->opengl >= $params['opengl']) {
+            if ($item->opengl && $item->opengl > $params['opengl']) {
+              //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad opengl:item opengl ' . json_encode($item->opengl) . "\r\n", FILE_APPEND);
+              //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad opengl:params opengl ' . json_encode($params['opengl']) . "\r\n", FILE_APPEND);
+              //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', 'bad opengl:params opengl ' . json_encode($item->opengl >= $params['opengl']) . "\r\n", FILE_APPEND);
               $result[$index] = -4;
               $holes[$index] = $item;
             }   
@@ -194,7 +206,7 @@ class Crosspromos extends MY_Model
         }
         
         //dump($result); die;
-        
+        //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/list_debug.txt', '------------------------------------------------------------------------------------------------' . "\r\n", FILE_APPEND);
         $result = $this->findSimilarGame($criteria, $result, $holes, $list);
       }
       
