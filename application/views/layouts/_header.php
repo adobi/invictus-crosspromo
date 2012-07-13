@@ -37,15 +37,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
+                  
+                  <!-- 
                   <a href="<?php echo base_url() ?>" class="brand" style="margin-top:10px; margin-right:3px; color:#fff">
                     <i class="icon-big exchange-icon" style="display:inline-block"></i>
                     in-game crosspromo
                   </a>
+                   -->
                   
                   <div class="nav-collapse">
                     <ul class="nav systems">
-                      
-                      <li <?php echo $this->uri->segment(1) === 'stat' ? 'class="active"' : ''  ?>><a href="<?php echo base_url() ?>stat">
+                       <li <?php echo !$this->uri->segment(1) || $this->uri->segment(1) === 'crosspromo' ? 'class="active"' : '' ?>>
+                        <a href="<?php echo base_url() ?>">
+                          <i class="icon-big exchange-icon"></i>
+                          crosspromo
+                        </a>                        
+                      </li>
+                      <li <?php echo $this->uri->segment(1) === 'stat' ? 'class="active"' : ''  ?>>
+                        <a href="<?php echo base_url() ?>stat">
                         <i class="icon-big icon-signal"></i>
                         Statistics
                       </a></li>

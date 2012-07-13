@@ -765,7 +765,7 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .icon-platform{width:14px;height:14px;background:url("../../img/glyphicons_163_iphone_small.png") no-repeat transparent;}
 .icon-signal{width:22px;height:21px;background:url("../../img/glyphicons_040_stats.png") no-repeat transparent;}
 .picture-icon{width:24px;height:20px;background:url("../../img/glyphicons_159_picture.png") no-repeat transparent;}
-.exchange-icon{width:29px;height:24px;background:url("../../img/glyphicons_165_iphone_exchange.png") no-repeat transparent;}
+.exchange-icon{width:25px;height:21px;background:url("../../img/glyphicons_165_iphone_exchange.png") no-repeat transparent;}
 .navbar .nav>li>a{color:#dedede;}
 .left-side-nav{margin:0 auto;display:block;}
 .left-side-nav .nav-header{padding:15px 0!important;font-size:1.1em;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}

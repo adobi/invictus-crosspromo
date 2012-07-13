@@ -9,6 +9,10 @@ class Stat extends MY_Controller
     public function index() 
     {
         $data = array();
+
+        $this->load->model('Crosspromotypes', 'types');
+        
+        $data['types'] = $this->types->fetchAll();
       
         $this->load->model('Users', 'users');
         
