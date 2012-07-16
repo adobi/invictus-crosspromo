@@ -69,8 +69,15 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
 define('MICROSITES_API_URL', MICROSITES_URL.'api/');
 define('MICROSITES_CREATE_URL', MICROSITES_API_URL.'create/');
 
-define('INVICTUS_API_URI', 'http://invictus.com//api/');
+if ($_SERVER['HTTP_HOST'] === 'localhost') {
+    
+  define('INVICTUS_API_URI', 'http://localhost/invictus.com/app/public/api/');
+} else {
+  
+  define('INVICTUS_API_URI', 'http://invictus.com/api/');
+}
 
+define('CROSSPROMO_API_SECRET', 'Cp97015jY4MiuI1m546De6rr!');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
