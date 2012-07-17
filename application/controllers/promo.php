@@ -264,6 +264,21 @@ class Promo extends Promo_Controller
          * @author Dobi Attila
          */
          if (! ($usergame = $this->usergame->findGameByDevice($game, $userid))) {
+           
+           /**
+            * fekvo nezet az alapertelmezett
+            *
+            * @author Dobi Attila
+            */
+           if ($_POST['width'] < $_POST['height']) {
+             
+             $width = $_POST['width'];
+             
+             $_POST['width'] = $_POST['height'];
+             $_POST['height'] = $width;
+             unset($width);
+           }
+           
            $this->usergame->insert(array('user_id'=>$userid, 'game_id'=>$game, 'game_version'=>$_POST['game_version'], 'width'=>$_POST['width'], 'height'=>$_POST['height'], 'opengl'=>$_POST['opengl'], 'device'=>$_POST['device']));
          } else {
            if (!$insert) {

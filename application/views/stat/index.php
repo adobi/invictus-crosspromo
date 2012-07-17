@@ -116,7 +116,7 @@
         title: 'Devices',
         backgroundColor: '#f9f9f9'
       };
-      var chart = new google.visualization.LineChart(document.getElementById('device-chart'));
+      var chart = new google.visualization.LineChart(document.getElementById('orders-chart'));
       chart.draw(data, options);
     }
 
