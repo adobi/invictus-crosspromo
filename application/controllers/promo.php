@@ -151,7 +151,7 @@ class Promo extends Promo_Controller
   public function console()
   {
     $data = array();
-
+    
     $this->load->model('Gameplatforms', 'model');
     
     $token = false;
@@ -193,13 +193,19 @@ class Promo extends Promo_Controller
    */
   public function add_device() 
   {
+    $debug = false;
 
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
+      
     if (isset($_GET['device_id'])) {
       $_POST = $_GET;
       $_POST['game_name'] = urldecode($_POST['game_name']);
     }
     
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'before validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+      
     $this->form_validation->set_error_delimiters('', '');
     
     //dump($_POST); die;
@@ -212,20 +218,25 @@ class Promo extends Promo_Controller
     
     $response = array();
     if ($this->form_validation->run()) {
-      //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'after validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+      if ($debug)
+        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'after validation:' . json_encode($_POST) . "\r\n", FILE_APPEND);
       
       $this->load->model('Users', 'user');
       $this->load->model('Usergames', 'usergame');
       $this->load->model('Gameplatforms', 'gameplatform');
       $this->load->model('Games', 'game');
       $this->load->model('Platforms', 'platform');
-            
+      
       $game = $this->game->findByName($_POST['game_name']);
+      if ($debug)      
+        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game:' . json_encode($game) . "\r\n", FILE_APPEND);
+        
       $platform = $this->platform->findByName($_POST['platform_name'], $_POST['platform_type']);
+      if ($debug)      
+        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'platform:' . json_encode($platform) . "\r\n", FILE_APPEND);
       
       $game = $game ? $game->id : $game;
       $platform = $platform ? $platform->id : $platform;
-
 
       /** 
        * megkeressuk a jatek id es a platform alapjan, hogy miylen game_platform_id tartozik a kapott parameterkhez
@@ -233,25 +244,39 @@ class Promo extends Promo_Controller
        * @author Dobi Attila
        */
       $_POST['game_id'] = $this->gameplatform->findByGameAndPlatform($game, $platform);
-      
+      if ($debug)      
+        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_id:' . json_encode($_POST['game_id']) . "\r\n", FILE_APPEND);
+
       $userid = false;
       if ($_POST['game_id']) {
         
         $_POST['game_id'] = $_POST['game_id']->id;
-        //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_platform_id:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+        if ($debug)
+          file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_platform_id:' . json_encode($_POST) . "\r\n", FILE_APPEND);
+          
         $insert = false;
         /**
          * ellenorizni, hogy az adott device_id szerepelt e mar nalunk
          *
          * @author Dobi Attila
          */
-        if (! ($device = $this->user->findBy('device_id', $_POST['device_id']))) {
+        $device =  $this->user->findBy('device_id', $_POST['device_id']);
+        if ($debug)
+          file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'device:' . json_encode($device) . "\r\n", FILE_APPEND);
+        
+        if (! ($device)) {
           
           $user = array('device_id'=>$_POST['device_id'], 'os_version'=>$_POST['os_version'], 'os_type'=>$_POST['platform_name'], 'device_type'=>$_POST['platform_type'], 'created'=>date('Y-m-d H:i:s', time()));
           $userid = $this->user->insert($user);
+          if ($debug)
+            file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'userid (insert):' . json_encode($userid) . "\r\n", FILE_APPEND);
+            
           $insert = true;
         } else {
           $userid = $this->user->find($device->id)->id;
+          if ($debug)
+            file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'userid (find):' . json_encode($userid) . "\r\n", FILE_APPEND);
+            
         }
         
         //echo $_POST['game_id'];
@@ -263,13 +288,19 @@ class Promo extends Promo_Controller
          *
          * @author Dobi Attila
          */
-         if (! ($usergame = $this->usergame->findGameByDevice($game, $userid))) {
+        if ($debug)
+          file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (params):' . json_encode(array('game'=>$game, 'userid'=>$userid)) . "\r\n", FILE_APPEND); 
+        $usergame = $this->usergame->findGameByDevice($game, $userid);
+        if ($debug)
+          file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (find):' . json_encode($usergame) . "\r\n", FILE_APPEND);         
+         if (! ($usergame)) {
            
            /**
             * fekvo nezet az alapertelmezett
             *
             * @author Dobi Attila
             */
+           /*  
            if ($_POST['width'] < $_POST['height']) {
              
              $width = $_POST['width'];
@@ -278,12 +309,23 @@ class Promo extends Promo_Controller
              $_POST['height'] = $width;
              unset($width);
            }
+           */
+           $insertData = array('user_id'=>intval($userid), 'game_id'=>$game, 'game_version'=>$_POST['game_version'], 'width'=>$_POST['width'], 'height'=>$_POST['height'], 'opengl'=>$_POST['opengl'], 'device'=>$_POST['device'] ? $_POST['device'] : '');
+           if ($debug)
+              file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (insert data):' . json_encode($insertData) . "\r\n", FILE_APPEND);
+           $insertedUserGame = $this->usergame->insert($insertData);
            
-           $this->usergame->insert(array('user_id'=>$userid, 'game_id'=>$game, 'game_version'=>$_POST['game_version'], 'width'=>$_POST['width'], 'height'=>$_POST['height'], 'opengl'=>$_POST['opengl'], 'device'=>$_POST['device']));
+           if ($debug)
+              file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (insert):' . json_encode($insertedUserGame) . "\r\n", FILE_APPEND);
+              
          } else {
            if (!$insert) {
              if ($usergame->game_version < $_POST['game_version']) {
-               $this->usergame->update(array('game_version'=>$_POST['game_version']), $usergame->id);
+               $updatedUserGame = $this->usergame->update(array('game_version'=>$_POST['game_version']), $usergame->id);
+               
+                if ($debug)
+                  file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (update):' . json_encode($updatedUserGame) . "\r\n", FILE_APPEND);
+                          
              }
            }
          }
@@ -300,7 +342,8 @@ class Promo extends Promo_Controller
     } else {
       $response['error'] = validation_errors();
     }
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response:' . json_encode($response) . "\r\n", FILE_APPEND);
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response:' . json_encode($response) . "\r\n", FILE_APPEND);
     
     $responseType = "json";
     
@@ -312,7 +355,8 @@ class Promo extends Promo_Controller
       $responseType = $_POST['response_type'];
     }
     
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response_type:' . json_encode($responseType) . "\r\n", FILE_APPEND);
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'response_type:' . json_encode($responseType) . "\r\n", FILE_APPEND);
     
     if ($responseType === 'json') {
       
@@ -336,10 +380,13 @@ class Promo extends Promo_Controller
       }
     }
     echo $result;
+    
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
 
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'result:' . json_encode($result) . "\r\n", FILE_APPEND);
-
-    //file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
+    if ($debug)
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', "----------------------------------------------------------------------------------------------------------------". "\r\n", FILE_APPEND);
+    
     die;
     
   }
