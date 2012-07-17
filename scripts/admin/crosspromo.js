@@ -113,7 +113,7 @@
           description: src.data('crosspromo-description'),
           price: src.data('price'),
         }
-    console.log(data)
+    //console.log(data)
     dest.data('old-id', dest.attr('id'))
     
     dest.before(template(data))
@@ -287,7 +287,7 @@
   Crosspromo.CopyList = function(el) 
   {
     App.Utils.save(el.attr('action'), el.serialize(), function(response) {
-      
+      response = $.parseJSON(response)
       if(response.error) {
         
         el.find('.alert-error').html(response.error).show()

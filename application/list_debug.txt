@@ -1,5 +1,0 @@
-device:"22c96815cdc4189f711d12d17ed7c111"
-bad opengl:item opengl"2.0"
-bad opengl:params opengl"2.000000"
-bad opengl:params opengltrue
-------------------------------------------------------------------------------------------------

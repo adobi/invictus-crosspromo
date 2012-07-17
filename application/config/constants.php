@@ -36,10 +36,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-define('SITE_TITLE', 'Invictus Admin');
+define('SITE_TITLE', 'Crosspromo Admin');
 
 
-if ($_SERVER['HTTP_HOST'] === 'localhost') {
+if (@$_SERVER['HTTP_HOST'] === 'localhost') {
     
   define('NEWS_URL', 'http://localhost/invictus-news/');
 } else {
@@ -48,7 +48,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
 }
 define('NEWS_API_URL', NEWS_URL.'api/create');
 
-if ($_SERVER['HTTP_HOST'] === 'localhost') {
+if (@$_SERVER['HTTP_HOST'] === 'localhost') {
     
   define('PRESS_RELEASE_URL', 'http://localhost/press/');
 } else {
@@ -59,7 +59,7 @@ define('PRESS_RELEASE_API_URL', PRESS_RELEASE_URL.'api/');
 define('PRESS_RELEASE_CREATE_URL', PRESS_RELEASE_API_URL.'create');
 define('PRESS_RELEASE_GET_TOKEN', PRESS_RELEASE_API_URL.'get_token_name');
 
-if ($_SERVER['HTTP_HOST'] === 'localhost') {
+if (@$_SERVER['HTTP_HOST'] === 'localhost') {
     
   define('MICROSITES_URL', 'http://localhost/microsites/public/');
 } else {
@@ -69,7 +69,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
 define('MICROSITES_API_URL', MICROSITES_URL.'api/');
 define('MICROSITES_CREATE_URL', MICROSITES_API_URL.'create/');
 
-if ($_SERVER['HTTP_HOST'] === 'localhost') {
+if (@$_SERVER['HTTP_HOST'] === 'localhost') {
     
   define('INVICTUS_API_URI', 'http://localhost/invictus.com/app/public/api/');
 } else {

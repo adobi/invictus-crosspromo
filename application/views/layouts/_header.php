@@ -58,7 +58,12 @@
                         <i class="icon-big icon-signal"></i>
                         Statistics
                       </a></li>
-                      
+                      <li>
+                        <a href="<?php echo base_url() ?>api/init_from_remote/redirect" onclick="$(this).tooltip('show');" rel="tooltip"  data-placement="bottom" data-trigger="manual" title="Please wait! <br /> Loading data from invictus.com ...">
+                          <i class="icon-big roundabout-icon"></i>
+                          Load data
+                        </a>
+                      </li>
                     </ul>
                     <div class="pull-right">
                         <ul class="nav">
