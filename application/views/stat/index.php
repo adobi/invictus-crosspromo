@@ -1,7 +1,12 @@
+<!-- 
+<div class="well">
+  Benchmark time: <?php echo $benchmark_time ?>
+</div>
+ -->
 <div class="span12 stat-box">
   <div class="accordion-heading">
     <legend style="width:98%">
-      Registered devices <span class="badge badge-info"><?php echo $users ? count($users) : 0 ?> </span>
+      Registered devices <span id="devices-count" class="badge badge-info"><?php echo $users ?> </span>
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
   </div>  
@@ -14,7 +19,7 @@
 <div class="span12 stat-box">
   <div class="accordion-heading">
     <legend>
-      Orders <span class="badge badge-info"><?php echo $orders ? count($orders) : 0 ?> </span>
+      Orders <span id="orders-count" class="badge badge-info"><?php echo $orders ?> </span>
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
   </div>  
@@ -26,7 +31,7 @@
 <div class="span12 stat-box">
   <div class="accordion-heading">
     <legend>
-      Clicks <span class="badge badge-info"><?php echo $clicks ? count($clicks) : 0 ?> </span>
+      Clicks <span id="clicks-count" class="badge badge-info"><?php echo $clicks ?> </span>
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
   </div>  
@@ -42,9 +47,15 @@
   
   google.setOnLoadCallback(drawDevicesChart);
 
+  var Data = {}
+  
+  Data.Devices = JSON.parse('<?php echo $devices_chart_data ?>')
+  Data.Clicks = JSON.parse('<?php echo $clicks_chart_data ?>')
+  Data.Orders = JSON.parse('<?php echo $orders_chart_data ?>')
+  
   function drawDevicesChart() {
     var chart_data = [], 
-        json_data = JSON.parse('<?php echo $devices_chart_data ?>'),
+        json_data = Data.Devices,
         json_data_length = json_data.length
     
     chart_data.push(['Date', 'Device count'])
@@ -68,7 +79,7 @@
 
   function drawClicksChart() {
     var chart_data = [], 
-        json_data = JSON.parse('<?php echo $clicks_chart_data ?>'),
+        json_data = Data.Clicks,
         json_data_length = json_data.length
     
     chart_data.push(['Game name', 'Click count'])
@@ -95,7 +106,7 @@
 
   function drawOrdersChart() {
     var chart_data = [], 
-        json_data = JSON.parse('<?php echo $orders_chart_data ?>'),
+        json_data = Data.Orders,
         json_data_length = json_data.length
     
     chart_data.push(['Date', 'Order count'])
@@ -119,7 +130,6 @@
       var chart = new google.visualization.LineChart(document.getElementById('orders-chart'));
       chart.draw(data, options);
     }
-
   }  
   
 </script>

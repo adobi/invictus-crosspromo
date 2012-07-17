@@ -8,30 +8,52 @@ class Stat extends MY_Controller
 {
     public function index() 
     {
+      $this->benchmark->mark('code_start');
+
+      $data = $this->_collectData(false);
+      
+      $this->benchmark->mark('code_end');
+      
+      $data['benchmark_time'] = $this->benchmark->elapsed_time('code_start', 'code_end');  
+
+      $this->load->model('Crosspromotypes', 'types');
+      
+      $data['types'] = $this->types->fetchAll();
+    
+      $this->template->build('stat/index', $data);
+    }
+    
+    public function refresh()
+    {
+      echo $this->_collectData();
+      die;
+    }
+    
+    private function _collectData($isJson = true) 
+    {
         $data = array();
 
-        $this->load->model('Crosspromotypes', 'types');
-        
-        $data['types'] = $this->types->fetchAll();
-      
         $this->load->model('Users', 'users');
         
-        $data['users'] = $this->users->fetchAllWithGames();
+        $data['users'] = count($this->users->fetchAll());
         
-        $data['devices_chart_data'] = json_encode($this->users->fetchDevicesChartData());
+        $devices_chart_data = $this->users->fetchDevicesChartData();
+        $data['devices_chart_data'] = !$isJson ? json_encode($devices_chart_data) : $devices_chart_data;
         
         $this->load->model('Clicks', 'click');
         
-        $data['clicks'] = $this->click->fetchAll();
+        $data['clicks'] = count($this->click->fetchAll());
         
-        $data['clicks_chart_data'] = json_encode($this->click->fetchClicksChartData());
+        $clicks_chart_data = $this->click->fetchClicksChartData();
+        $data['clicks_chart_data'] = !$isJson ? json_encode($clicks_chart_data) : $clicks_chart_data;
         
         $this->load->model('Orders', 'order');
         
-        $data['orders'] = $this->order->fetchAll();
+        $data['orders'] = count($this->order->fetchAll());
         
-        $data['orders_chart_data'] = json_encode($this->order->fetchOrdersChartData());
+        $orders_chart_data = $this->order->fetchOrdersChartData();
+        $data['orders_chart_data'] = !$isJson ? json_encode($orders_chart_data) : $orders_chart_data;
         
-        $this->template->build('stat/index', $data);
+        return $isJson ? json_encode($data) : $data;      
     }
 }

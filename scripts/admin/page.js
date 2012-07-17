@@ -414,6 +414,36 @@
     })
     
     $(window).hashchange();		
+    
+    
+    function refreshChart()
+    {
+      $.getJSON(App.URL + 'stat/refresh', function(response) {
+        Data.Devices = response.devices_chart_data
+        Data.Clicks = response.clicks_chart_data
+        Data.Orders = response.orders_chart_data
+        
+        //console.log(response);
+        
+        drawDevicesChart()
+        drawClicksChart()
+        drawOrdersChart()
+        
+        //console.log(response)
+        
+        $('#devices-count').html(response.users)
+        $('#orders-count').html(response.orders)
+        $('#clicks-count').html(response.clicks)
+        
+        clearInterval(App.Timer)
+        App.Timer = setTimeout(refreshChart, 10000);
+      })
+    }
+    //refreshChart()
+    if ($('#devices-count')) 
+      App.Timer = setTimeout(refreshChart, 10000);
+    
+    
     		
   });
 	

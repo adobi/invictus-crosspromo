@@ -61,6 +61,7 @@
                 </div> <!-- well -->
               </div> <!-- /sidebar-navigation-wrapper -->
             <?php endif ?>
+           
           </div> <!-- /content -->   
         </div> <!-- /container -->
 		
@@ -198,6 +199,9 @@
                 }                     
           );
   	</script>
-   
+  	<!-- 
+      time: <?php echo $this->benchmark->elapsed_time();?>
+      memory: <?php echo $this->benchmark->memory_usage();?>
+    -->
   </body>
 </html>

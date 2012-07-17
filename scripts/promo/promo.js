@@ -160,6 +160,11 @@
           value = $('.csrf-form').find('[type=hidden]').attr('value')
       
       data[name] = value
+      
+      //if (Unity) {
+      //  Unity.call(self.attr('href'))
+      //}
+      
       $.post(App.URL+'promo/click', data, function(response) {})
     })
     
