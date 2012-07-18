@@ -199,6 +199,100 @@
                 }                     
           );
   	</script>
+    <?php if (isset($devices_chart_data) && isset($clicks_chart_data) && isset($orders_chart_data)): ?>
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+      <script type="text/javascript">
+        var Data = {}
+        
+        Data.Devices = JSON.parse('<?php echo $devices_chart_data ?>')
+        Data.Clicks = JSON.parse('<?php echo $clicks_chart_data ?>')
+        Data.Orders = JSON.parse('<?php echo $orders_chart_data ?>')
+        
+        google.load("visualization", "1", {packages:["corechart"]});
+        
+        google.setOnLoadCallback(drawDevicesChart);
+      
+        function drawDevicesChart() {
+          var chart_data = [], 
+              json_data = Data.Devices,
+              json_data_length = json_data.length
+          
+          chart_data.push(['Date', 'Device count'])
+          
+          if (json_data_length) {
+            for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
+          }
+          
+          if (chart_data.length !== 1) {
+            var data = google.visualization.arrayToDataTable(chart_data);
+            var options = {
+              title: 'Devices',
+              backgroundColor: '#f9f9f9'
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('device-chart'));
+            chart.draw(data, options);
+          }
+        }
+        
+        google.setOnLoadCallback(drawClicksChart);
+      
+        function drawClicksChart() {
+          var chart_data = [], 
+              json_data = Data.Clicks,
+              json_data_length = json_data.length
+          
+          chart_data.push(['Game name', 'Click count'])
+          
+          if (json_data_length) {
+            for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
+          }
+          
+          if (chart_data.length !== 1) {
+            var data = google.visualization.arrayToDataTable(chart_data);
+            var options = {
+              title: 'Clicks',
+              backgroundColor: '#f9f9f9'
+            };
+        
+            var chart = new google.visualization.BarChart(document.getElementById('clicks-chart'));
+            chart.draw(data, options);
+            
+          }
+          
+        }  
+        
+        google.setOnLoadCallback(drawOrdersChart);
+      
+        function drawOrdersChart() {
+          var chart_data = [], 
+              json_data = Data.Orders,
+              json_data_length = json_data.length
+          
+          chart_data.push(['Date', 'Order count'])
+          
+          if (json_data_length) {
+            for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
+          }
+          
+          var data = google.visualization.arrayToDataTable(chart_data);
+          var options = {
+            title: 'Orders',
+            backgroundColor: '#f9f9f9'
+          };
+      
+          if (chart_data.length !== 1) {
+            var data = google.visualization.arrayToDataTable(chart_data);
+            var options = {
+              title: 'Devices',
+              backgroundColor: '#f9f9f9'
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('orders-chart'));
+            chart.draw(data, options);
+          }
+        }  
+        
+      </script>  	  
+    <?php endif ?>  	
   	<!-- 
       time: <?php echo $this->benchmark->elapsed_time();?>
       memory: <?php echo $this->benchmark->memory_usage();?>

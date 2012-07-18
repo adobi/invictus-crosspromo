@@ -102,7 +102,7 @@
                 </div>
                  -->
                  <div class="download-new text-right">
-                   <?php if (isset($item->type_id)): ?>
+                   <?php if (isset($item->type_id) && isset($item->type_image)): ?>
                     <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->type_image ?>" alt="" >                      
                   <?php else: ?>
                     <img src="<?php echo base_url() ?>uploads/original/cricon_downloadnow.png" alt="" >   
