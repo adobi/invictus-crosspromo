@@ -56,7 +56,7 @@
                   <?php endif ?>
                   
                 </p>
-                <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01'): ?>
+                <?php if (isset($item->until) && to_date($item->until) !== '1970-01-01' && $item->until !== '0000-00-00 00:00:00'): ?>
                   <p style="font-weight:bold"><?php echo days_until($item->until) ?> more days</p>
                 <?php endif ?>
                 <?php if (ENVIRONMENT === '_development'): ?>

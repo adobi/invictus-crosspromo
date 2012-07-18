@@ -106,7 +106,7 @@
       if (!$(v).attr('src'))
         //$(v).parent().spin()
       
-      $(v).attr('src', $(v).data('src')+'?'+ new Date().getTime()).bind('load', function() {
+      $(v).attr('src', $(v).data('src')).bind('load', function() {
         //console.log($(v), ' loaded')
         $(v).parent().find('.spinner').remove()
 
