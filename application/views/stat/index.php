@@ -35,8 +35,8 @@
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
   </div>  
-  <?php if (json_decode($clicks_chart_data)): ?>
-    <div id="clicks-chart" style="height: 500px;"></div>
+  <?php if ($ccd = json_decode($clicks_chart_data)): ?>
+    <div id="clicks-chart" style="height: <?php echo count($ccd) * 40 ?>px;"></div>
   <?php endif ?>
     
 </div>

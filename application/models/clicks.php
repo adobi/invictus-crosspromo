@@ -50,7 +50,7 @@ class Clicks extends MY_Model
               join cp_game_platform on cp_game_platform.id = cp_click.game_id
               join cp_game on cp_game.id = cp_game_platform.game_id
               join cp_platform on cp_platform.id = cp_game_platform.platform_id
-              group by date(created)";
+              group by cp_click.game_id";
               
       $result = $this->execute($sql);
       

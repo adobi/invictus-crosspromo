@@ -418,6 +418,7 @@
     
     function refreshChart()
     {
+      
       $.getJSON(App.URL + 'stat/refresh', function(response) {
         Data.Devices = response.devices_chart_data
         Data.Clicks = response.clicks_chart_data
@@ -440,8 +441,12 @@
       })
     }
     //refreshChart()
-    if ($('#devices-count')) 
+    if ($('#devices-count').length) {
+      $('.sidebar-navigation-wrapper-right').remove()
+      $('.content-wrapper').removeClass('span7').addClass('span12')
+      $('.stat-box').removeClass('span12')
       App.Timer = setTimeout(refreshChart, 10000);
+    }
     
     
     		
