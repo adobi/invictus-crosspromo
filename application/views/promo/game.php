@@ -4,7 +4,7 @@
       <ul class="nav nav-tabs crosspromo-tabs tk-ff-cocon-web-pro">
           <?php foreach ($lists as $i=>$item): ?>
             <li <?php echo (!$list_id && $i === 0) || $list_id === $item->id ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url() ?>promo/show/list/<?php echo $item->id ?>/<?php echo $this->uri->assoc_to_uri($params); ?>">
+              <a href="<?php echo !$item->url ? base_url() .'promo/show/list/' . $item->id .'/' . $this->uri->assoc_to_uri($params) : $item->url ?>" <?php echo $item->url ? 'target="_blank"' : '' ?>>
                 <?php if ($item->image): ?>
                   <img src="<?php echo base_url() ?>uploads/original/<?php echo $item->image ?>" alt="">
                 <?php endif ?>

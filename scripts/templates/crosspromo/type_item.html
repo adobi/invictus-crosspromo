@@ -3,8 +3,9 @@
       {{#if list.image}}
         <img src="./uploads/original/{{list.image}}" alt="" style="height:32px">
       {{/if}}
-      <span>{{list.name}}</span>
-      
+      <span>
+        {{list.name}}
+      </span>
       <div class="pull-right btn-group" style="margin-right:5px;">
         <a href="" class="btn {{is_active list.is_active}}" rel="tooltip" title="Activate/Inactivate">
           <input class="switch-value" type="checkbox" name="is_active" value="1" style="margin:-3px 0 0 0" data-crosspromo-id="{{list.id}}" {{is_checked list.is_active}}>
@@ -21,6 +22,11 @@
           <li><a href="#" class=" delete-list-item" data-id="{{list.id}}" rel="_tooltip" title="Delete list"><i class="icon-trash"></i> Delete</a></li>
         </ul>
       </div>
+      <p style="margin-bottom:0px">
+        {{#if list.url}}
+          <small>{{list.url}}</small>
+        {{/if}}
+      </p>
     </legend>
     <ul class="thumbnails crosspromo-list-items">
       {{#games}}

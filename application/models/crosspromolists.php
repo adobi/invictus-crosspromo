@@ -22,7 +22,7 @@ class Crosspromolists extends MY_Model
       
       //$result = $this->fetchRows(array('where'=>array('game_id'=>$id, 'is_active'=>1),'order'=>array('by'=>'order', 'dest'=>'asc')));
       
-      $sql = "select $this->_name.* from $this->_name where game_id = $id and is_active = 1 and (select count(id) from cp_crosspromo where list_id = $this->_name.id) != 0 order by `order` asc";
+      $sql = "select $this->_name.* from $this->_name where game_id = $id and is_active = 1 and  (url is not null or (url is null and (select count(id) from cp_crosspromo where list_id = $this->_name.id))) != 0 order by `order` asc";
       //dump($sql); die;
       $result = $this->execute($sql);
       
@@ -73,7 +73,8 @@ class Crosspromolists extends MY_Model
       
       $listCopy = array(
         'name'=>$list->name,
-        'image'=>$this->copyImage($list->image)
+        'image'=>$this->copyImage($list->image),
+        'url'=>$list->url,
       );
       //dump($listItems); die;
       foreach ($games as $game) {
