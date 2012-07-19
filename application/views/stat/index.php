@@ -19,6 +19,18 @@
 <div class=" stat-box">
   <div class="accordion-heading">
     <legend>
+      Clicks per day <span class="clicks-count badge badge-info"><?php echo $clicks ?> </span>
+      <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
+    </legend>
+  </div>  
+  <?php if ($ccd = json_decode($clicks_per_day_chart_data)): ?>
+    <div id="clicks-per-day-chart" style="height:300px;"></div>
+  <?php endif ?>
+</div>
+
+<div class=" stat-box">
+  <div class="accordion-heading">
+    <legend>
       Clicks on games <span class="clicks-count badge badge-info"><?php echo $clicks ?> </span>
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
@@ -27,18 +39,6 @@
     <div id="clicks-chart" style="height: <?php echo count($ccd) * 40 ?>px;"></div>
   <?php endif ?>
     
-</div>
-
-<div class=" stat-box">
-  <div class="accordion-heading">
-    <legend>
-      Clicks per day <span class="clicks-count badge badge-info"><?php echo $clicks ?> </span>
-      <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
-    </legend>
-  </div>  
-  <?php if ($ccd = json_decode($clicks_per_day_chart_data)): ?>
-    <div id="clicks-per-day-chart" style="height:300px;"></div>
-  <?php endif ?>
 </div>
 
 <div class=" stat-box">

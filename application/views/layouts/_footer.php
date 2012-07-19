@@ -278,7 +278,7 @@
           if (chart_data.length !== 1) {
             var data = google.visualization.arrayToDataTable(chart_data);
             var options = {
-              title: 'Devices',
+              title: 'Clicks per day',
               backgroundColor: '#f9f9f9'
             };
             var chart = new google.visualization.LineChart(document.getElementById('clicks-per-day-chart'));
@@ -308,7 +308,7 @@
           if (chart_data.length !== 1) {
             var data = google.visualization.arrayToDataTable(chart_data);
             var options = {
-              title: 'Devices',
+              title: 'Orders',
               backgroundColor: '#f9f9f9'
             };
             var chart = new google.visualization.LineChart(document.getElementById('orders-chart'));
