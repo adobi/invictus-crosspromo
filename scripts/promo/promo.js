@@ -175,7 +175,7 @@
   {
     //App.Redirect()
     
-    App.PreloadImages($('.promo-item-image img'))
+    //App.PreloadImages($('.promo-item-image img'))
     
     
     App.TrackClick()
