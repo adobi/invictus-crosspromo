@@ -98,4 +98,4 @@
           	  </div>
           	       -->
         	  <?php endif ?>
-        	  <div class="<?php echo $this->uri->segment(1) === 'systems' ? 'span12' : 'span7' ?> content-wrapper">
+        	  <div class="<?php echo $this->uri->segment(1) === 'stat' ? 'span12' : 'span7' ?> content-wrapper">

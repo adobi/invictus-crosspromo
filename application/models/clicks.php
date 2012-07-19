@@ -63,4 +63,21 @@ class Clicks extends MY_Model
       
       return $return;
     }
+    
+    public function fetchClicksPerDayChartData()
+    {
+      $sql = "select date(created) created, count(id) click_count from cp_click group by date(created)";
+
+      $result = $this->execute($sql);
+      
+      if (!$result) return false;
+      
+      $return = array();
+      foreach ($result as $item) {
+        $return[] = array($item->created, intval($item->click_count));
+      }
+      
+      return $return;
+
+    }
 } 

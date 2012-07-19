@@ -1,6 +1,6 @@
 
             </div> <!-- content-wrapper -->
-            <?php if ($this->session->userdata('logged_in') && $this->uri->segment(1) !== 'systems'): ?>
+            <?php if ($this->session->userdata('logged_in') && $this->uri->segment(1) !== 'stat'): ?>
               <div class="span5 sidebar-navigation-wrapper-right">
           	    <div class="well">
                   <?php //echo panel_close() ?>
@@ -207,6 +207,7 @@
         Data.Devices = JSON.parse('<?php echo $devices_chart_data ?>')
         Data.Clicks = JSON.parse('<?php echo $clicks_chart_data ?>')
         Data.Orders = JSON.parse('<?php echo $orders_chart_data ?>')
+        Data.ClicksPerDay = JSON.parse('<?php echo $clicks_per_day_chart_data ?>')
         
         google.load("visualization", "1", {packages:["corechart"]});
         
@@ -241,7 +242,7 @@
               json_data = Data.Clicks,
               json_data_length = json_data.length
           
-          chart_data.push(['Game name', 'Click count'])
+          chart_data.push(['Game name', 'Clicks on game count'])
           
           if (json_data_length) {
             for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
@@ -259,7 +260,31 @@
             
           }
           
-        }  
+        } 
+
+        google.setOnLoadCallback(drawClickPerDayChart);
+        
+        function drawClickPerDayChart() {
+          var chart_data = [], 
+              json_data = Data.ClicksPerDay,
+              json_data_length = json_data.length
+          
+          chart_data.push(['Date', 'Click count'])
+          
+          if (json_data_length) {
+            for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
+          }
+          
+          if (chart_data.length !== 1) {
+            var data = google.visualization.arrayToDataTable(chart_data);
+            var options = {
+              title: 'Devices',
+              backgroundColor: '#f9f9f9'
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('clicks-per-day-chart'));
+            chart.draw(data, options);
+          }
+        }         
         
         google.setOnLoadCallback(drawOrdersChart);
       

@@ -423,18 +423,18 @@
         Data.Devices = response.devices_chart_data
         Data.Clicks = response.clicks_chart_data
         Data.Orders = response.orders_chart_data
-        
+        Data.ClicksPerDay = response.clicks_per_day_chart_data
         //console.log(response);
         
         drawDevicesChart()
         drawClicksChart()
         drawOrdersChart()
-        
+        drawClickPerDayChart()
         //console.log(response)
         
         $('#devices-count').html(response.users)
         $('#orders-count').html(response.orders)
-        $('#clicks-count').html(response.clicks)
+        $('.clicks-count').html(response.clicks)
         
         clearInterval(App.Timer)
         App.Timer = setTimeout(refreshChart, 10000);
@@ -442,9 +442,9 @@
     }
     //refreshChart()
     if ($('#devices-count').length) {
-      $('.sidebar-navigation-wrapper-right').remove()
-      $('.content-wrapper').removeClass('span7').addClass('span12')
-      $('.stat-box').removeClass('span12')
+      //$('.sidebar-navigation-wrapper-right').remove()
+      //$('.content-wrapper').removeClass('span7').addClass('span12')
+      //$('.stat-box').removeClass('span12')
       App.Timer = setTimeout(refreshChart, 10000);
     }
     

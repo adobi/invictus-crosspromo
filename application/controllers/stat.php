@@ -46,6 +46,9 @@ class Stat extends MY_Controller
         
         $clicks_chart_data = $this->click->fetchClicksChartData();
         $data['clicks_chart_data'] = !$isJson ? json_encode($clicks_chart_data) : $clicks_chart_data;
+
+        $clicks_per_day_chart_data = $this->click->fetchClicksPerDayChartData();
+        $data['clicks_per_day_chart_data'] = !$isJson ? json_encode($clicks_per_day_chart_data) : $clicks_per_day_chart_data;
         
         $this->load->model('Orders', 'order');
         

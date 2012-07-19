@@ -34,7 +34,7 @@ class Users extends MY_Model
     {
       $sql = "select 
               	date(created) as created
-              	, count(device_id) as device_count
+              	, count(distinct device_id) as device_count
               from cp_user
               group by date(created)";
       $result = $this->execute($sql);
