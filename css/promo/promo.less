@@ -16,6 +16,37 @@
 @itemBoxShadow:#5c5c5c;
 @itemColor:#fff;
 
+@bodyColor1:#1e5799;
+@bodyColor2:#666666;
+@bodyColor3:#333333;
+
+body {
+  
+	//background: #333; /* Old browsers */
+	//background: -moz-radial-gradient(center, ellipse cover, #333 0%, #000 100%); /* FF3.6+ */
+	//background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#333), color-stop(100%,#000)); /* Chrome,Safari4+ */
+	//background: -webkit-radial-gradient(center, ellipse cover, #333 0%,#000 100%); /* Chrome10+,Safari5.1+ */
+	//background: -o-radial-gradient(center, ellipse cover, #333 0%,#000 100%); /* Opera 12+ */
+	//background: -ms-radial-gradient(center, ellipse cover, #333 0%,#000 100%); /* IE10+ */
+	//background: radial-gradient(center, ellipse cover, #333 0%,#000 100%); /* W3C */
+	//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	
+  background: #1e5799; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  @bodyColor1 0%, @bodyColor2 0%, @bodyColor3 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,@bodyColor1), color-stop(0%,@bodyColor2), color-stop(100%,@bodyColor3)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  @bodyColor1 0%,@bodyColor2 0%,@bodyColor3 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  @bodyColor1 0%,@bodyColor2 0%,@bodyColor3 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  @bodyColor1 0%,@bodyColor2 0%,@bodyColor3 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  @bodyColor1 0%,@bodyColor2 0%,@bodyColor3 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@bodyColor1', endColorstr='@bodyColor3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	
+}
+
+.container {
+  //#gradient > .radial();
+  //display:none;
+}
+
 .navbar-fixed-top .container {
   width:100%!important;
 }
