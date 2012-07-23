@@ -35,14 +35,14 @@ class Stat extends MY_Controller
 
         $this->load->model('Users', 'users');
         
-        $data['users'] = count($this->users->fetchAll());
+        $data['users'] = $this->users->fetchCount();
         
         $devices_chart_data = $this->users->fetchDevicesChartData();
         $data['devices_chart_data'] = !$isJson ? json_encode($devices_chart_data) : $devices_chart_data;
         
         $this->load->model('Clicks', 'click');
         
-        $data['clicks'] = count($this->click->fetchAll());
+        $data['clicks'] = $this->click->fetchCount();
         
         $clicks_chart_data = $this->click->fetchClicksChartData();
         $data['clicks_chart_data'] = !$isJson ? json_encode($clicks_chart_data) : $clicks_chart_data;
@@ -52,7 +52,7 @@ class Stat extends MY_Controller
         
         $this->load->model('Orders', 'order');
         
-        $data['orders'] = count($this->order->fetchAll());
+        $data['orders'] = $this->order->fetchCount();
         
         $orders_chart_data = $this->order->fetchOrdersChartData();
         $data['orders_chart_data'] = !$isJson ? json_encode($orders_chart_data) : $orders_chart_data;

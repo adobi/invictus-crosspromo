@@ -419,6 +419,13 @@ class My_Model extends CI_Model
     {
         return empty($condition) ? count($this->fetchAll()) : count($this->fetchRows(array('where'=>$condition)));
     }	
+    
+  public function fetchCount()
+  {
+    $result = $this->execute("select count(id) as c from $this->_name");
+    
+    return $result[0]->c;
+  }    
 	
 	public function toAssocArray($key, $value, $data) 
 	{
