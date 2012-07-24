@@ -41,7 +41,7 @@
        
     </head>
     
-    <body>    
+    <body <?php echo $this->uri->segment(2) === 'show' ? 'class="with-background"' : '' ?>>    
         <script type="text/javascript">
         
             var _gaq = _gaq || [];
