@@ -309,7 +309,7 @@ class Promo extends Promo_Controller
              unset($width);
            }
            */
-           $insertData = array('user_id'=>intval($userid), 'game_id'=>$game, 'game_version'=>$_POST['game_version'], 'width'=>$_POST['width'], 'height'=>$_POST['height'], 'opengl'=>$_POST['opengl'], 'device'=>$_POST['device'] ? $_POST['device'] : '');
+           $insertData = array('user_id'=>intval($userid), 'game_id'=>$game, 'game_version'=>$_POST['game_version'], 'width'=>$_POST['width'], 'height'=>$_POST['height'], 'opengl'=>$_POST['opengl'], 'device'=>isset($_POST['device']) ? $_POST['device'] : '');
            if ($debug)
               file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'usergame (insert data):' . json_encode($insertData) . "\r\n", FILE_APPEND);
            $insertedUserGame = $this->usergame->insert($insertData);
