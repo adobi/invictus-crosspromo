@@ -6,12 +6,26 @@
 <div class=" stat-box">
   <div class="accordion-heading">
     <legend style="width:98%">
-      Registered devices <span id="devices-count" class="badge badge-info"><?php echo $users ?> </span>
+      Registered devices <span id="" class="devices-count badge badge-info"><?php echo $users ?> </span>
       <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
     </legend>
   </div>  
   <?php if (json_decode($devices_chart_data)): ?>
     <div id="device-chart" style="height: 300px;"></div>
+  <?php endif ?>
+    
+</div>
+
+
+<div class=" stat-box">
+  <div class="accordion-heading">
+    <legend>
+      Source games <span class="devices-count badge badge-info"><?php echo $users ?> </span>
+      <a href="#" onclick="$(this).parents('.accordion-heading').next().toggle(); return false;" class="btn pull-right"><i class="icon-resize-vertical"></i></a>
+    </legend>
+  </div>  
+  <?php if ($ccd = json_decode($devices_source_chart_data)): ?>
+    <div id="devices-source-chart" style="height: <?php echo count($ccd) * 40 ?>px;"></div>
   <?php endif ?>
     
 </div>
@@ -40,6 +54,7 @@
   <?php endif ?>
     
 </div>
+
 
 <div class=" stat-box">
   <div class="accordion-heading">

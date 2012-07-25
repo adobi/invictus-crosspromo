@@ -49,5 +49,24 @@ class Users extends MY_Model
       return $return;
     }
     
+    public function fetchDevicesSourceChartData()
+    {
+      $sql = "SELECT 
+                g.name, u.os_type, count(ug.id) device_count
+              FROM `cp_user_game` as ug 
+              join cp_game g on ug.game_id = g.id
+              join cp_user u on ug.user_id = u.id
+              group by ug.game_id, u.os_type";
+              
+      $result = $this->execute($sql);
+      
+      if (!$result) return false;
 
+      $return = array();
+      foreach ($result as $item) {
+        $return[] = array($item->name . ' ' . $item->os_type, intval($item->device_count));
+      }
+    
+      return $return;
+    }
 }

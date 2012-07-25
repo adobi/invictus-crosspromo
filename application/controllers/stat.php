@@ -39,6 +39,10 @@ class Stat extends MY_Controller
         
         $devices_chart_data = $this->users->fetchDevicesChartData();
         $data['devices_chart_data'] = !$isJson ? json_encode($devices_chart_data) : $devices_chart_data;
+
+        $devices_source_chart_data = $this->users->fetchDevicesSourceChartData();
+        $data['devices_source_chart_data'] = !$isJson ? json_encode($devices_source_chart_data) : $devices_source_chart_data;
+        
         
         $this->load->model('Clicks', 'click');
         
@@ -56,6 +60,8 @@ class Stat extends MY_Controller
         
         $orders_chart_data = $this->order->fetchOrdersChartData();
         $data['orders_chart_data'] = !$isJson ? json_encode($orders_chart_data) : $orders_chart_data;
+        
+        
         
         return $isJson ? json_encode($data) : $data;      
     }

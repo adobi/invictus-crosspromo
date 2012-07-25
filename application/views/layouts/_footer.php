@@ -199,7 +199,7 @@
                 }                     
           );
   	</script>
-    <?php if (isset($devices_chart_data) && isset($clicks_chart_data) && isset($orders_chart_data)): ?>
+    <?php if (isset($devices_chart_data) && isset($clicks_chart_data) && isset($orders_chart_data) && isset($devices_source_chart_data) && isset($clicks_per_day_chart_data)): ?>
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script type="text/javascript">
         var Data = {}
@@ -208,6 +208,7 @@
         Data.Clicks = JSON.parse('<?php echo $clicks_chart_data ?>')
         Data.Orders = JSON.parse('<?php echo $orders_chart_data ?>')
         Data.ClicksPerDay = JSON.parse('<?php echo $clicks_per_day_chart_data ?>')
+        Data.DevicesSource = JSON.parse('<?php echo $devices_source_chart_data ?>')
         
         google.load("visualization", "1", {packages:["corechart"]});
         
@@ -262,6 +263,35 @@
           
         } 
 
+        
+        google.setOnLoadCallback(drawDevicesSourceChart);
+      
+        function drawDevicesSourceChart() {
+          var chart_data = [], 
+              json_data = Data.DevicesSource,
+              json_data_length = json_data.length
+          
+          chart_data.push(['Game name', 'Devices Source Game'])
+          
+          if (json_data_length) {
+            for (var i = 0; i < json_data_length; i++) chart_data.push(json_data[i])
+          }
+          
+          if (chart_data.length !== 1) {
+            var data = google.visualization.arrayToDataTable(chart_data);
+            var options = {
+              title: 'Devices Source',
+              backgroundColor: '#f9f9f9'
+            };
+        
+            var chart = new google.visualization.BarChart(document.getElementById('devices-source-chart'));
+            chart.draw(data, options);
+            
+          }
+          
+        }         
+        
+
         google.setOnLoadCallback(drawClickPerDayChart);
         
         function drawClickPerDayChart() {
@@ -315,7 +345,7 @@
             chart.draw(data, options);
           }
         }  
-        
+       
       </script>  	  
     <?php endif ?>  	
   	<!-- 

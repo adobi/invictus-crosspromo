@@ -424,15 +424,17 @@
         Data.Clicks = response.clicks_chart_data
         Data.Orders = response.orders_chart_data
         Data.ClicksPerDay = response.clicks_per_day_chart_data
+        Data.DevicesSource = response.devices_source_chart_data
         //console.log(response);
         
         drawDevicesChart()
         drawClicksChart()
         drawOrdersChart()
         drawClickPerDayChart()
+        drawDevicesSourceChart()
         //console.log(response)
         
-        $('#devices-count').html(response.users)
+        $('.devices-count').html(response.users)
         $('#orders-count').html(response.orders)
         $('.clicks-count').html(response.clicks)
         
@@ -441,7 +443,7 @@
       })
     }
     //refreshChart()
-    if ($('#devices-count').length) {
+    if ($('.devices-count').length) {
       //$('.sidebar-navigation-wrapper-right').remove()
       //$('.content-wrapper').removeClass('span7').addClass('span12')
       //$('.stat-box').removeClass('span12')
