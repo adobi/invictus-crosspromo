@@ -243,6 +243,9 @@ class Promo extends Promo_Controller
        * @author Dobi Attila
        */
       $_POST['game_id'] = $this->gameplatform->findByGameAndPlatform($game, $platform);
+      
+      
+      
       if ($debug)      
         file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'game_id:' . json_encode($_POST['game_id']) . "\r\n", FILE_APPEND);
 

@@ -125,6 +125,16 @@ class Crosspromos extends MY_Model
           }
         }
         
+        if (strtolower($params['platform']) === 'amazon') {
+          if (strtolower($params['type']) === 'phone') {
+            $platforms = array(14);
+          }
+          
+          if (strtolower($params['type']) === 'tablet') {
+            $platforms = array(14);
+          }
+        }
+        
         $criteria = $params;
         $criteria['user_id'] = $user->id;
         $criteria['platforms'] = $platforms;

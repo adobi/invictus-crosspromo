@@ -50,9 +50,18 @@ class Platforms extends MY_Model
         
         if ($type === 'tablet') $platform = 'android tablet';
       }
+
+      if ($name === 'amazon') {
+        if ($type === 'phone') $platform = 'amazon';
+        
+        if ($type === 'tablet') $platform = 'amazon';
+      }
+
       
       $result = $this->execute("select id from $this->_name where lcase(name) like '%$platform%'");
       
+      //dump($result);
+      file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']).'/debug.txt', 'found platform:' . json_encode($result) . "\r\n", FILE_APPEND);
       if (empty($result)) return false;
       
       return $result[0];

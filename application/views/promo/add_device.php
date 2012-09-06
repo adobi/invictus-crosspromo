@@ -47,16 +47,17 @@
   	        Type: 
   	        <select name="platform_type" id="" class="span2">
   	          <option value="phone">phone</option>
-  	          <option value="table">tablet</option>
+  	          <option value="tablet">tablet</option>
             </select>
           </div>
       </fieldset>
       <fieldset class="control-group">
-          <label class="control-label" for="platform_name">Device OS</label>
+          <label class="control-label" for="platform_name">Device platform</label>
           <div class="controls">
   	        <select name="platform_name" id="platform_name" class="span2">
   	          <option value="ios">ios</option>
   	          <option value="android">android</option>
+  	          <option value="amazon">amazon</option>
             </select>
             Version: 
   	        <input type="text" name="os_version" id="os_version" class="span1" />
