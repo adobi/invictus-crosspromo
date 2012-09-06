@@ -162,7 +162,7 @@
     
   	<script src = "<?php echo base_url() ?>scripts/plugins/headjs/head.min.js"></script> 
   	<script type="text/javascript">
-  	    head.js("http://code.jquery.com/jquery-latest.min.js", 
+  	    head.js("//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", 
   	            "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
   	            "https://raw.github.com/cowboy/jquery-hashchange/v1.3/jquery.ba-hashchange.min.js",
   	            "http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js",
