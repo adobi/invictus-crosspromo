@@ -57,7 +57,7 @@ class Gameplatforms extends MY_Model
     
     public function fetchAllWithGameAndPlatform()
     {
-      $sql = "select gp.*, g.name as game_name, g.crosspromo_description, g.short_description, p.name as platform_name, g.logo from cp_game_platform gp join cp_game g on gp.game_id = g.id and g.is_active = 1 join cp_platform p on gp.platform_id = p.id order by game_name asc";
+      $sql = "select gp.*, g.name as game_name, g.crosspromo_description, g.short_description, p.name as platform_name, g.logo from cp_game_platform gp join cp_game g on gp.game_id = g.id join cp_platform p on gp.platform_id = p.id order by game_name asc";
       //dump($sql); die;
       return $this->execute($sql);
     }

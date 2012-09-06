@@ -14,7 +14,7 @@ class Promo extends Promo_Controller
     $this->load->model('Gameplatforms', 'model');
     
     $data['games'] = $this->model->fetchAllWithGameAndPlatform();    
-    
+    //dump($data['games']); die;
     $this->template->build('promo/index', $data);
   }
   
