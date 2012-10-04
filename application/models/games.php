@@ -10,8 +10,8 @@ class Games extends MY_Model
     public function findByName($name) 
     {
       $name = strtolower($name);
-      $result = $this->execute("select id from $this->_name where lcase(name) like '%$name%'");
-      
+      $result = $this->execute("select id from $this->_name where lcase(name) = '$name'");
+      //dump($result); die;
       if (empty($result)) return false;
       
       return $result[0];
