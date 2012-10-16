@@ -48,10 +48,14 @@
                 <?php endif ?>
                 <p>
                   <?php if (isset($item->description)): ?>
-                    <?php echo substr($item->description, 0, 80) ?>
+                    <span class="visible-tablet"><?php echo $item->description ?></span>
+                    <span class="visible-desktop"><?php echo $item->description ?></span>
+                    <span class="visible-phone"><?php echo substr($item->description, 0, 80) ?>...</span>
                   <?php else: ?>
                     <?php if (isset($item->crosspromo_description)): ?>
-                      <?php echo substr($item->crosspromo_description, 0, 80) ?>
+                      <span class="visible-tablet"><?php echo $item->crosspromo_description ?></span>
+                      <span class="visible-desktop"><?php echo $item->crosspromo_description ?></span>
+                      <span class="visible-phone"><?php echo substr($item->crosspromo_description, 0, 80) ?>...</span>
                     <?php endif ?>
                   <?php endif ?>
                   

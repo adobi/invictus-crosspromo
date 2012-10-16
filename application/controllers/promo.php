@@ -143,7 +143,7 @@ class Promo extends Promo_Controller
       }
       
     }
-      
+          
     $this->template->build('promo/game', $data);
   }
   
