@@ -45,10 +45,6 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
   $db['default']['username'] = 'root';
   $db['default']['password'] = '';
   $db['default']['database'] = 'invictus_crosspromo';
-  //$db['default']['hostname'] = 'crosspromo.invictus.com';
-  //$db['default']['username'] = 'crosspromo';
-  //$db['default']['password'] = '1nv1ctusCrossPromoDB';
-  //$db['default']['database'] = 'crosspromo';  
   $db['default']['dbdriver'] = 'mysqli';
   $db['default']['dbprefix'] = '';
   $db['default']['pconnect'] = TRUE;
@@ -62,9 +58,9 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
   $db['default']['stricton'] = FALSE;
 } else {
   $db['default']['hostname'] = 'localhost';
-  $db['default']['username'] = 'c26_invictus';
-  $db['default']['password'] = '1NxsAYxu';
-  $db['default']['database'] = 'c26_invictus';
+  $db['default']['username'] = '';
+  $db['default']['password'] = '';
+  $db['default']['database'] = '';
   $db['default']['dbdriver'] = 'mysqli';
   $db['default']['dbprefix'] = '';
   $db['default']['pconnect'] = TRUE;
