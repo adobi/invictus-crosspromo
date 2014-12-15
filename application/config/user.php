@@ -10,8 +10,8 @@
 |
 */
 
-$config['username'] = 'admin';
-$config['password'] = 'a';
+$config['username'] = '';
+$config['password'] = '';
 
 /* End of file hooks.php */
 /* Location: ./application/config/user.php */
