@@ -77,7 +77,7 @@ if (@$_SERVER['HTTP_HOST'] === 'localhost') {
   define('INVICTUS_API_URI', 'http://invictus.com/api/');
 }
 
-define('CROSSPROMO_API_SECRET', 'Cp97015jY4MiuI1m546De6rr!');
+define('CROSSPROMO_API_SECRET', '');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
